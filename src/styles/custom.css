@@ -1,3 +1,8 @@
+a { color: #000; text-decoration: underline; }
+a:hover { color: #333; text-decoration: none; }
+ul { list-style: none; padding: 0px; }
+ul li > span { padding-left: 3px; }
+
 .dlabel {
     font-weight: bold;
     margin-right: 10px;
@@ -6,3 +11,8 @@
 .dblock {
     margin-bottom: 10px;
 }
+
+#synonyms ul ul li { margin-left: 10px; }
+.single::before { content: "\2013"; }
+.double::before { content: "="; }
+.tripple::before { content: "\2261"; }

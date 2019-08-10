@@ -14,15 +14,22 @@ class NameDetail extends React.Component {
         super(props);
 
         this.state = {
-            species: {}
+            species: {},
+            nomenclatoricSynonyms: [],
+            taxonomicSynonyms: [],
+            invalidDesignations: []
         };
     }
 
     async componentDidMount() {
         const id = this.props.match.params.id;
         const species = await checklistFacade.getSpeciesById(id);
+        const { nomenclatoricSynonyms, taxonomicSynonyms, invalidDesignations } = await checklistFacade.getSynonyms(id);
         this.setState({
-            species
+            species,
+            nomenclatoricSynonyms,
+            taxonomicSynonyms,
+            invalidDesignations
         });
     }
 
@@ -39,17 +46,17 @@ class NameDetail extends React.Component {
                         {formatter.speciesType(species.ntype)}
                     </h4>
                 </Well>
-                
+
                 <Row className="dblock">
                     <Col xs={12}>
                         <Publication publication={species.publication} />
                     </Col>
                 </Row>
-                <Row className="dblock">
-                    <Col xs={12}>
-                        <Synonyms />
-                    </Col>
-                </Row>
+                <Synonyms
+                    nomenclatoric={this.state.nomenclatoricSynonyms}
+                    taxonomic={this.state.taxonomicSynonyms}
+                    invalidDesignations={this.state.invalidDesignations}
+                />
             </Grid>
         );
     }

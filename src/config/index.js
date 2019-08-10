@@ -50,6 +50,20 @@ export default {
                 text: "Unresolved",
                 colour: "#bb9d00"
             }
+        },
+        synonym: {
+            nomenclatoric: {
+                prefix: "≡",
+                className: "tripple"
+            },
+            taxonomic: {
+                prefix: "=",
+                className: "double"
+            },
+            invalid: {
+                prefix: "-",
+                className: "single"
+            }
         }
     },
     routes: {
@@ -60,7 +74,10 @@ export default {
     },
     uris: {
         checklist: {
-            getSpeciesByIdUri: `${backendBase}/api/list-of-species/{id}`
+            getSpeciesByIdUri: `${backendBase}/api/list-of-species/{id}`,
+            getNomenclatoricSynonymsUri: `${backendBase}/api/list-of-species/{id}/synonyms-nomenclatoric`,
+            getTaxonomicSynonymsUri: `${backendBase}/api/list-of-species/{id}/synonyms-taxonomic?filter=%7B"include":"synonyms-nomenclatoric"%7D`,
+            getInvalidSynonymsUri: `${backendBase}/api/list-of-species/{id}/synonyms-invalid`,
         }
     }
 

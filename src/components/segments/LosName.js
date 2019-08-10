@@ -1,16 +1,14 @@
 import React from 'react';
 import { helper } from '../../utils';
 
-const LosName = props => {
+const LosName = ({ data, format = 'plain', isPublication }) => {
 
-    const name = props.data;
+    const name = data;
     if (!name) {
         return '';
     }
 
-    const format = props.format || 'plain';
-
-    return helper.listOfSpeciesForComponent(name, format).map((e, i) => <span key={i}>{e}</span>);
+    return helper.listOfSpeciesForComponent(name, format, { isPublication }).map((e, i) => <span key={i}>{e}</span>);
 }
 
 export default LosName;
