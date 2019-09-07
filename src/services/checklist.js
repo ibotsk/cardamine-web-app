@@ -27,9 +27,16 @@ const getInvalidDesignationsOf = async (id) => {
     return response.data;
 }
 
+const getBasionymOf = async (id) => {
+    const getBasionymUri = template.parse(config.uris.checklist.getBasionymUri).expand({ id });
+    const response = await axios.get(getBasionymUri);
+    return response.data;
+}
+
 export default {
     getSpeciesById,
     getSynonymsNomenclatoricOf,
     getSynonymsTaxonomicOf,
-    getInvalidDesignationsOf
+    getInvalidDesignationsOf,
+    getBasionymOf
 };

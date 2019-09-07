@@ -19,7 +19,12 @@ const getSynonyms = async (id) => {
     return { nomenclatoricSynonyms, taxonomicSynonyms, invalidDesignations };
 }
 
+const getBasionymOf = async (id) => {
+    return checklistService.getBasionymOf(id);
+}
+
 export default {
     getSpeciesById,
-    getSynonyms
+    getSynonyms,
+    getBasionymOf
 };

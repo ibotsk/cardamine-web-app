@@ -78,6 +78,7 @@ export default {
             getNomenclatoricSynonymsUri: `${backendBase}/api/list-of-species/{id}/synonyms-nomenclatoric`,
             getTaxonomicSynonymsUri: `${backendBase}/api/list-of-species/{id}/synonyms-taxonomic?filter=%7B"include":"synonyms-nomenclatoric"%7D`,
             getInvalidSynonymsUri: `${backendBase}/api/list-of-species/{id}/synonyms-invalid`,
+            getBasionymUri: `${backendBase}/api/list-of-species/{id}/basionym`
         }
     }
 

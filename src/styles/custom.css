@@ -1,5 +1,3 @@
-a { color: #000; text-decoration: underline; }
-a:hover { color: #333; text-decoration: none; }
 ul { list-style: none; padding: 0px; }
 ul li > span { padding-left: 3px; }
 
@@ -13,6 +11,9 @@ ul li > span { padding-left: 3px; }
 }
 
 #synonyms ul ul li { margin-left: 10px; }
+#species-detail a { color: #000; text-decoration: underline; }
+#species-detail a:hover { color: #333; text-decoration: none; }
+
 .single::before { content: "\2013"; }
 .double::before { content: "="; }
 .tripple::before { content: "\2261"; }

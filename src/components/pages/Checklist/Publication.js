@@ -1,4 +1,5 @@
 import React from 'react';
+import { Col, Row } from 'react-bootstrap';
 import LabelValue from '../../segments/LabelValue';
 
 const PUBLICATION_MISSING = "Not provided";
@@ -8,7 +9,11 @@ const Publication = ({ publication }) => {
 
     return (
         <div id="publication">
-            <LabelValue label={PUBLICATION_LABEL} value={publication || PUBLICATION_MISSING} />
+            <Row className="dblock">
+                <Col xs={12}>
+                    <LabelValue label={PUBLICATION_LABEL} value={publication || PUBLICATION_MISSING} />
+                </Col>
+            </Row>
         </div>
     );
 

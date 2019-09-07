@@ -13,9 +13,7 @@ const SynList = ({ list, className, sublistProp, sublistClass }) => {
                 return (
                     <li key={s.id} className={className}>
                         <span>
-                            <a href={`${config.routes.checklist}/${s.id}`}>
-                                <LosName data={s} format="italic" isPublication={true} />
-                            </a>
+                            <LosName data={s} format="italic" isPublication={true} uri={`${config.routes.checklist}/${s.id}`} />
                             {
                                 sublist && sublist.length > 0 &&
                                 <SynList list={sublist} className={sublistClass} />
@@ -28,12 +26,15 @@ const SynList = ({ list, className, sublistProp, sublistClass }) => {
     );
 };
 
-const Synonyms = ({ nomenclatoric, taxonomic }) => {
+const Synonyms = ({ nomenclatoric, taxonomic, isLabel = true }) => {
 
     return (
         <div id="synonyms" className="dblock">
             <div>
-                <b>Synonyms:</b>
+                {
+                    isLabel &&
+                    <b>Synonyms:</b>
+                }
                 <Row>
                     <Col xs={12}>
                         {nomenclatoric && nomenclatoric.length > 0 &&
