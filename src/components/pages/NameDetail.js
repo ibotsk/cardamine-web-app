@@ -4,10 +4,11 @@ import { Grid, Well } from 'react-bootstrap';
 import LosName from '../segments/LosName';
 import Publication from './Checklist/Publication';
 import Synonyms from './Checklist/Synonyms';
+import NameBlock from './Checklist/NameBlock';
+import ListBlock from './Checklist/ListBlock';
 
 import { checklist as checklistFacade } from '../../facades';
 import { formatter } from '../../utils';
-import NameBlock from './Checklist/NameBlock';
 
 const ACCEPTED_TYPE = 'A';
 
@@ -26,7 +27,10 @@ class NameDetail extends React.Component {
             accepted: {},
             nomenclatoricSynonyms: [],
             taxonomicSynonyms: [],
-            invalidDesignations: []
+            invalidDesignations: [],
+            basionymFor: [],
+            replacedFor: [],
+            nomenNovumFor: []
         };
     }
 
@@ -34,6 +38,7 @@ class NameDetail extends React.Component {
         const id = this.props.match.params.id;
         const species = await checklistFacade.getSpeciesById(id);
         const { nomenclatoricSynonyms, taxonomicSynonyms, invalidDesignations } = await checklistFacade.getSynonyms(id);
+        const { basionymFor, replacedFor, nomenNovumFor } = await checklistFacade.getFors(id);
         const basionym = await checklistFacade.getBasionymOf(id);
         const accepted = await checklistFacade.getAcceptedOf(id);
 
@@ -43,7 +48,10 @@ class NameDetail extends React.Component {
             accepted,
             nomenclatoricSynonyms,
             taxonomicSynonyms,
-            invalidDesignations
+            invalidDesignations,
+            basionymFor,
+            replacedFor,
+            nomenNovumFor
         });
     }
 
@@ -72,6 +80,10 @@ class NameDetail extends React.Component {
                 />
 
                 <NameBlock id="accepted-name" label="Accepted name:" data={this.state.accepted} />
+
+                <ListBlock id="basionym-for" label="Basionym for:" data={this.state.basionymFor} />
+                <ListBlock id="replaced-for" label="Replaced for:" data={this.state.replacedFor} />
+                <ListBlock id="nomen-novum-for" label="Nomen novum for:" data={this.state.nomenNovumFor} />
             </Grid>
         );
     }

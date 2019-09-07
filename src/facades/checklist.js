@@ -19,6 +19,19 @@ const getSynonyms = async (id) => {
     return { nomenclatoricSynonyms, taxonomicSynonyms, invalidDesignations };
 }
 
+const getFors = async (id) => {
+    const basionymFor = await checklistService.getBasionymFor(id);
+    basionymFor.sort(helper.listOfSpeciesSorterLex);
+
+    const replacedFor = await checklistService.getReplacedFor(id);
+    replacedFor.sort(helper.listOfSpeciesSorterLex);
+
+    const nomenNovumFor = await checklistService.getNomenNovumFor(id);
+    nomenNovumFor.sort(helper.listOfSpeciesSorterLex);
+
+    return { basionymFor, replacedFor, nomenNovumFor };
+}
+
 const getBasionymOf = async (id) => {
     return checklistService.getBasionymOf(id);
 }
@@ -30,6 +43,7 @@ const getAcceptedOf = async (id) => {
 export default {
     getSpeciesById,
     getSynonyms,
+    getFors,
     getBasionymOf,
     getAcceptedOf
 };

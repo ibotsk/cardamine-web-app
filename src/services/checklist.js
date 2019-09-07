@@ -3,40 +3,46 @@ import template from 'url-template';
 
 import config from '../config';
 
-const getSpeciesById = async id => {
-    const uri = template.parse(config.uris.checklist.getSpeciesByIdUri).expand({ id });
-    const result = await axios.get(uri);
+const getById = async (id, uri) => {
+    const parsedUri = template.parse(uri).expand({ id });
+    const result = await axios.get(parsedUri);
     return result.data;
 }
 
+const getSpeciesById = async id => {
+    return getById(id, config.uris.checklist.getSpeciesByIdUri);
+}
+
 const getSynonymsNomenclatoricOf = async (id) => {
-    const getSynonymsNomenclatoricUri = template.parse(config.uris.checklist.getNomenclatoricSynonymsUri).expand({ id });
-    const response = await axios.get(getSynonymsNomenclatoricUri);
-    return response.data;
+    return getById(id, config.uris.checklist.getNomenclatoricSynonymsUri);
 }
 
 const getSynonymsTaxonomicOf = async (id) => {
-    const getSynonymsTaxonomicUri = template.parse(config.uris.checklist.getTaxonomicSynonymsUri).expand({ id });
-    const response = await axios.get(getSynonymsTaxonomicUri);
-    return response.data;
+    return getById(id, config.uris.checklist.getTaxonomicSynonymsUri);
 }
 
 const getInvalidDesignationsOf = async (id) => {
-    const getInvalidDesignationsUri = template.parse(config.uris.checklist.getInvalidSynonymsUri).expand({ id });
-    const response = await axios.get(getInvalidDesignationsUri);
-    return response.data;
+    return getById(id, config.uris.checklist.getInvalidSynonymsUri);
 }
 
 const getBasionymOf = async (id) => {
-    const getBasionymUri = template.parse(config.uris.checklist.getBasionymUri).expand({ id });
-    const response = await axios.get(getBasionymUri);
-    return response.data;
+    return getById(id, config.uris.checklist.getBasionymUri);
 }
 
 const getAcceptedOf = async (id) => {
-    const getAcceptedNameUri = template.parse(config.uris.checklist.getAcceptedNameUri).expand({ id });
-    const response = await axios.get(getAcceptedNameUri);
-    return response.data;
+    return getById(id, config.uris.checklist.getAcceptedNameUri);
+}
+
+const getBasionymFor = async (id) => {
+    return getById(id, config.uris.checklist.getBasionymForUri);
+}
+
+const getReplacedFor = async (id) => {
+    return getById(id, config.uris.checklist.getReplacedForUri);
+}
+
+const getNomenNovumFor = async (id) => {
+    return getById(id, config.uris.checklist.getNomenNovumForUri);
 }
 
 export default {
@@ -45,5 +51,8 @@ export default {
     getSynonymsTaxonomicOf,
     getInvalidDesignationsOf,
     getBasionymOf,
-    getAcceptedOf
+    getAcceptedOf,
+    getBasionymFor,
+    getReplacedFor,
+    getNomenNovumFor
 };
