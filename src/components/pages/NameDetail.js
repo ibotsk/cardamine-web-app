@@ -7,7 +7,7 @@ import Synonyms from './Checklist/Synonyms';
 
 import { checklist as checklistFacade } from '../../facades';
 import { formatter } from '../../utils';
-import Basionym from './Checklist/Basionym';
+import NameBlock from './Checklist/NameBlock';
 
 const ACCEPTED_TYPE = 'A';
 
@@ -23,6 +23,7 @@ class NameDetail extends React.Component {
         this.state = {
             species: {},
             basionym: {},
+            accepted: {},
             nomenclatoricSynonyms: [],
             taxonomicSynonyms: [],
             invalidDesignations: []
@@ -34,9 +35,12 @@ class NameDetail extends React.Component {
         const species = await checklistFacade.getSpeciesById(id);
         const { nomenclatoricSynonyms, taxonomicSynonyms, invalidDesignations } = await checklistFacade.getSynonyms(id);
         const basionym = await checklistFacade.getBasionymOf(id);
+        const accepted = await checklistFacade.getAcceptedOf(id);
+
         this.setState({
             species,
             basionym,
+            accepted,
             nomenclatoricSynonyms,
             taxonomicSynonyms,
             invalidDesignations
@@ -59,13 +63,15 @@ class NameDetail extends React.Component {
 
                 <Publication publication={species.publication} />
 
-                <Basionym basionym={this.state.basionym} />
+                <NameBlock id="basionym" label="Basionym:" data={this.state.basionym} />
                 <Synonyms
                     isLabel={isAccepted(species)}
                     nomenclatoric={this.state.nomenclatoricSynonyms}
                     taxonomic={this.state.taxonomicSynonyms}
                     invalidDesignations={this.state.invalidDesignations}
                 />
+
+                <NameBlock id="accepted-name" label="Accepted name:" data={this.state.accepted} />
             </Grid>
         );
     }

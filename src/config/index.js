@@ -75,6 +75,7 @@ export default {
     uris: {
         checklist: {
             getSpeciesByIdUri: `${backendBase}/api/list-of-species/{id}`,
+            getAcceptedNameUri: `${backendBase}/api/list-of-species/{id}/accepted`,
             getNomenclatoricSynonymsUri: `${backendBase}/api/list-of-species/{id}/synonyms-nomenclatoric`,
             getTaxonomicSynonymsUri: `${backendBase}/api/list-of-species/{id}/synonyms-taxonomic?filter=%7B"include":"synonyms-nomenclatoric"%7D`,
             getInvalidSynonymsUri: `${backendBase}/api/list-of-species/{id}/synonyms-invalid`,

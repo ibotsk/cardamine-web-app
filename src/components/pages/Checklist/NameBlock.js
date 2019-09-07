@@ -6,18 +6,16 @@ import LosName from '../../segments/LosName';
 import { utils } from '../../../utils';
 import config from '../../../config';
 
-const BASIONYM_LABEL = "Basionym:";
+const NameBlock = ({ id, data, label }) => {
 
-const Basionym = ({ basionym }) => {
-
-    if (utils.isEmptyObj(basionym)) {
+    if (utils.isEmptyObj(data)) {
         return null;
     }
     return (
-        <div id="basionym">
+        <div id={id}>
             <Row className="dblock">
                 <Col xs={12}>
-                    <LabelValue label={BASIONYM_LABEL} value={<LosName data={basionym} uri={`${config.routes.checklist}/${basionym.id}`} />} />
+                    <LabelValue label={label} value={<LosName data={data} isPublication={true} uri={`${config.routes.checklist}/${data.id}`} />} />
                 </Col>
             </Row>
         </div>
@@ -25,4 +23,4 @@ const Basionym = ({ basionym }) => {
 
 }
 
-export default Basionym;
+export default NameBlock;

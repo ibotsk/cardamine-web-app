@@ -23,8 +23,13 @@ const getBasionymOf = async (id) => {
     return checklistService.getBasionymOf(id);
 }
 
+const getAcceptedOf = async (id) => {
+    return checklistService.getAcceptedOf(id);
+}
+
 export default {
     getSpeciesById,
     getSynonyms,
-    getBasionymOf
+    getBasionymOf,
+    getAcceptedOf
 };

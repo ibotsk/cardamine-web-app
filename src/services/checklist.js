@@ -33,10 +33,17 @@ const getBasionymOf = async (id) => {
     return response.data;
 }
 
+const getAcceptedOf = async (id) => {
+    const getAcceptedNameUri = template.parse(config.uris.checklist.getAcceptedNameUri).expand({ id });
+    const response = await axios.get(getAcceptedNameUri);
+    return response.data;
+}
+
 export default {
     getSpeciesById,
     getSynonymsNomenclatoricOf,
     getSynonymsTaxonomicOf,
     getInvalidDesignationsOf,
-    getBasionymOf
+    getBasionymOf,
+    getAcceptedOf
 };
