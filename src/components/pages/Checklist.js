@@ -1,11 +1,18 @@
 import React from 'react';
-import { Grid } from "react-bootstrap";
+import { Grid } from 'react-bootstrap';
+
+import FilterToggleWrapper from '../segments/filter/FilterToggleWrapper';
+import ChecklistFilter from '../segments/filter/ChecklistFilter';
 
 const Checklist = props => {
     return (
-        <Grid>
-            Names
-        </Grid>
+        <div>
+            <Grid>
+                <FilterToggleWrapper id="filter-checklist">
+                    <ChecklistFilter />
+                </FilterToggleWrapper>
+            </Grid>
+        </div>
     );
 }
 

@@ -57,7 +57,6 @@ class NameDetail extends React.Component {
     }
 
     render() {
-        console.log(this.state);
         const species = this.state.species;
         return (
             <Grid id="species-detail">

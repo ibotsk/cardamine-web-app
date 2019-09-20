@@ -17,3 +17,7 @@ ul li > span { padding-left: 3px; }
 .single::before { content: "\2013"; }
 .double::before { content: "="; }
 .tripple::before { content: "\2261"; }
+
+.filter-heading {
+    background-color: #fafafa !important;
+}

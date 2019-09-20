@@ -49,6 +49,10 @@ export default {
             U: {
                 text: "Unresolved",
                 colour: "#bb9d00"
+            },
+            I: {
+                text: "Designation not validly published",
+                colour: "#ff6666"
             }
         },
         synonym: {
@@ -61,7 +65,7 @@ export default {
                 className: "double"
             },
             invalid: {
-                prefix: "-",
+                prefix: "–",
                 className: "single"
             }
         }
