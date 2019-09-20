@@ -26,14 +26,14 @@ const SynList = ({ list, className, sublistProp, sublistClass }) => {
     );
 };
 
-const Synonyms = ({ nomenclatoric, taxonomic, isLabel = true }) => {
+const Synonyms = ({ id, label, nomenclatoric, taxonomic, invalidDesignations, isLabel = true }) => {
 
     return (
-        <div id="synonyms" className="dblock">
+        <div id={id} className="dblock">
             <div>
                 {
                     isLabel &&
-                    <b>Synonyms:</b>
+                    <b>{label}</b>
                 }
                 <Row>
                     <Col xs={12}>
@@ -50,10 +50,29 @@ const Synonyms = ({ nomenclatoric, taxonomic, isLabel = true }) => {
                         }
                     </Col>
                 </Row>
+                {
+                    renderInvalidDesignations(invalidDesignations)
+                }
             </div>
         </div>
     );
 
+}
+
+function renderInvalidDesignations(invalidDesignations) {
+    if (invalidDesignations && invalidDesignations.length > 0) {
+        return (
+            <div>
+                <b>Designations not validly published:</b>
+                <Row>
+                    <Col xs={12}>
+                        <SynList list={invalidDesignations} className={config.mappings.synonym.invalid.className} />
+                    </Col>
+                </Row>
+            </div>
+        );
+    }
+    return null;
 }
 
 export default Synonyms;

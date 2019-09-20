@@ -220,7 +220,7 @@ function infraTaxa(subsp, vari, subvar, forma, nothosubsp, nothoforma) {
 }
 
 function invalidDesignation(name, syntype) {
-    if (syntype === '1') {
+    if (syntype === 'I') {
         let newname = [];
         newname.push(Plain('"'));
         newname = newname.concat(name);
@@ -234,7 +234,7 @@ function listOfSpeciesFormat(nomenclature, options = {}) {
 
     let opts = Object.assign({}, {
         isPublication: false,
-        isTribus: false,
+        isTribus: false
     }, options);
 
     let isAuthorLast = true;
@@ -278,7 +278,7 @@ function listOfSpeciesFormat(nomenclature, options = {}) {
         name = name.concat(listOfSpeciesFormat(h));
     }
 
-    name = invalidDesignation(name, options.syntype);
+    name = invalidDesignation(name, nomenclature.ntype);
 
     if (opts.isPublication) {
         if (nomenclature.publication) {

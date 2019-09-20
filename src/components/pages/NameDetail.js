@@ -23,8 +23,9 @@ class NameDetail extends React.Component {
 
         this.state = {
             species: {},
-            basionym: {},
             accepted: {},
+            basionym: {},
+            replaced: {},
             nomenclatoricSynonyms: [],
             taxonomicSynonyms: [],
             invalidDesignations: [],
@@ -72,7 +73,10 @@ class NameDetail extends React.Component {
                 <Publication publication={species.publication} />
 
                 <NameBlock id="basionym" label="Basionym:" data={this.state.basionym} />
+                <NameBlock id="replaced" label="Replaced:" data={this.state.replaced} />
+
                 <Synonyms
+                    label={"Synonyms:"}
                     isLabel={isAccepted(species)}
                     nomenclatoric={this.state.nomenclatoricSynonyms}
                     taxonomic={this.state.taxonomicSynonyms}
