@@ -7,9 +7,10 @@ import Synonyms from './Checklist/Synonyms';
 import NameBlock from './Checklist/NameBlock';
 import ListBlock from './Checklist/ListBlock';
 
-import { checklist as checklistFacade } from '../../facades';
+import facades from '../../facades';
 import { formatter } from '../../utils';
 
+const { checklist: checklistFacade } = facades;
 const ACCEPTED_TYPE = 'A';
 
 const isAccepted = (species) => species.ntype === ACCEPTED_TYPE;
@@ -33,10 +34,17 @@ class NameDetail extends React.Component {
   }
 
   async componentDidMount() {
-    const { id } = this.props.match.params;
+    const { match: { params } } = this.props;
+    const { id } = params;
     const species = await checklistFacade.getSpeciesById(id);
-    const { nomenclatoricSynonyms, taxonomicSynonyms, invalidDesignations } = await checklistFacade.getSynonyms(id);
-    const { basionymFor, replacedFor, nomenNovumFor } = await checklistFacade.getFors(id);
+    const {
+      nomenclatoricSynonyms, taxonomicSynonyms, invalidDesignations,
+    } = await checklistFacade.getSynonyms(id);
+
+    const {
+      basionymFor, replacedFor, nomenNovumFor,
+    } = await checklistFacade.getFors(id);
+
     const basionym = await checklistFacade.getBasionymOf(id);
     const accepted = await checklistFacade.getAcceptedOf(id);
 
@@ -54,7 +62,12 @@ class NameDetail extends React.Component {
   }
 
   render() {
-    const { species } = this.state;
+    const {
+      species,
+      basionym, replaced, accepted,
+      nomenclatoricSynonyms, taxonomicSynonyms, invalidDesignations,
+      basionymFor, replacedFor, nomenNovumFor,
+    } = this.state;
     return (
       <Grid id="species-detail">
         <Well id="name">
@@ -68,22 +81,38 @@ class NameDetail extends React.Component {
 
         <Publication publication={species.publication} />
 
-        <NameBlock id="basionym" label="Basionym:" data={this.state.basionym} />
-        <NameBlock id="replaced" label="Replaced:" data={this.state.replaced} />
+        <NameBlock id="basionym" label="Basionym:" data={basionym} />
+        <NameBlock id="replaced" label="Replaced:" data={replaced} />
 
         <Synonyms
           label="Synonyms:"
           isLabel={isAccepted(species)}
-          nomenclatoric={this.state.nomenclatoricSynonyms}
-          taxonomic={this.state.taxonomicSynonyms}
-          invalidDesignations={this.state.invalidDesignations}
+          nomenclatoric={nomenclatoricSynonyms}
+          taxonomic={taxonomicSynonyms}
+          invalidDesignations={invalidDesignations}
         />
 
-        <NameBlock id="accepted-name" label="Accepted name:" data={this.state.accepted} />
+        <NameBlock
+          id="accepted-name"
+          label="Accepted name:"
+          data={accepted}
+        />
 
-        <ListBlock id="basionym-for" label="Basionym for:" data={this.state.basionymFor} />
-        <ListBlock id="replaced-for" label="Replaced for:" data={this.state.replacedFor} />
-        <ListBlock id="nomen-novum-for" label="Nomen novum for:" data={this.state.nomenNovumFor} />
+        <ListBlock
+          id="basionym-for"
+          label="Basionym for:"
+          data={basionymFor}
+        />
+        <ListBlock
+          id="replaced-for"
+          label="Replaced for:"
+          data={replacedFor}
+        />
+        <ListBlock
+          id="nomen-novum-for"
+          label="Nomen novum for:"
+          data={nomenNovumFor}
+        />
       </Grid>
     );
   }

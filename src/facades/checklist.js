@@ -1,22 +1,33 @@
-import { checklist as checklistService } from '../services';
+import services from '../services';
 import { helper } from '../utils';
 
-const getSpeciesById = async (id) => checklistService.getSpeciesById(id);
+const { checklist: checklistService } = services;
 
-const getSynonyms = async (id) => {
-  const nomenclatoricSynonyms = await checklistService.getSynonymsNomenclatoricOf(id);
+async function getSpeciesById(id) {
+  return checklistService.getSpeciesById(id);
+}
+
+async function getSynonyms(id) {
+  const nomenclatoricSynonyms = await checklistService
+    .getSynonymsNomenclatoricOf(id);
   nomenclatoricSynonyms.sort(helper.listOfSpeciesSorterLex);
 
-  const taxonomicSynonyms = await checklistService.getSynonymsTaxonomicOf(id);
+  const taxonomicSynonyms = await checklistService
+    .getSynonymsTaxonomicOf(id);
   taxonomicSynonyms.sort(helper.listOfSpeciesSorterLex);
 
-  const invalidDesignations = await checklistService.getInvalidDesignationsOf(id);
+  const invalidDesignations = await checklistService
+    .getInvalidDesignationsOf(id);
   invalidDesignations.sort(helper.listOfSpeciesSorterLex);
 
-  return { nomenclatoricSynonyms, taxonomicSynonyms, invalidDesignations };
-};
+  return {
+    nomenclatoricSynonyms,
+    taxonomicSynonyms,
+    invalidDesignations,
+  };
+}
 
-const getFors = async (id) => {
+async function getFors(id) {
   const basionymFor = await checklistService.getBasionymFor(id);
   basionymFor.sort(helper.listOfSpeciesSorterLex);
 
@@ -26,12 +37,20 @@ const getFors = async (id) => {
   const nomenNovumFor = await checklistService.getNomenNovumFor(id);
   nomenNovumFor.sort(helper.listOfSpeciesSorterLex);
 
-  return { basionymFor, replacedFor, nomenNovumFor };
-};
+  return {
+    basionymFor,
+    replacedFor,
+    nomenNovumFor,
+  };
+}
 
-const getBasionymOf = async (id) => checklistService.getBasionymOf(id);
+async function getBasionymOf(id) {
+  return checklistService.getBasionymOf(id);
+}
 
-const getAcceptedOf = async (id) => checklistService.getAcceptedOf(id);
+async function getAcceptedOf(id) {
+  return checklistService.getAcceptedOf(id);
+}
 
 export default {
   getSpeciesById,

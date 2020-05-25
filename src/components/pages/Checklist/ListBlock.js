@@ -7,7 +7,18 @@ import config from '../../../config';
 
 const NameList = ({ list }) => (
   <ul>
-    {list.map((s) => <li key={s.id}><LosName data={s} format="italic" isPublication uri={`${config.routes.checklist}/${s.id}`} /></li>)}
+    {
+      list.map((s) => (
+        <li key={s.id}>
+          <LosName
+            data={s}
+            format="italic"
+            isPublication
+            uri={`${config.routes.checklist}/${s.id}`}
+          />
+        </li>
+      ))
+    }
   </ul>
 );
 

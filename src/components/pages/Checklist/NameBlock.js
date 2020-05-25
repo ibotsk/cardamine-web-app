@@ -14,7 +14,16 @@ const NameBlock = ({ id, data, label }) => {
     <div id={id}>
       <Row className="dblock">
         <Col xs={12}>
-          <LabelValue label={label} value={<LosName data={data} isPublication uri={`${config.routes.checklist}/${data.id}`} />} />
+          <LabelValue
+            label={label}
+            value={(
+              <LosName
+                data={data}
+                isPublication
+                uri={`${config.routes.checklist}/${data.id}`}
+              />
+            )}
+          />
         </Col>
       </Row>
     </div>

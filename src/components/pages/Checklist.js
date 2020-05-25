@@ -4,7 +4,7 @@ import { Grid } from 'react-bootstrap';
 import FilterToggleWrapper from '../segments/filter/FilterToggleWrapper';
 import ChecklistFilter from '../segments/filter/ChecklistFilter';
 
-const Checklist = (props) => (
+const Checklist = () => (
   <div>
     <Grid>
       <FilterToggleWrapper id="filter-checklist">

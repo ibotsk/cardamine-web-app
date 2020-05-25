@@ -1,20 +1,22 @@
+/* eslint-disable max-len */
 const backendBase = `${process.env.REACT_APP_BACKEND_BASE}:${process.env.REACT_APP_BACKEND_PORT}`;
 
 export default {
-
   nomenclature: {
     name: {
       sl: 's.l.',
-      subsp: 'subsp.',
-      var: 'var.',
-      subvar: 'subvar.',
-      forma: 'forma',
-      nothosubsp: 'nothosubsp.',
-      nothoforma: 'nothoforma',
-      proles: 'proles',
-      unranked: '[unranked]',
       tribus: 'tribus',
       hybrid: 'x',
+      infra: {
+        subsp: 'subsp.',
+        var: 'var.',
+        subvar: 'subvar.',
+        forma: 'forma',
+        nothosubsp: 'nothosubsp.',
+        nothoforma: 'nothoforma',
+        proles: 'proles',
+        unranked: '[unranked]',
+      },
     },
     publication: {
       paper: '{{authors}} ({{year}}) {{title}}. {{journal}}, {{volume}}{{issue}}:{{pages}}',

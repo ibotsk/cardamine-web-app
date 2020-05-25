@@ -7,7 +7,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 
 import config from '../../config';
 
-const CNavbar = (props) => (
+const CNavbar = () => (
   <div id="navigation">
     <Navbar collapseOnSelect>
       <Navbar.Header>

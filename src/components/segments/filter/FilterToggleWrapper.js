@@ -13,8 +13,15 @@ class FilterToggleWrapper extends React.Component {
     };
   }
 
+  onToggle() {
+    this.setState((state) => ({
+      isOpened: !state.isOpened,
+    }));
+  }
+
   toggleText() {
-    if (this.state.isOpened) {
+    const { isOpened } = this.state;
+    if (isOpened) {
       return (
         <>
           {STATE_OPENED}
@@ -32,20 +39,16 @@ class FilterToggleWrapper extends React.Component {
     );
   }
 
-  onToggle() {
-    this.setState({
-      isOpened: !this.state.isOpened,
-    });
-  }
-
   render() {
+    const { id, children } = this.props;
+    const { isOpened } = this.state;
     return (
-      <Panel id={this.props.id} expanded={this.state.isOpened} onToggle={() => this.onToggle()}>
+      <Panel id={id} expanded={isOpened} onToggle={() => this.onToggle()}>
         <Panel.Heading className="text-center filter-heading">
           <Panel.Toggle componentClass="a">{this.toggleText()}</Panel.Toggle>
         </Panel.Heading>
         <Panel.Collapse>
-          {this.props.children}
+          {children}
         </Panel.Collapse>
       </Panel>
     );

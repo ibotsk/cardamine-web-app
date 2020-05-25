@@ -4,10 +4,12 @@ import config from '../config';
 
 const italic = (subject) => <i>{subject}</i>;
 
-const format = (subject, format) => {
-  switch (format) {
-    case 'italic': return italic(subject);
-    default: return subject;
+const format = (subject, formatString) => {
+  switch (formatString) {
+    case 'italic':
+      return italic(subject);
+    default:
+      return subject;
   }
 };
 
@@ -33,6 +35,7 @@ const speciesType = (type) => {
       <span style={{ color: losType.colour }}>{losType.text}</span>
     );
   }
+  return undefined;
 };
 
 export default {

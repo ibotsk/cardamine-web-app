@@ -20,7 +20,12 @@ const LosName = ({
     return '';
   }
 
-  return anchorWrap(helper.listOfSpeciesForComponent(name, format, { isPublication }).map((e, i) => <span key={i}>{e}</span>), uri);
+  const losForComponent = helper.listOfSpeciesForComponent(name, format, {
+    isPublication,
+  // eslint-disable-next-line react/no-array-index-key
+  }).map((e, i) => <span key={i}>{e}</span>);
+
+  return anchorWrap(losForComponent, uri);
 };
 
 export default LosName;

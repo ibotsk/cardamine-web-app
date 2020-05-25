@@ -9,7 +9,10 @@ const Publication = ({ publication }) => (
   <div id="publication">
     <Row className="dblock">
       <Col xs={12}>
-        <LabelValue label={PUBLICATION_LABEL} value={publication || PUBLICATION_MISSING} />
+        <LabelValue
+          label={PUBLICATION_LABEL}
+          value={publication || PUBLICATION_MISSING}
+        />
       </Col>
     </Row>
   </div>

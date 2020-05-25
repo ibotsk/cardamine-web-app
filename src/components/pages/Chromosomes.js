@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid } from 'react-bootstrap';
 
-const Chromosomes = (props) => (
+const Chromosomes = () => (
   <Grid>
     Chromosome data
   </Grid>

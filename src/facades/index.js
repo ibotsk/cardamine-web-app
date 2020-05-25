@@ -1,5 +1,5 @@
 import checklist from './checklist';
 
-export {
+export default {
   checklist,
 };

@@ -29,6 +29,121 @@ const makeSl = (string) => {
   return { s: string, hasSl: false };
 };
 
+/*
+    For every property in config.nomenclature.name.infra
+
+    Names of the infra taxa must match the ones of the listOfSpecies table columns.
+    Notho- are not used.
+*/
+const infraTaxa = (nomenclature) => {
+  let infs = [];
+
+  const configInfraTaxa = configName.infra;
+
+  for (const infra of Object.keys(configInfraTaxa)) {
+    const infraValue = nomenclature[infra];
+
+    if (infraValue) {
+      const infraLabel = configInfraTaxa[infra];
+      infs = infs.concat([Plain(infraLabel), Formatted(infraValue)]);
+    }
+  }
+
+  return infs;
+};
+
+const invalidDesignation = (name, syntype) => {
+  if (syntype === 'I') {
+    let newname = [];
+    newname.push(Plain('"'));
+    newname = newname.concat(name);
+    newname.push(Plain('"'));
+    return newname;
+  }
+  return name;
+};
+
+const listOfSpeciesFormat = (nomenclature, options = {}) => {
+  const opts = {
+    isPublication: false,
+    isTribus: false,
+    ...options,
+  };
+  const {
+    ntype,
+    species, genus,
+    subsp, var: varieta, subvar, forma,
+    authors,
+    nothosubsp, nothoforma,
+    publication, tribus,
+  } = nomenclature;
+
+  let isAuthorLast = true;
+
+  let name = [];
+  const slResult = makeSl(species);
+
+  name.push(Formatted(genus));
+  name.push(Formatted(slResult.s));
+
+  if (slResult.hasSl) {
+    name.push(Plain(configName.sl));
+  }
+
+  const infras = infraTaxa(
+    subsp,
+    varieta,
+    subvar,
+    forma,
+    nothosubsp,
+    nothoforma,
+  );
+
+  if (species === subsp || species === varieta || species === forma) {
+    if (authors) {
+      name.push(Plain(authors));
+    }
+    isAuthorLast = false;
+  }
+
+  name = name.concat(infras);
+
+  if (isAuthorLast) {
+    name.push(Plain(authors));
+  }
+
+  if (nomenclature.hybrid) {
+    const h = {
+      genus: nomenclature.genusH,
+      species: nomenclature.speciesH,
+      subsp: nomenclature.subspH,
+      var: nomenclature.varH,
+      subvar: nomenclature.subvarH,
+      forma: nomenclature.formaH,
+      nothosubsp: nomenclature.nothosubspH,
+      nothoforma: nomenclature.nothoformaH,
+      authors: nomenclature.authorsH,
+    };
+    name.push(Plain(configName.hybrid));
+    name = name.concat(listOfSpeciesFormat(h));
+  }
+
+  name = invalidDesignation(name, ntype);
+
+  if (opts.isPublication) {
+    if (nomenclature.publication) {
+      name.push(Plain(`, ${publication}`));
+    }
+  }
+  if (opts.isTribus) {
+    if (tribus) {
+      name.push(Plain(tribus));
+    }
+  }
+
+  return name;
+};
+
 // --------------PUBLIC----------- //
 
 function listOfSpeciesForComponent(name, formatString, options = {}) {
@@ -41,7 +156,9 @@ function listOfSpeciesForComponent(name, formatString, options = {}) {
     return t.string;
   });
 
-  return formattedNameArr.reduce((acc, el) => acc.concat(el, ' '), []).slice(0, -1);
+  return formattedNameArr
+    .reduce((acc, el) => acc.concat(el, ' '), [])
+    .slice(0, -1);
 }
 
 function listOfSpeciesString(name) {
@@ -52,73 +169,87 @@ function listOfSpeciesSorterLex(losA, losB) {
   // a > b = 1
   if (losA.genus > losB.genus) {
     return 1;
-  } else if (losA.genus < losB.genus) {
+  }
+  if (losA.genus < losB.genus) {
     return -1;
   }
   if (losA.species > losB.species) {
     return 1;
-  } else if (losA.species < losB.species) {
+  }
+  if (losA.species < losB.species) {
     return -1;
   }
   if (losA.subsp > losB.subsp) {
     return 1;
-  } else if (losA.subsp < losB.subsp) {
+  }
+  if (losA.subsp < losB.subsp) {
     return -1;
   }
   if (losA.var > losB.var) {
     return 1;
-  } if (losA.var < losB.var) {
+  }
+  if (losA.var < losB.var) {
     return -1;
   }
   if (losA.forma > losB.forma) {
     return 1;
-  } else if (losA.forma < losB.forma) {
+  }
+  if (losA.forma < losB.forma) {
     return -1;
   }
   if (losA.subvar > losB.subvar) {
     return 1;
-  } if (losA.subvar < losB.subvar) {
+  }
+  if (losA.subvar < losB.subvar) {
     return -1;
   }
   if (losA.authors > losB.authors) {
     return 1;
-  } if (losA.authors < losB.authors) {
+  }
+  if (losA.authors < losB.authors) {
     return -1;
   }
   // hybrid fields next
   if (losA.genusH > losB.genusH) {
     return 1;
-  } if (losA.genusH < losB.genusH) {
+  }
+  if (losA.genusH < losB.genusH) {
     return -1;
   }
   if (losA.speciesH > losB.speciesH) {
     return 1;
-  } if (losA.speciesH < losB.speciesH) {
+  }
+  if (losA.speciesH < losB.speciesH) {
     return -1;
   }
   if (losA.subspH > losB.subspH) {
     return 1;
-  } if (losA.subspH < losB.subspH) {
+  }
+  if (losA.subspH < losB.subspH) {
     return -1;
   }
   if (losA.varH > losB.varH) {
     return 1;
-  } if (losA.varH < losB.varH) {
+  }
+  if (losA.varH < losB.varH) {
     return -1;
   }
   if (losA.formaH > losB.formaH) {
     return 1;
-  } if (losA.formaH < losB.formaH) {
+  }
+  if (losA.formaH < losB.formaH) {
     return -1;
   }
   if (losA.subvarH > losB.subvarH) {
     return 1;
-  } if (losA.subvarH < losB.subvarH) {
+  }
+  if (losA.subvarH < losB.subvarH) {
     return -1;
   }
   if (losA.authorsH > losB.authorsH) {
     return 1;
-  } if (losA.authorsH < losB.authorsH) {
+  }
+  if (losA.authorsH < losB.authorsH) {
     return -1;
   }
   return 0;
@@ -143,9 +274,11 @@ function makeWhere(filters) {
   return {};
 }
 
-function parsePublication({
-  type, authors, title, series, volume, issue, publisher, editor, year, pages, journal,
-}) {
+function parsePublication(publication) {
+  const {
+    type, authors, title, series, volume, issue,
+    publisher, editor, year, pages, journal,
+  } = publication;
   const typeMapping = config.mappings.displayType[type].name;
   const template = config.nomenclature.publication[typeMapping];
 
@@ -165,132 +298,17 @@ function parsePublication({
 
 // useful when changing type of publication, so the unused fields are set to empty
 function publicationCurateFields(publication) {
-  const usedFields = config.mappings.displayType[publication.displayType].columns;
-  const fieldsToBeEmpty = config.mappings.displayType.nullableFields.filter((el) => !usedFields.includes(el));
+  const { displayType } = publication;
+  const usedFields = config.mappings.displayType[displayType].columns;
+  const fieldsToBeEmpty = config.mappings.displayType.nullableFields.filter(
+    (el) => !usedFields.includes(el),
+  );
 
   const curatedPubl = { ...publication };
   for (const field of fieldsToBeEmpty) {
     curatedPubl[field] = '';
   }
   return curatedPubl;
-}
-
-// -----------PRIVATE-------------- //
-
-function subspecies(subsp) {
-  const result = [];
-  let isUnrankedOrProles = false;
-  if (subsp.includes(configName.unranked)) {
-    result.push(Plain(configName.unranked));
-    isUnrankedOrProles = true;
-  }
-  if (subsp.includes(configName.proles)) {
-    result.push(Plain(configName.proles));
-    isUnrankedOrProles = true;
-  }
-  subsp = subsp.replace(/\[unranked\]|proles/g, '');
-
-  if (!isUnrankedOrProles) {
-    result.push(Plain(configName.subsp));
-  }
-  result.push(Formatted(subsp));
-  return result;
-}
-
-/*
-    Nothosubsp and nothoforma not used
-*/
-function infraTaxa(subsp, vari, subvar, forma, nothosubsp, nothoforma) {
-  let infs = [];
-  if (subsp) {
-    infs = infs.concat(subspecies(subsp));
-  }
-  if (vari) {
-    infs = infs.concat([Plain(configName.var), Formatted(vari)]);
-  }
-  if (subvar) {
-    infs = infs.concat([Plain(configName.subvar), Formatted(subvar)]);
-  }
-  if (forma) {
-    infs = infs.concat([Plain(configName.forma), Formatted(forma)]);
-  }
-
-  return infs;
-}
-
-function invalidDesignation(name, syntype) {
-  if (syntype === 'I') {
-    let newname = [];
-    newname.push(Plain('"'));
-    newname = newname.concat(name);
-    newname.push(Plain('"'));
-    return newname;
-  }
-  return name;
-}
-
-function listOfSpeciesFormat(nomenclature, options = {}) {
-  const opts = {
-    isPublication: false,
-    isTribus: false,
-    ...options,
-  };
-
-  let isAuthorLast = true;
-
-  let name = [];
-  const slResult = makeSl(nomenclature.species);
-
-  name.push(Formatted(nomenclature.genus));
-  name.push(Formatted(slResult.s));
-
-  if (slResult.hasSl) {
-    name.push(Plain(configName.sl));
-  }
-
-  const infras = infraTaxa(nomenclature.subsp, nomenclature.var, nomenclature.subvar, nomenclature.forma, nomenclature.nothosubsp, nomenclature.nothoforma);
-
-  if (nomenclature.species === nomenclature.subsp || nomenclature.species === nomenclature.var || nomenclature.species === nomenclature.forma) {
-    name.push(Plain(nomenclature.authors));
-    isAuthorLast = false;
-  }
-
-  name = name.concat(infras);
-
-  if (isAuthorLast) {
-    name.push(Plain(nomenclature.authors));
-  }
-
-  if (nomenclature.hybrid) {
-    const h = {
-      genus: nomenclature.genusH,
-      species: nomenclature.speciesH,
-      subsp: nomenclature.subspH,
-      var: nomenclature.varH,
-      subvar: nomenclature.subvarH,
-      forma: nomenclature.formaH,
-      nothosubsp: nomenclature.nothosubspH,
-      nothoforma: nomenclature.nothoformaH,
-      authors: nomenclature.authorsH,
-    };
-    name.push(Plain(configName.hybrid));
-    name = name.concat(listOfSpeciesFormat(h));
-  }
-
-  name = invalidDesignation(name, nomenclature.ntype);
-
-  if (opts.isPublication) {
-    if (nomenclature.publication) {
-      name.push(Plain(`, ${nomenclature.publication}`));
-    }
-  }
-  if (opts.isTribus) {
-    if (nomenclature.tribus) {
-      name.push(Plain(nomenclature.tribus));
-    }
-  }
-
-  return name;
 }
 
 export default {

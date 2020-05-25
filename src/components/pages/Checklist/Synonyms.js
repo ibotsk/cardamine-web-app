@@ -5,24 +5,56 @@ import LosName from '../../segments/LosName';
 
 import config from '../../../config';
 
+const {
+  nomenclatoric: nomenclatoricConfig,
+  taxonomic: taxonomicConfig,
+  invalid: invalidConfig,
+} = config.mappings.synonym;
+
+const renderInvalidDesignations = (invalidDesignations) => {
+  if (invalidDesignations && invalidDesignations.length > 0) {
+    return (
+      <div>
+        <b>Designations not validly published:</b>
+        <Row>
+          <Col xs={12}>
+            <SynList
+              list={invalidDesignations}
+              className={invalidConfig.className}
+            />
+          </Col>
+        </Row>
+      </div>
+    );
+  }
+  return null;
+};
+
 const SynList = ({
   list, className, sublistProp, sublistClass,
 }) => (
   <ul>
-    {list.map((s) => {
-      const sublist = sublistProp ? s[sublistProp] : null;
-      return (
-        <li key={s.id} className={className}>
-          <span>
-            <LosName data={s} format="italic" isPublication uri={`${config.routes.checklist}/${s.id}`} />
-            {
-              sublist && sublist.length > 0
-              && <SynList list={sublist} className={sublistClass} />
-            }
-          </span>
-        </li>
-      );
-    })}
+    {
+      list.map((s) => {
+        const sublist = sublistProp ? s[sublistProp] : null;
+        return (
+          <li key={s.id} className={className}>
+            <span>
+              <LosName
+                data={s}
+                format="italic"
+                isPublication
+                uri={`${config.routes.checklist}/${s.id}`}
+              />
+              {
+                sublist && sublist.length > 0
+                && <SynList list={sublist} className={sublistClass} />
+              }
+            </span>
+          </li>
+        );
+      })
+    }
   </ul>
 );
 
@@ -39,16 +71,21 @@ const Synonyms = ({
         <Col xs={12}>
           {
             nomenclatoric && nomenclatoric.length > 0
-            && <SynList list={nomenclatoric} className={config.mappings.synonym.nomenclatoric.className} />
+            && (
+              <SynList
+                list={nomenclatoric}
+                className={nomenclatoricConfig.className}
+              />
+            )
           }
           {
             taxonomic && taxonomic.length > 0
             && (
               <SynList
                 list={taxonomic}
-                className={config.mappings.synonym.taxonomic.className}
+                className={taxonomicConfig.className}
                 sublistProp="synonyms-nomenclatoric"
-                sublistClass={config.mappings.synonym.nomenclatoric.className}
+                sublistClass={nomenclatoricConfig.className}
               />
             )
           }
@@ -60,21 +97,5 @@ const Synonyms = ({
     </div>
   </div>
 );
-
-function renderInvalidDesignations(invalidDesignations) {
-  if (invalidDesignations && invalidDesignations.length > 0) {
-    return (
-      <div>
-        <b>Designations not validly published:</b>
-        <Row>
-          <Col xs={12}>
-            <SynList list={invalidDesignations} className={config.mappings.synonym.invalid.className} />
-          </Col>
-        </Row>
-      </div>
-    );
-  }
-  return null;
-}
 
 export default Synonyms;

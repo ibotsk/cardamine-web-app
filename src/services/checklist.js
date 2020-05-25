@@ -9,23 +9,41 @@ const getById = async (id, uri) => {
   return result.data;
 };
 
-const getSpeciesById = async (id) => getById(id, config.uris.checklist.getSpeciesByIdUri);
+async function getSpeciesById(id) {
+  return getById(id, config.uris.checklist.getSpeciesByIdUri);
+}
 
-const getSynonymsNomenclatoricOf = async (id) => getById(id, config.uris.checklist.getNomenclatoricSynonymsUri);
+async function getSynonymsNomenclatoricOf(id) {
+  return getById(id, config.uris.checklist.getNomenclatoricSynonymsUri);
+}
 
-const getSynonymsTaxonomicOf = async (id) => getById(id, config.uris.checklist.getTaxonomicSynonymsUri);
+async function getSynonymsTaxonomicOf(id) {
+  return getById(id, config.uris.checklist.getTaxonomicSynonymsUri);
+}
 
-const getInvalidDesignationsOf = async (id) => getById(id, config.uris.checklist.getInvalidSynonymsUri);
+async function getInvalidDesignationsOf(id) {
+  return getById(id, config.uris.checklist.getInvalidSynonymsUri);
+}
 
-const getBasionymOf = async (id) => getById(id, config.uris.checklist.getBasionymUri);
+async function getBasionymOf(id) {
+  return getById(id, config.uris.checklist.getBasionymUri);
+}
 
-const getAcceptedOf = async (id) => getById(id, config.uris.checklist.getAcceptedNameUri);
+async function getAcceptedOf(id) {
+  return getById(id, config.uris.checklist.getAcceptedNameUri);
+}
 
-const getBasionymFor = async (id) => getById(id, config.uris.checklist.getBasionymForUri);
+async function getBasionymFor(id) {
+  return getById(id, config.uris.checklist.getBasionymForUri);
+}
 
-const getReplacedFor = async (id) => getById(id, config.uris.checklist.getReplacedForUri);
+async function getReplacedFor(id) {
+  return getById(id, config.uris.checklist.getReplacedForUri);
+}
 
-const getNomenNovumFor = async (id) => getById(id, config.uris.checklist.getNomenNovumForUri);
+async function getNomenNovumFor(id) {
+  return getById(id, config.uris.checklist.getNomenNovumForUri);
+}
 
 export default {
   getSpeciesById,
