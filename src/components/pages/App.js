@@ -7,28 +7,28 @@ import Checklist from './Checklist';
 import Chromosomes from './Chromosomes';
 import NameDetail from './NameDetail';
 
-import config from "../../config";
+import config from '../../config';
 
 import '../../styles/custom.css';
 
 const Routing = () => (
-    <Switch>
-        <Route exact path={config.routes.home} component={Home} />
-        <Route exact path={config.routes.checklist} component={Checklist} />
-        <Route exact path={config.routes.chromosomes} component={Chromosomes} />
-        <Route exact path={config.routes.nameDetail} component={NameDetail} />
-    </Switch>
+  <Switch>
+    <Route exact path={config.routes.home} component={Home} />
+    <Route exact path={config.routes.checklist} component={Checklist} />
+    <Route exact path={config.routes.chromosomes} component={Chromosomes} />
+    <Route exact path={config.routes.nameDetail} component={NameDetail} />
+  </Switch>
 );
 
 function App() {
-    return (
-        <div>
-            <BrowserRouter>
-                <CNavbar />
-                <Routing />
-            </BrowserRouter>
-        </div>
-    );
+  return (
+    <div>
+      <BrowserRouter>
+        <CNavbar />
+        <Routing />
+      </BrowserRouter>
+    </div>
+  );
 }
 
 export default App;

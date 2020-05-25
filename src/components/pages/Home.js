@@ -1,12 +1,10 @@
 import React from 'react';
-import { Grid } from "react-bootstrap";
+import { Grid } from 'react-bootstrap';
 
-const Home = props => {
-    return (
-        <Grid>
-            Home
-        </Grid>
-    );
-}
+const Home = (props) => (
+  <Grid>
+    Home
+  </Grid>
+);
 
 export default Home;

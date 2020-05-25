@@ -3,7 +3,7 @@ import formatter from './formatter';
 import utils from './utils';
 
 export {
-    formatter,
-    helper,
-    utils
+  formatter,
+  helper,
+  utils,
 };
