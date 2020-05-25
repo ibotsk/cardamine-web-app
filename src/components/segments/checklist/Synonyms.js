@@ -1,7 +1,10 @@
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 
+import PropTypes from 'prop-types';
+
 import LosName from './LosName';
+import SynonymType from '../../propTypes/synonym';
 
 import config from '../../../config';
 
@@ -36,15 +39,16 @@ const SynList = ({
   <ul>
     {
       list.map((s) => {
-        const sublist = sublistProp ? s[sublistProp] : null;
+        const { synonym } = s;
+        const sublist = sublistProp ? synonym[sublistProp] : null;
         return (
           <li key={s.id} className={className}>
             <span>
               <LosName
-                data={s}
+                data={synonym}
                 format="italic"
                 isPublication
-                uri={`${config.routes.checklist}/${s.id}`}
+                uri={`${config.routes.checklist}/${synonym.id}`}
               />
               {
                 sublist && sublist.length > 0
@@ -59,12 +63,12 @@ const SynList = ({
 );
 
 const Synonyms = ({
-  id, label, nomenclatoric, taxonomic, invalidDesignations, isLabel = true,
+  id, label, nomenclatoric, taxonomic, invalidDesignations,
 }) => (
   <div id={id} className="dblock">
     <div>
       {
-        isLabel
+        label
         && <b>{label}</b>
       }
       <Row>
@@ -99,3 +103,28 @@ const Synonyms = ({
 );
 
 export default Synonyms;
+
+SynList.propTypes = {
+  list: PropTypes.arrayOf(SynonymType.type).isRequired,
+  className: PropTypes.string.isRequired,
+  sublistProp: PropTypes.string,
+  sublistClass: PropTypes.string,
+};
+
+SynList.defaultProps = {
+  sublistProp: undefined,
+  sublistClass: undefined,
+};
+
+Synonyms.propTypes = {
+  id: PropTypes.string,
+  label: PropTypes.string,
+  nomenclatoric: PropTypes.arrayOf(SynonymType.type).isRequired,
+  taxonomic: PropTypes.arrayOf(SynonymType.type).isRequired,
+  invalidDesignations: PropTypes.arrayOf(SynonymType.type).isRequired,
+};
+
+Synonyms.defaultProps = {
+  id: undefined,
+  label: undefined,
+};

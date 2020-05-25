@@ -87,8 +87,7 @@ class NameDetail extends React.Component {
         <NameBlock id="replaced" label="Replaced:" data={replaced} />
 
         <Synonyms
-          label="Synonyms:"
-          isLabel={isAccepted(species)}
+          label={isAccepted(species) ? 'Synonyms:' : undefined}
           nomenclatoric={nomenclatoricSynonyms}
           taxonomic={taxonomicSynonyms}
           invalidDesignations={invalidDesignations}
