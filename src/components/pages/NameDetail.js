@@ -1,6 +1,8 @@
 import React from 'react';
 import { Grid, Well } from 'react-bootstrap';
 
+import PropTypes from 'prop-types';
+
 import LosName from '../segments/LosName';
 import Publication from './Checklist/Publication';
 import Synonyms from './Checklist/Synonyms';
@@ -119,3 +121,11 @@ class NameDetail extends React.Component {
 }
 
 export default NameDetail;
+
+NameDetail.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }),
+  }).isRequired,
+};

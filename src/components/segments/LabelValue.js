@@ -1,5 +1,7 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
+
 const MISSING_VALUE = '-';
 
 const LabelValue = ({ label, value }) => (
@@ -10,3 +12,13 @@ const LabelValue = ({ label, value }) => (
 );
 
 export default LabelValue;
+
+LabelValue.propTypes = {
+  label: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+};
+
+LabelValue.defaultProps = {
+  label: undefined,
+  value: undefined,
+};

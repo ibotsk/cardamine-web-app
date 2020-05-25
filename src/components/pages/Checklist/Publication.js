@@ -1,5 +1,8 @@
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
+
+import PropTypes from 'prop-types';
+
 import LabelValue from '../../segments/LabelValue';
 
 const PUBLICATION_MISSING = 'Not provided';
@@ -19,3 +22,11 @@ const Publication = ({ publication }) => (
 );
 
 export default Publication;
+
+Publication.propTypes = {
+  publication: PropTypes.string,
+};
+
+Publication.defaultProps = {
+  publication: undefined,
+};

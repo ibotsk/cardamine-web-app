@@ -1,7 +1,11 @@
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
+
+import PropTypes from 'prop-types';
+
 import LabelValue from '../../segments/LabelValue';
 import LosName from '../../segments/LosName';
+import SpeciesType from '../../propTypes/species';
 
 import config from '../../../config';
 
@@ -39,3 +43,13 @@ const ListBlock = ({ id, data, label }) => {
 };
 
 export default ListBlock;
+
+NameList.propTypes = {
+  list: PropTypes.arrayOf(SpeciesType.type).isRequired,
+};
+
+ListBlock.propTypes = {
+  id: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  data: PropTypes.arrayOf(SpeciesType.type).isRequired,
+};

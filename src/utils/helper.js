@@ -72,10 +72,8 @@ const listOfSpeciesFormat = (nomenclature, options = {}) => {
   const {
     ntype,
     species, genus,
-    subsp, var: varieta, subvar, forma,
-    authors,
-    nothosubsp, nothoforma,
-    publication, tribus,
+    subsp, var: varieta, forma,
+    authors, publication, tribus,
   } = nomenclature;
 
   let isAuthorLast = true;
@@ -90,14 +88,7 @@ const listOfSpeciesFormat = (nomenclature, options = {}) => {
     name.push(Plain(configName.sl));
   }
 
-  const infras = infraTaxa(
-    subsp,
-    varieta,
-    subvar,
-    forma,
-    nothosubsp,
-    nothoforma,
-  );
+  const infras = infraTaxa(nomenclature);
 
   if (species === subsp || species === varieta || species === forma) {
     if (authors) {

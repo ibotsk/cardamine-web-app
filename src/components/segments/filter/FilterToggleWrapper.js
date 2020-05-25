@@ -1,6 +1,8 @@
 import React from 'react';
 import { Panel, Glyphicon } from 'react-bootstrap';
 
+import PropTypes from 'prop-types';
+
 const STATE_OPENED = 'Hide filter';
 const STATE_CLOSED = 'Show filter';
 
@@ -56,3 +58,12 @@ class FilterToggleWrapper extends React.Component {
 }
 
 export default FilterToggleWrapper;
+
+FilterToggleWrapper.propTypes = {
+  id: PropTypes.string.isRequired,
+  children: PropTypes.element,
+};
+
+FilterToggleWrapper.defaultProps = {
+  children: undefined,
+};
