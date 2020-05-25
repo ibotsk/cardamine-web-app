@@ -3,9 +3,9 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import CNavbar from '../segments/Navbar';
 import Home from './Home';
-import Checklist from './Checklist';
-import Chromosomes from './Chromosomes';
-import NameDetail from './NameDetail';
+import Checklist from './checklist/Checklist';
+import Chromosomes from './chromosomes/Chromosomes';
+import NameDetail from './checklist/NameDetail';
 
 import config from '../../config';
 

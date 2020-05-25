@@ -3,8 +3,8 @@ import { Col, Row } from 'react-bootstrap';
 
 import PropTypes from 'prop-types';
 
-import LabelValue from '../../segments/LabelValue';
-import LosName from '../../segments/LosName';
+import LabelValue from '../LabelValue';
+import LosName from './LosName';
 import SpeciesType from '../../propTypes/species';
 
 import { utils } from '../../../utils';

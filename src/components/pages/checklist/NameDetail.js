@@ -3,14 +3,14 @@ import { Grid, Well } from 'react-bootstrap';
 
 import PropTypes from 'prop-types';
 
-import LosName from '../segments/LosName';
-import Publication from './Checklist/Publication';
-import Synonyms from './Checklist/Synonyms';
-import NameBlock from './Checklist/NameBlock';
-import ListBlock from './Checklist/ListBlock';
+import LosName from '../../segments/checklist/LosName';
+import Publication from '../../segments/checklist/Publication';
+import Synonyms from '../../segments/checklist/Synonyms';
+import NameBlock from '../../segments/checklist/NameBlock';
+import ListBlock from '../../segments/checklist/ListBlock';
 
-import facades from '../../facades';
-import { formatter } from '../../utils';
+import facades from '../../../facades';
+import { formatter } from '../../../utils';
 
 const { checklist: checklistFacade } = facades;
 const ACCEPTED_TYPE = 'A';

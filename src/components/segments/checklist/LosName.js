@@ -1,5 +1,5 @@
 import React from 'react';
-import { helper } from '../../utils';
+import { helper } from '../../../utils';
 
 const anchorWrap = (value, uri) => {
   if (!uri) {

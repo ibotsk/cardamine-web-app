@@ -3,7 +3,7 @@ import { Col, Row } from 'react-bootstrap';
 
 import PropTypes from 'prop-types';
 
-import LabelValue from '../../segments/LabelValue';
+import LabelValue from '../LabelValue';
 
 const PUBLICATION_MISSING = 'Not provided';
 const PUBLICATION_LABEL = 'Published in:';

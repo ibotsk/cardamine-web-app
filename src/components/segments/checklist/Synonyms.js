@@ -1,7 +1,7 @@
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 
-import LosName from '../../segments/LosName';
+import LosName from './LosName';
 
 import config from '../../../config';
 
