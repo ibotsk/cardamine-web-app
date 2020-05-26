@@ -29,6 +29,7 @@ class NameDetail extends React.Component {
       nomenclatoricSynonyms: [],
       taxonomicSynonyms: [],
       invalidDesignations: [],
+      misidentifications: [],
       basionymFor: [],
       replacedFor: [],
       nomenNovumFor: [],
@@ -40,7 +41,10 @@ class NameDetail extends React.Component {
     const { id } = params;
     const species = await checklistFacade.getSpeciesById(id);
     const {
-      nomenclatoricSynonyms, taxonomicSynonyms, invalidDesignations,
+      nomenclatoricSynonyms,
+      taxonomicSynonyms,
+      invalidDesignations,
+      misidentifications,
     } = await checklistFacade.getSynonyms(id);
 
     const {
@@ -57,6 +61,7 @@ class NameDetail extends React.Component {
       nomenclatoricSynonyms,
       taxonomicSynonyms,
       invalidDesignations,
+      misidentifications,
       basionymFor,
       replacedFor,
       nomenNovumFor,
@@ -68,6 +73,7 @@ class NameDetail extends React.Component {
       species,
       basionym, replaced, accepted,
       nomenclatoricSynonyms, taxonomicSynonyms, invalidDesignations,
+      misidentifications,
       basionymFor, replacedFor, nomenNovumFor,
     } = this.state;
     return (
@@ -91,6 +97,7 @@ class NameDetail extends React.Component {
           nomenclatoric={nomenclatoricSynonyms}
           taxonomic={taxonomicSynonyms}
           invalidDesignations={invalidDesignations}
+          misidentifications={misidentifications}
         />
 
         <NameBlock

@@ -11,8 +11,8 @@ ul li > span { padding-left: 3px; }
 }
 
 #synonyms ul ul li { margin-left: 10px; }
-#species-detail a { color: #000; text-decoration: underline; }
-#species-detail a:hover { color: #333; text-decoration: none; }
+#species-detail a { color: #000; border-bottom: 1px solid #cecece; }
+#species-detail a:hover { color: #333; text-decoration: none; border-bottom: none; }
 
 .single::before { content: "\2013"; }
 .double::before { content: "="; }
@@ -20,4 +20,9 @@ ul li > span { padding-left: 3px; }
 
 .filter-heading {
     background-color: #fafafa !important;
+}
+
+.checklist-subinfo {
+    font-size: smaller;
+    margin-left: 1em;
 }

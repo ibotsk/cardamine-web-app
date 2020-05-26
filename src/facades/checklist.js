@@ -10,20 +10,21 @@ async function getSpeciesById(id) {
 async function getSynonyms(id) {
   const nomenclatoricSynonyms = await checklistService
     .getSynonymsNomenclatoricOf(id);
-  nomenclatoricSynonyms.sort(helper.listOfSpeciesSorterLex);
 
   const taxonomicSynonyms = await checklistService
     .getSynonymsTaxonomicOf(id);
-  taxonomicSynonyms.sort(helper.listOfSpeciesSorterLex);
 
   const invalidDesignations = await checklistService
     .getInvalidDesignationsOf(id);
-  invalidDesignations.sort(helper.listOfSpeciesSorterLex);
+
+  const misidentifications = await checklistService
+    .getMisidentificationsOf(id);
 
   return {
     nomenclatoricSynonyms,
     taxonomicSynonyms,
     invalidDesignations,
+    misidentifications,
   };
 }
 

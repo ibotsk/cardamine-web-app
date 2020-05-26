@@ -12,7 +12,18 @@ const {
   nomenclatoric: nomenclatoricConfig,
   taxonomic: taxonomicConfig,
   invalid: invalidConfig,
+  misidentification: misidentificationConfig,
 } = config.mappings.synonym;
+
+const MisidentificationAuthor = ({ item }) => (
+  <div className="checklist-subinfo">
+    Misidentified by:
+    {' '}
+    {
+      `${item.misidentificationAuthor || '-'}`
+    }
+  </div>
+);
 
 const renderInvalidDesignations = (invalidDesignations) => {
   if (invalidDesignations && invalidDesignations.length > 0) {
@@ -33,8 +44,28 @@ const renderInvalidDesignations = (invalidDesignations) => {
   return null;
 };
 
+const renderMisidentifications = (misidentifications) => {
+  if (misidentifications && misidentifications.length > 0) {
+    return (
+      <div>
+        <b>Misidentifications:</b>
+        <Row>
+          <Col xs={12}>
+            <SynList
+              list={misidentifications}
+              className={misidentificationConfig.className}
+              additions={MisidentificationAuthor}
+            />
+          </Col>
+        </Row>
+      </div>
+    );
+  }
+  return null;
+};
+
 const SynList = ({
-  list, className, sublistProp, sublistClass,
+  list, className, sublistProp, sublistClass, additions: Additions,
 }) => (
   <ul>
     {
@@ -52,7 +83,15 @@ const SynList = ({
               />
               {
                 sublist && sublist.length > 0
-                && <SynList list={sublist} className={sublistClass} />
+                && (
+                  <SynList
+                    list={sublist}
+                    className={`${sublistClass} checklist-subinfo`}
+                  />
+                )
+              }
+              {
+                Additions && <Additions item={s} />
               }
             </span>
           </li>
@@ -63,7 +102,7 @@ const SynList = ({
 );
 
 const Synonyms = ({
-  id, label, nomenclatoric, taxonomic, invalidDesignations,
+  id, label, nomenclatoric, taxonomic, invalidDesignations, misidentifications,
 }) => (
   <div id={id} className="dblock">
     <div>
@@ -98,22 +137,33 @@ const Synonyms = ({
       {
         renderInvalidDesignations(invalidDesignations)
       }
+      {
+        renderMisidentifications(misidentifications)
+      }
     </div>
   </div>
 );
 
 export default Synonyms;
 
+MisidentificationAuthor.propTypes = {
+  item: PropTypes.shape({
+    misidentificationAuthor: PropTypes.string,
+  }).isRequired,
+};
+
 SynList.propTypes = {
   list: PropTypes.arrayOf(SynonymType.type).isRequired,
   className: PropTypes.string.isRequired,
   sublistProp: PropTypes.string,
   sublistClass: PropTypes.string,
+  additions: PropTypes.func,
 };
 
 SynList.defaultProps = {
   sublistProp: undefined,
   sublistClass: undefined,
+  additions: undefined,
 };
 
 Synonyms.propTypes = {
@@ -122,6 +172,7 @@ Synonyms.propTypes = {
   nomenclatoric: PropTypes.arrayOf(SynonymType.type).isRequired,
   taxonomic: PropTypes.arrayOf(SynonymType.type).isRequired,
   invalidDesignations: PropTypes.arrayOf(SynonymType.type).isRequired,
+  misidentifications: PropTypes.arrayOf(SynonymType.type).isRequired,
 };
 
 Synonyms.defaultProps = {

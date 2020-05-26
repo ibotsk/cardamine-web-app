@@ -25,6 +25,10 @@ async function getInvalidDesignationsOf(id) {
   return getById(id, config.uris.checklist.getInvalidSynonymsUri);
 }
 
+async function getMisidentificationsOf(id) {
+  return getById(id, config.uris.checklist.getMisidentificationsUri);
+}
+
 async function getBasionymOf(id) {
   return getById(id, config.uris.checklist.getBasionymUri);
 }
@@ -50,6 +54,7 @@ export default {
   getSynonymsNomenclatoricOf,
   getSynonymsTaxonomicOf,
   getInvalidDesignationsOf,
+  getMisidentificationsOf,
   getBasionymOf,
   getAcceptedOf,
   getBasionymFor,
