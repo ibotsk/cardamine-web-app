@@ -3,6 +3,10 @@ import { helper } from '../utils';
 
 const { checklist: checklistService } = services;
 
+async function getAllSpecies(where) {
+  return checklistService.getAll(where);
+}
+
 async function getSpeciesById(id) {
   return checklistService.getSpeciesById(id);
 }
@@ -54,6 +58,7 @@ async function getAcceptedOf(id) {
 }
 
 export default {
+  getAllSpecies,
   getSpeciesById,
   getSynonyms,
   getFors,

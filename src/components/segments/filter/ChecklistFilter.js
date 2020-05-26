@@ -5,6 +5,8 @@ import {
   Checkbox, Button,
 } from 'react-bootstrap';
 
+import PropTypes from 'prop-types';
+
 import config from '../../../config';
 
 const checkboxAll = 'All';
@@ -76,7 +78,17 @@ class ChecklistFilter extends React.Component {
 
   submitForm = (e) => {
     e.preventDefault();
-    console.log(e);
+
+    const { onFilter } = this.props;
+    const { typesSelected, ...filterParams } = this.state;
+    // ['All'] -> []
+    const typesSelectedFiltered = typesSelected
+      .filter((t) => t !== checkboxAll);
+
+    onFilter({
+      ...filterParams,
+      typesSelected: typesSelectedFiltered,
+    });
   }
 
   render() {
@@ -170,3 +182,7 @@ class ChecklistFilter extends React.Component {
 }
 
 export default ChecklistFilter;
+
+ChecklistFilter.propTypes = {
+  onFilter: PropTypes.func.isRequired,
+};

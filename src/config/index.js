@@ -84,6 +84,7 @@ export default {
   },
   uris: {
     checklist: {
+      getAllWFilter: `${backendBase}/api/list-of-species?filter=%7B"where":{where}%7D`,
       getSpeciesByIdUri: `${backendBase}/api/list-of-species/{id}`,
       getAcceptedNameUri: `${backendBase}/api/list-of-species/{id}/accepted`,
       getNomenclatoricSynonymsUri: `${backendBase}/api/list-of-species/{id}/synonyms-nomenclatoric`,

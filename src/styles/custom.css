@@ -10,6 +10,8 @@ ul li > span { padding-left: 3px; }
     margin-bottom: 10px;
 }
 
+#results-checklist a { color: #000; }
+
 #synonyms ul ul li { margin-left: 10px; }
 #species-detail a { color: #000; border-bottom: 1px solid #cecece; }
 #species-detail a:hover { color: #333; text-decoration: none; border-bottom: none; }
