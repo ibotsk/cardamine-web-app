@@ -32,38 +32,36 @@ class ChecklistFilter extends React.Component {
     super(props);
 
     this.state = {
-      genus: undefined,
-      species: undefined,
-      infraspecific: undefined,
-      authors: undefined,
+      genus: '',
+      species: '',
+      infraspecific: '',
+      authors: '',
       typesSelected: [checkboxAll],
     };
   }
 
-  onChangeTextInput(e) {
+  onChangeTextInput = (e) => {
     this.setState({ [e.target.id]: e.target.value });
   }
 
-  onChangeCheckbox(e) {
+  onChangeCheckbox = (e) => {
     const { value } = e.target;
     this.setState((state) => {
       const { typesSelected } = state;
       const typesSelectedHandled = handleCheckboxes(value, typesSelected);
-      console.log(typesSelectedHandled);
-
       return {
         typesSelected: typesSelectedHandled,
       };
     });
   }
 
-  isChecked(value) {
+  isChecked = (value) => {
     const { typesSelected } = this.state;
     return typesSelected.includes(value);
   }
 
-  typeCheckboxes() {
-    return allTypes.map((type) => (
+  typeCheckboxes = () => (
+    allTypes.map((type) => (
       <Checkbox
         key={type}
         name={type}
@@ -73,12 +71,12 @@ class ChecklistFilter extends React.Component {
       >
         {config.mappings.losType[type].text}
       </Checkbox>
-    ));
-  }
+    ))
+  );
 
-  submitForm(event) {
-    event.preventDefault();
-    console.log(event);
+  submitForm = (e) => {
+    e.preventDefault();
+    console.log(e);
   }
 
   render() {
@@ -87,7 +85,7 @@ class ChecklistFilter extends React.Component {
     } = this.state;
     return (
       <Panel.Body>
-        <Form horizontal onSubmit={(e) => this.submitForm(e)}>
+        <Form horizontal onSubmit={this.submitForm}>
           <Row>
             <Col md={4}>
               <h4>Name search: </h4>
@@ -99,7 +97,7 @@ class ChecklistFilter extends React.Component {
                   <FormControl
                     type="text"
                     value={genus}
-                    onChange={(e) => this.onChangeTextInput(e)}
+                    onChange={this.onChangeTextInput}
                     placeholder="Genus"
                   />
                 </Col>
@@ -112,8 +110,8 @@ class ChecklistFilter extends React.Component {
                   <FormControl
                     type="text"
                     value={species}
-                    onChange={(e) => this.onChangeTextInput(e)}
-                    placeholder="Specied"
+                    onChange={this.onChangeTextInput}
+                    placeholder="Species"
                   />
                 </Col>
               </FormGroup>
@@ -125,7 +123,7 @@ class ChecklistFilter extends React.Component {
                   <FormControl
                     type="text"
                     value={infraspecific}
-                    onChange={(e) => this.onChangeTextInput(e)}
+                    onChange={this.onChangeTextInput}
                     placeholder="Infraspecific epithet"
                   />
                 </Col>
@@ -141,7 +139,7 @@ class ChecklistFilter extends React.Component {
                   <FormControl
                     type="text"
                     value={authors}
-                    onChange={(e) => this.onChangeTextInput(e)}
+                    onChange={this.onChangeTextInput}
                     placeholder="Authors"
                   />
                 </Col>
@@ -151,7 +149,7 @@ class ChecklistFilter extends React.Component {
               <Checkbox
                 name={checkboxAll}
                 value={checkboxAll}
-                onChange={(e) => this.onChangeCheckbox(e)}
+                onChange={this.onChangeCheckbox}
                 checked={this.isChecked(checkboxAll)}
               >
                 All names
