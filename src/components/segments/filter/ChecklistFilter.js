@@ -13,20 +13,20 @@ const checkboxAll = 'All';
 const allTypes = Object.keys(config.mappings.losType);
 
 const handleCheckboxes = (value, list) => {
-  let checkedList = [...list];
   if (value === checkboxAll) {
-    if (list.includes(value)) {
-      checkedList = [...allTypes]; // uncheck 'All' -> check others
-    } else {
-      checkedList = [value]; // check 'All' -> uncheck others
-    }
-  } else {
-    if (list.includes(checkboxAll)) { // check any other -> unchec 'All'
-      checkedList = [];
-    }
-    checkedList.push(value);
+    return [checkboxAll];
   }
-  return checkedList;
+  const checkboxList = list.filter((c) => c !== checkboxAll);
+
+  if (checkboxList.includes(value)) {
+    if (checkboxList.length <= 1) {
+      return [checkboxAll];
+    }
+    return checkboxList.filter((c) => c !== value);
+  }
+
+  checkboxList.push(value);
+  return checkboxList;
 };
 
 class ChecklistFilter extends React.Component {
@@ -166,14 +166,14 @@ class ChecklistFilter extends React.Component {
               >
                 All names
               </Checkbox>
-              <div>or (multiple choices possible):</div>
+              <div>or select individually:</div>
               {
-                  this.typeCheckboxes()
+                this.typeCheckboxes()
               }
             </Col>
           </Row>
           <div className="text-center">
-            <Button bsStyle="default" type="submit">Find</Button>
+            <Button bsStyle="primary" type="submit">Find</Button>
           </div>
         </Form>
       </Panel.Body>
