@@ -11,10 +11,24 @@ const getById = async (id, uri) => {
   return result.data;
 };
 
-async function getAll(where = {}) {
+async function getAll(where = {}, offset = 0, limit = 25) {
   const parsedUri = template
     .parse(uris.checklist.getAllWFilter)
-    .expand({ where: JSON.stringify(where) });
+    .expand({
+      where: JSON.stringify(where),
+      offset,
+      limit,
+    });
+  const result = await axios.get(parsedUri);
+  return result.data;
+}
+
+async function getCount(where = {}) {
+  const parsedUri = template
+    .parse(uris.checklist.getCount)
+    .expand({
+      where: JSON.stringify(where),
+    });
   const result = await axios.get(parsedUri);
   return result.data;
 }
@@ -61,6 +75,7 @@ async function getNomenNovumFor(id) {
 
 export default {
   getAll,
+  getCount,
   getSpeciesById,
   getSynonymsNomenclatoricOf,
   getSynonymsTaxonomicOf,

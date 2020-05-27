@@ -3,8 +3,13 @@ import { helper } from '../utils';
 
 const { checklist: checklistService } = services;
 
-async function getAllSpecies(where) {
-  return checklistService.getAll(where);
+async function getAllSpecies(where, offset, limit) {
+  return checklistService.getAll(where, offset, limit);
+}
+
+async function getAllCount(where) {
+  const countObj = await checklistService.getCount(where);
+  return countObj.count;
 }
 
 async function getSpeciesById(id) {
@@ -59,6 +64,7 @@ async function getAcceptedOf(id) {
 
 export default {
   getAllSpecies,
+  getAllCount,
   getSpeciesById,
   getSynonyms,
   getFors,

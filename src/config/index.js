@@ -1,4 +1,6 @@
 /* eslint-disable max-len */
+import pagination from './pagination';
+
 const backendBase = `${process.env.REACT_APP_BACKEND_BASE}:${process.env.REACT_APP_BACKEND_PORT}`;
 
 export default {
@@ -90,6 +92,8 @@ export default {
     checklist: {
       getAllWFilter: `${backendBase}/api/list-of-species?filter=%7B
       "where":{where},
+      "offset":{offset},
+      "limit":{limit},
       "include":"accepted",
       "order":[
         "ntype_order","genus","species","subsp","var","subvar","forma","unranked","authors",
@@ -105,7 +109,8 @@ export default {
       getBasionymForUri: `${backendBase}/api/list-of-species/{id}/basionym-for`,
       getReplacedForUri: `${backendBase}/api/list-of-species/{id}/replaced-for`,
       getNomenNovumForUri: `${backendBase}/api/list-of-species/{id}/nomen-novum-for`,
+      getCount: `${backendBase}/api/list-of-species/count?where={where}`,
     },
   },
-
+  pagination,
 };
