@@ -127,8 +127,6 @@ const listOfSpeciesFormat = (nomenclature, options = {}) => {
   if (opts.isTribus && tribus) {
     name.push(Plain(tribus));
   }
-  
-  console.log(name);
   return name;
 };
 

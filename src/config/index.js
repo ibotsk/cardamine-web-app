@@ -56,6 +56,10 @@ export default {
         text: 'Designation not validly published',
         colour: '#ff6666',
       },
+      N: {
+        text: 'Unassigned',
+        colour: '#8b8b8b',
+      },
     },
     synonym: {
       nomenclatoric: {
@@ -84,7 +88,13 @@ export default {
   },
   uris: {
     checklist: {
-      getAllWFilter: `${backendBase}/api/list-of-species?filter=%7B"where":{where}%7D`,
+      getAllWFilter: `${backendBase}/api/list-of-species?filter=%7B
+      "where":{where},
+      "include":"accepted",
+      "order":[
+        "ntype_order","genus","species","subsp","var","subvar","forma","unranked","authors",
+        "genus_h","species_h","subsp_h","var_h","subvar_h","forma_h","authors_h","id"
+      ]%7D`,
       getSpeciesByIdUri: `${backendBase}/api/list-of-species/{id}`,
       getAcceptedNameUri: `${backendBase}/api/list-of-species/{id}/accepted`,
       getNomenclatoricSynonymsUri: `${backendBase}/api/list-of-species/{id}/synonyms-nomenclatoric`,

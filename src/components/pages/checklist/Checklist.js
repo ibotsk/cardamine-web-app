@@ -7,12 +7,36 @@ import FilterToggleWrapper from '../../segments/filter/FilterToggleWrapper';
 import ChecklistFilter from '../../segments/filter/ChecklistFilter';
 import LosName from '../../segments/checklist/LosName';
 
+import SpeciesPropType from '../../propTypes/species';
+
 import facades from '../../../facades';
 
 import { where as whereUtils } from '../../../utils';
 import config from '../../../config';
 
 const { checklist: checklistFacade } = facades;
+const { mappings: { losType: losTypeConfig }, routes } = config;
+
+const nameUri = (id) => `${routes.checklist}/${id}`;
+
+const SynonymOf = ({ accepted }) => {
+  if (!accepted) {
+    return null;
+  }
+  return (
+    <>
+      {' '}
+      of
+      {' '}
+      <LosName
+        data={accepted}
+        format="italic"
+        isPublication
+        uri={nameUri(accepted.id)}
+      />
+    </>
+  );
+};
 
 const columns = [
   {
@@ -23,18 +47,31 @@ const columns = [
   {
     dataField: 'name',
     text: 'Name',
+    headerClasses: 'warning',
+    headerStyle: { width: '50%' },
     formatter: (cell, row) => (
       <LosName
         data={row}
         format="italic"
-        uri={`${config.routes.checklist}/${row.id}`}
+        uri={nameUri(row.id)}
       />
     ),
   },
   {
     dataField: 'price',
     text: 'Status',
-    formatter: (cell, row) => row.ntype,
+    headerClasses: 'warning',
+    headerStyle: { width: '50%' },
+    formatter: (cell, row) => (
+      <>
+        <span
+          style={{ color: losTypeConfig[row.ntype].colour }}
+        >
+          {losTypeConfig[row.ntype].text}
+        </span>
+        <SynonymOf accepted={row.accepted} />
+      </>
+    ),
   },
 ];
 
@@ -65,7 +102,6 @@ class Checklist extends React.Component {
 
   render() {
     const { results } = this.state;
-
     return (
       <div>
         <Grid>
@@ -85,3 +121,11 @@ class Checklist extends React.Component {
 }
 
 export default Checklist;
+
+SynonymOf.propTypes = {
+  accepted: SpeciesPropType.type,
+};
+
+SynonymOf.defaultProps = {
+  accepted: undefined,
+};
