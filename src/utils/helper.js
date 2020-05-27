@@ -53,7 +53,7 @@ const infraTaxa = (nomenclature) => {
 };
 
 const invalidDesignation = (name, syntype) => {
-  if (syntype === 'I') {
+  if (syntype === '1') {
     let newname = [];
     newname.push(Plain('"'));
     newname = newname.concat(name);
@@ -70,7 +70,6 @@ const listOfSpeciesFormat = (nomenclature, options = {}) => {
     ...options,
   };
   const {
-    ntype,
     species, genus,
     subsp, var: varieta, forma,
     authors, publication, tribus,
@@ -119,19 +118,17 @@ const listOfSpeciesFormat = (nomenclature, options = {}) => {
     name = name.concat(listOfSpeciesFormat(h));
   }
 
-  name = invalidDesignation(name, ntype);
+  name = invalidDesignation(name, options.syntype);
 
-  if (opts.isPublication) {
-    if (nomenclature.publication) {
-      name.push(Plain(`, ${publication}`));
-    }
+  if (opts.isPublication && publication) {
+    name.push(Plain(','));
+    name.push(Plain(publication));
   }
-  if (opts.isTribus) {
-    if (tribus) {
-      name.push(Plain(tribus));
-    }
+  if (opts.isTribus && tribus) {
+    name.push(Plain(tribus));
   }
-
+  
+  console.log(name);
   return name;
 };
 
@@ -149,7 +146,10 @@ function listOfSpeciesForComponent(name, formatString, options = {}) {
 
   return formattedNameArr
     .reduce((acc, el) => acc.concat(el, ' '), [])
-    .slice(0, -1);
+    .slice(0, -1)
+    .filter((e, i, arr) => ( // remove all spaces that are followed by a comma
+      e !== ' ' || arr[i + 1] === undefined || arr[i + 1] !== ','
+    ));
 }
 
 function listOfSpeciesString(name) {
