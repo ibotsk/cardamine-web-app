@@ -1,7 +1,5 @@
-import services from '../services';
+import { checklist as checklistService } from '../services';
 import { helper } from '../utils';
-
-const { checklist: checklistService } = services;
 
 async function getAllSpecies(where, offset, limit) {
   return checklistService.getAll(where, offset, limit);
