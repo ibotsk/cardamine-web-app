@@ -3,19 +3,18 @@ import { Grid, Panel, Well } from 'react-bootstrap';
 
 import PropTypes from 'prop-types';
 
+import ListBlock from '../../segments/checklist/ListBlock';
 import LosName from '../../segments/checklist/LosName';
+import NameBlock from '../../segments/checklist/NameBlock';
 import Publication from '../../segments/checklist/Publication';
 import Synonyms from '../../segments/checklist/Synonyms';
-import NameBlock from '../../segments/checklist/NameBlock';
-import ListBlock from '../../segments/checklist/ListBlock';
+import Typification from '../../segments/checklist/Typification';
 
 import facades from '../../../facades';
 import {
   formatter,
   utils as otherUtils,
 } from '../../../utils';
-import LabelValue from '../../segments/LabelValue';
-import Typification from '../../segments/checklist/Typification';
 
 const { checklist: checklistFacade } = facades;
 
@@ -87,7 +86,8 @@ class NameDetail extends React.Component {
       nomenclatoricSynonyms, taxonomicSynonyms, invalidDesignations,
       misidentifications,
       basionymFor, replacedFor, nomenNovumFor,
-    } = this.state;    
+    } = this.state;
+
     return (
       <Grid id="species-detail">
         <Well id="name">

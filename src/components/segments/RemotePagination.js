@@ -28,7 +28,7 @@ const customTotal = (from, to, size) => (
     {' '}
     {size}
     {' '}
-    Results
+    results
   </span>
 );
 
