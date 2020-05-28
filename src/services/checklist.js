@@ -57,6 +57,14 @@ async function getBasionymOf(id) {
   return getById(id, uris.checklist.getBasionymUri);
 }
 
+async function getReplacedOf(id) {
+  return getById(id, uris.checklist.getReplacedUri);
+}
+
+async function getNomenNovumOf(id) {
+  return getById(id, uris.checklist.getNomenNovumUri);
+}
+
 async function getAcceptedOf(id) {
   return getById(id, uris.checklist.getAcceptedNameUri);
 }
@@ -81,8 +89,10 @@ export default {
   getSynonymsTaxonomicOf,
   getInvalidDesignationsOf,
   getMisidentificationsOf,
-  getBasionymOf,
   getAcceptedOf,
+  getBasionymOf,
+  getReplacedOf,
+  getNomenNovumOf,
   getBasionymFor,
   getReplacedFor,
   getNomenNovumFor,

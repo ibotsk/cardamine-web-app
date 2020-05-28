@@ -106,6 +106,8 @@ export default {
       getInvalidSynonymsUri: `${backendBase}/api/list-of-species/{id}/synonyms-invalid`,
       getMisidentificationsUri: `${backendBase}/api/list-of-species/{id}/synonyms-misidentification`,
       getBasionymUri: `${backendBase}/api/list-of-species/{id}/basionym`,
+      getReplacedUri: `${backendBase}/api/list-of-species/{id}/replaced`,
+      getNomenNovumUri: `${backendBase}/api/list-of-species/{id}/nomen-novum`,
       getBasionymForUri: `${backendBase}/api/list-of-species/{id}/basionym-for`,
       getReplacedForUri: `${backendBase}/api/list-of-species/{id}/replaced-for`,
       getNomenNovumForUri: `${backendBase}/api/list-of-species/{id}/nomen-novum-for`,

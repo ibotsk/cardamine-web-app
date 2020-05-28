@@ -56,13 +56,18 @@ class NameDetail extends React.Component {
       basionymFor, replacedFor, nomenNovumFor,
     } = await checklistFacade.getFors(id);
 
-    const basionym = await checklistFacade.getBasionymOf(id);
+    const {
+      basionym, replaced, nomenNovum,
+    } = await checklistFacade.getBasionymReplacedNovumOf(id);
+
     const accepted = await checklistFacade.getAcceptedOf(id);
 
     this.setState({
       species,
-      basionym,
       accepted,
+      basionym,
+      replaced,
+      nomenNovum,
       nomenclatoricSynonyms,
       taxonomicSynonyms,
       invalidDesignations,
@@ -75,8 +80,8 @@ class NameDetail extends React.Component {
 
   render() {
     const {
-      species,
-      basionym, replaced, accepted,
+      species, accepted,
+      basionym, replaced, nomenNovum,
       nomenclatoricSynonyms, taxonomicSynonyms, invalidDesignations,
       misidentifications,
       basionymFor, replacedFor, nomenNovumFor,
@@ -115,6 +120,15 @@ class NameDetail extends React.Component {
               isPublication
               format="italic"
               uri={otherUtils.getSpeciesDetailUri(replaced.id)}
+              defaultValue="-"
+            />
+            <NameBlock
+              id="nomen-novum"
+              label="Nomen novum:"
+              data={nomenNovum}
+              isPublication
+              format="italic"
+              uri={otherUtils.getSpeciesDetailUri(nomenNovum.id)}
               defaultValue="-"
             />
           </Panel.Body>

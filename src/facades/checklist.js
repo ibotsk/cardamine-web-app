@@ -58,6 +58,18 @@ async function getBasionymOf(id) {
   return checklistService.getBasionymOf(id);
 }
 
+async function getBasionymReplacedNovumOf(id) {
+  const basionym = await checklistService.getBasionymOf(id);
+  const replaced = await checklistService.getReplacedOf(id);
+  const nomenNovum = await checklistService.getNomenNovumOf(id);
+
+  return {
+    basionym,
+    replaced,
+    nomenNovum,
+  };
+}
+
 async function getAcceptedOf(id) {
   return checklistService.getAcceptedOf(id);
 }
@@ -69,5 +81,6 @@ export default {
   getSynonyms,
   getFors,
   getBasionymOf,
+  getBasionymReplacedNovumOf,
   getAcceptedOf,
 };
