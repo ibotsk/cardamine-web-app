@@ -9,17 +9,19 @@ import SpeciesPropType from '../../propTypes/species';
 
 import facades from '../../../facades';
 
-import { where as whereUtils } from '../../../utils';
+import {
+  where as whereUtils,
+  utils as otherUtils,
+} from '../../../utils';
+
 import config from '../../../config';
+
 import RemotePagination from '../../segments/RemotePagination';
 
 const { checklist: checklistFacade } = facades;
 const {
   mappings: { losType: losTypeConfig },
-  routes,
 } = config;
-
-const nameUri = (id) => `${routes.checklist}/${id}`;
 
 const SynonymOf = ({ accepted }) => {
   if (!accepted) {
@@ -34,7 +36,7 @@ const SynonymOf = ({ accepted }) => {
         data={accepted}
         format="italic"
         isPublication
-        uri={nameUri(accepted.id)}
+        uri={otherUtils.getSpeciesDetailUri(accepted.id)}
       />
     </>
   );
@@ -55,7 +57,7 @@ const columns = [
       <LosName
         data={row}
         format="italic"
-        uri={nameUri(row.id)}
+        uri={otherUtils.getSpeciesDetailUri(row.id)}
       />
     ),
   },

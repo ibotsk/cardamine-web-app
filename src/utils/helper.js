@@ -2,7 +2,6 @@ import Mustache from 'mustache';
 import config from '../config';
 import formatter from './formatter';
 
-
 const configName = config.nomenclature.name;
 const ff = config.format.formatted;
 const plf = config.format.plain;

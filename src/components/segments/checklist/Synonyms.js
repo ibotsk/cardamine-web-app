@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row, Panel } from 'react-bootstrap';
 
 import PropTypes from 'prop-types';
 
@@ -104,44 +104,37 @@ const SynList = ({
 const Synonyms = ({
   id, label, nomenclatoric, taxonomic, invalidDesignations, misidentifications,
 }) => (
-  <div id={id} className="dblock">
-    <div>
+  <Panel id={id}>
+    <Panel.Body>
+      <span className="dlabel">{label}</span>
       {
-        label
-        && <b>{label}</b>
+        nomenclatoric && nomenclatoric.length > 0
+        && (
+          <SynList
+            list={nomenclatoric}
+            className={nomenclatoricConfig.className}
+          />
+        )
       }
-      <Row>
-        <Col xs={12}>
-          {
-            nomenclatoric && nomenclatoric.length > 0
-            && (
-              <SynList
-                list={nomenclatoric}
-                className={nomenclatoricConfig.className}
-              />
-            )
-          }
-          {
-            taxonomic && taxonomic.length > 0
-            && (
-              <SynList
-                list={taxonomic}
-                className={taxonomicConfig.className}
-                sublistProp="synonyms-nomenclatoric"
-                sublistClass={nomenclatoricConfig.className}
-              />
-            )
-          }
-        </Col>
-      </Row>
+      {
+        taxonomic && taxonomic.length > 0
+        && (
+          <SynList
+            list={taxonomic}
+            className={taxonomicConfig.className}
+            sublistProp="synonyms-nomenclatoric"
+            sublistClass={nomenclatoricConfig.className}
+          />
+        )
+      }
       {
         renderInvalidDesignations(invalidDesignations)
       }
       {
         renderMisidentifications(misidentifications)
       }
-    </div>
-  </div>
+    </Panel.Body>
+  </Panel>
 );
 
 export default Synonyms;
@@ -168,7 +161,7 @@ SynList.defaultProps = {
 
 Synonyms.propTypes = {
   id: PropTypes.string,
-  label: PropTypes.string,
+  label: PropTypes.string.isRequired,
   nomenclatoric: PropTypes.arrayOf(SynonymType.type).isRequired,
   taxonomic: PropTypes.arrayOf(SynonymType.type).isRequired,
   invalidDesignations: PropTypes.arrayOf(SynonymType.type).isRequired,
@@ -177,5 +170,4 @@ Synonyms.propTypes = {
 
 Synonyms.defaultProps = {
   id: undefined,
-  label: undefined,
 };

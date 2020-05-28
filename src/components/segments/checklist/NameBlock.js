@@ -8,25 +8,32 @@ import LosName from './LosName';
 import SpeciesType from '../../propTypes/species';
 
 import { utils } from '../../../utils';
-import config from '../../../config';
 
-const NameBlock = ({ id, data, label }) => {
-  if (utils.isEmptyObj(data)) {
+const NameBlock = ({
+  id, data, label, isPublication = false, format, uri, defaultValue,
+}) => {
+  if (defaultValue === undefined && utils.isEmptyObj(data)) {
     return null;
   }
+  let value = defaultValue;
+  if (!utils.isEmptyObj(data)) {
+    value = (
+      <LosName
+        data={data}
+        isPublication={isPublication}
+        format={format}
+        uri={uri}
+      />
+    );
+  }
+
   return (
     <div id={id}>
       <Row className="dblock">
         <Col xs={12}>
           <LabelValue
             label={label}
-            value={(
-              <LosName
-                data={data}
-                isPublication
-                uri={`${config.routes.checklist}/${data.id}`}
-              />
-            )}
+            value={value}
           />
         </Col>
       </Row>
@@ -37,11 +44,20 @@ const NameBlock = ({ id, data, label }) => {
 export default NameBlock;
 
 NameBlock.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string,
   data: SpeciesType.type,
   label: PropTypes.string.isRequired,
+  isPublication: PropTypes.bool,
+  format: PropTypes.string,
+  uri: PropTypes.string,
+  defaultValue: PropTypes.string,
 };
 
 NameBlock.defaultProps = {
+  id: undefined,
   data: {},
+  isPublication: false,
+  format: undefined,
+  uri: undefined,
+  defaultValue: undefined,
 };

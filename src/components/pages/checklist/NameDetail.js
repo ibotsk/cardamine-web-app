@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Well } from 'react-bootstrap';
+import { Grid, Panel, Well } from 'react-bootstrap';
 
 import PropTypes from 'prop-types';
 
@@ -10,9 +10,13 @@ import NameBlock from '../../segments/checklist/NameBlock';
 import ListBlock from '../../segments/checklist/ListBlock';
 
 import facades from '../../../facades';
-import { formatter } from '../../../utils';
+import {
+  formatter,
+  utils as otherUtils,
+} from '../../../utils';
 
 const { checklist: checklistFacade } = facades;
+
 const ACCEPTED_TYPE = 'A';
 
 const isAccepted = (species) => species.ntype === ACCEPTED_TYPE;
@@ -26,6 +30,7 @@ class NameDetail extends React.Component {
       accepted: {},
       basionym: {},
       replaced: {},
+      nomenNovum: {},
       nomenclatoricSynonyms: [],
       taxonomicSynonyms: [],
       invalidDesignations: [],
@@ -86,41 +91,85 @@ class NameDetail extends React.Component {
             {formatter.speciesType(species.ntype)}
           </h4>
         </Well>
+        <Panel id="species-detail-publication">
+          <Panel.Body>
+            <Publication publication={species.publication} />
+          </Panel.Body>
+        </Panel>
 
-        <Publication publication={species.publication} />
+        <Panel id="species-detail-brn">
+          <Panel.Body>
+            <NameBlock
+              id="basionym"
+              label="Basionym:"
+              data={basionym}
+              isPublication
+              format="italic"
+              uri={otherUtils.getSpeciesDetailUri(basionym.id)}
+              defaultValue="-"
+            />
+            <NameBlock
+              id="replaced"
+              label="Replaced:"
+              data={replaced}
+              isPublication
+              format="italic"
+              uri={otherUtils.getSpeciesDetailUri(replaced.id)}
+              defaultValue="-"
+            />
+          </Panel.Body>
+        </Panel>
 
-        <NameBlock id="basionym" label="Basionym:" data={basionym} />
-        <NameBlock id="replaced" label="Replaced:" data={replaced} />
+        {
+          isAccepted(species) && (
+            <Synonyms
+              label="Synonyms:"
+              nomenclatoric={nomenclatoricSynonyms}
+              taxonomic={taxonomicSynonyms}
+              invalidDesignations={invalidDesignations}
+              misidentifications={misidentifications}
+            />
+          )
+        }
 
-        <Synonyms
-          label={isAccepted(species) ? 'Synonyms:' : undefined}
-          nomenclatoric={nomenclatoricSynonyms}
-          taxonomic={taxonomicSynonyms}
-          invalidDesignations={invalidDesignations}
-          misidentifications={misidentifications}
-        />
+        {
+          accepted.id && (
+            <Panel id="specied-detail-accepted">
+              <Panel.Body>
+                <NameBlock
+                  label="Accepted name:"
+                  data={accepted}
+                  isPublication
+                  format="italic"
+                  uri={otherUtils.getSpeciesDetailUri(accepted.id)}
+                />
+              </Panel.Body>
+            </Panel>
+          )
+        }
 
-        <NameBlock
-          id="accepted-name"
-          label="Accepted name:"
-          data={accepted}
-        />
-
-        <ListBlock
-          id="basionym-for"
-          label="Basionym for:"
-          data={basionymFor}
-        />
-        <ListBlock
-          id="replaced-for"
-          label="Replaced for:"
-          data={replacedFor}
-        />
-        <ListBlock
-          id="nomen-novum-for"
-          label="Nomen novum for:"
-          data={nomenNovumFor}
-        />
+        <Panel id="species-detail-fors">
+          <Panel.Body>
+            <ListBlock
+              id="basionym-for"
+              label="Basionym for:"
+              data={basionymFor}
+              defaultValue="-"
+            />
+            <ListBlock
+              id="replaced-for"
+              label="Replaced for:"
+              data={replacedFor}
+              defaultValue="-"
+            />
+            <ListBlock
+              id="nomen-novum-for"
+              label="Nomen novum for:"
+              data={nomenNovumFor}
+              defaultValue="-"
+            />
+          </Panel.Body>
+        </Panel>
       </Grid>
     );
   }
