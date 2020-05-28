@@ -14,6 +14,8 @@ import {
   formatter,
   utils as otherUtils,
 } from '../../../utils';
+import LabelValue from '../../segments/LabelValue';
+import Typification from '../../segments/checklist/Typification';
 
 const { checklist: checklistFacade } = facades;
 
@@ -85,7 +87,7 @@ class NameDetail extends React.Component {
       nomenclatoricSynonyms, taxonomicSynonyms, invalidDesignations,
       misidentifications,
       basionymFor, replacedFor, nomenNovumFor,
-    } = this.state;
+    } = this.state;    
     return (
       <Grid id="species-detail">
         <Well id="name">
@@ -184,6 +186,11 @@ class NameDetail extends React.Component {
             />
           </Panel.Body>
         </Panel>
+
+        <Typification
+          id="species-detail-typification"
+          species={species}
+        />
       </Grid>
     );
   }
