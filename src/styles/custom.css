@@ -1,0 +1,32 @@
+ul { list-style: none; padding: 0px; }
+ul li > span { padding-left: 3px; }
+
+.dlabel {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.dblock {
+    margin-bottom: 10px;
+}
+
+#results-checklist a { color: #000 !important; }
+
+#synonyms ul ul li { margin-left: 10px; }
+
+#species-detail a { color: #000; border-bottom: 1px solid #cecece; }
+#species-detail a:hover { color: #333; text-decoration: none; border-bottom: none; }
+#species-detail ul { margin-left: 10px; }
+
+.single::before { content: "\2013"; }
+.double::before { content: "="; }
+.tripple::before { content: "\2261"; }
+
+.filter-heading {
+    background-color: #fafafa !important;
+}
+
+.checklist-subinfo {
+    font-size: smaller;
+    margin-left: 1em;
+}

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Grid } from 'react-bootstrap';
 
-const Home = () => (
+const Chromosomes = () => (
   <Grid>
-    Home
+    Chromosome data
   </Grid>
 );
 
-export default Home;
+export default Chromosomes;
