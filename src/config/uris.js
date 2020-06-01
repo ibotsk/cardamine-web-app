@@ -28,7 +28,9 @@ const uris = {
     getCount: `${backendBase}/api/list-of-species/count?where={where}`,
   },
   chromosomes: {
-    getByIdUri: `${backendBase}/api/cdata/{id}`,
+    getByIdUri: `${backendBase}/api/cdata/{id}?filter=%7B
+      "include":["counted-by"]
+    %7D`,
   },
 };
 
