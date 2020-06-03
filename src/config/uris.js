@@ -42,7 +42,10 @@ const uris = {
               %7D
             %7D,
             "collected-by",
-            "identified-by"
+            "identified-by",
+            %7B
+              "reference":"literature"
+            %7D
           ]
         %7D
     ]

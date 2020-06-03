@@ -264,23 +264,23 @@ function makeWhere(filters) {
 
 function parsePublication(publication) {
   const {
-    type, authors, title, series, volume, issue,
-    publisher, editor, year, pages, journal,
+    displayType, paperAuthor, paperTitle,
+    seriesSource, volume, issue,
+    publisher, editor, year, pages, journalName,
   } = publication;
-  const typeMapping = config.mappings.displayType[type].name;
-  const template = config.nomenclature.publication[typeMapping];
+  const template = config.mappings.publication[displayType];
 
   return Mustache.render(template, {
-    authors,
-    title,
-    series,
+    authors: paperAuthor,
+    title: paperTitle,
+    series: seriesSource,
     volume,
     issue: issue ? `(${issue})` : '',
     publisher,
     editor,
     year,
     pages,
-    journal,
+    journal: journalName,
   });
 }
 

@@ -11,6 +11,7 @@ import { chromosomes as chromosomesFacade } from '../../../facades';
 import DNAContent from '../../segments/chromosomes/DNAContent';
 import Locality from '../../segments/chromosomes/Locality';
 import Material from '../../segments/chromosomes/Material';
+import Reference from '../../segments/chromosomes/Reference';
 
 class ChromRecordDetail extends React.Component {
   constructor(props) {
@@ -18,21 +19,31 @@ class ChromRecordDetail extends React.Component {
 
     this.state = {
       record: {},
+      dna: {},
+      material: {},
+      reference: {},
     };
   }
 
   async componentDidMount() {
     const { match: { params } } = this.props;
     const { id } = params;
-    const record = await chromosomesFacade.getRecordById(id);
+    const {
+      record, dna, material, reference,
+    } = await chromosomesFacade.getRecordById(id);
 
     this.setState({
       record,
+      dna,
+      material,
+      reference,
     });
   }
 
   render() {
-    const { record } = this.state;
+    const {
+      record, dna, material, reference,
+    } = this.state;
 
     return (
       <Grid>
@@ -53,28 +64,28 @@ class ChromRecordDetail extends React.Component {
         <h4>Estimated ploidy level and/or DNA content</h4>
         <Panel>
           <Panel.Body>
-            <DNAContent data={record.dna || {}} />
+            <DNAContent data={dna} />
           </Panel.Body>
         </Panel>
 
         <h4>Locality</h4>
         <Panel>
           <Panel.Body>
-            <Locality data={record.material || {}} />
+            <Locality data={material} />
           </Panel.Body>
         </Panel>
 
         <h4>Material</h4>
         <Panel>
           <Panel.Body>
-            <Material data={record.material || {}} />
+            <Material data={material} />
           </Panel.Body>
         </Panel>
 
         <h4>Reference</h4>
         <Panel>
           <Panel.Body>
-            ...
+            <Reference data={reference} />
           </Panel.Body>
         </Panel>
       </Grid>

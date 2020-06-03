@@ -80,6 +80,17 @@ export default {
         className: 'single',
       },
     },
+    publication: {
+      1:
+        '{{authors}} ({{year}}) {{title}}. {{journal}}, {{volume}}{{issue}}:{{pages}}',
+      2: '{{authors}} ({{year}}) {{title}}. {{publisher}}. {{pages}}',
+      3:
+        '{{authors}} ({{year}}) {{title}}. In: (eds.) {{editor}}, {{series}}. {{publisher}}. {{pages}}',
+      4:
+        '{{authors}} ({{year}}) {{title}}. In: (eds.) {{editor}}, {{series}}. {{publisher}}. {{pages}}',
+      5:
+        '{{authors}} ({{year}}) {{title}}. In: (eds.) {{editor}}, {{series}}. {{journal}}, {{volume}}{{issue}}:{{pages}}',
+    },
   },
   routes: {
     home: '/',
