@@ -29,7 +29,23 @@ const uris = {
   },
   chromosomes: {
     getByIdUri: `${backendBase}/api/cdata/{id}?filter=%7B
-      "include":["counted-by","dna"]
+      "include":[
+        "counted-by",
+        "dna",
+        %7B
+          "material":[
+            %7B
+              "world-l4":%7B
+                "world-l3":%7B
+                  "world-l2":"world-l1"
+                %7D
+              %7D
+            %7D,
+            "collected-by",
+            "identified-by"
+          ]
+        %7D
+    ]
     %7D`,
   },
 };

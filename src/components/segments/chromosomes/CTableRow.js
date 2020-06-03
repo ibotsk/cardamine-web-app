@@ -4,10 +4,16 @@ import PropTypes from 'prop-types';
 
 const DEFAULT = '-';
 
-const CTableRow = ({ label, value = DEFAULT }) => (
+const CTableRow = ({
+  label, value = DEFAULT, children,
+}) => (
   <tr>
     <td><strong>{label}</strong></td>
-    <td colSpan="2">{value || DEFAULT}</td>
+    {
+      !children
+      && <td colSpan="2">{value || DEFAULT}</td>
+    }
+    {children}
   </tr>
 );
 
@@ -20,8 +26,13 @@ CTableRow.propTypes = {
     PropTypes.number,
     PropTypes.element,
   ]),
+  children: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.element),
+  ]),
 };
 
 CTableRow.defaultProps = {
   value: DEFAULT,
+  children: undefined,
 };

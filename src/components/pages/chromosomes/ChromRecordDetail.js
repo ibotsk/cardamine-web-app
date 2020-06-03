@@ -9,6 +9,8 @@ import ChromosomeNumberDetail
 
 import { chromosomes as chromosomesFacade } from '../../../facades';
 import DNAContent from '../../segments/chromosomes/DNAContent';
+import Locality from '../../segments/chromosomes/Locality';
+import Material from '../../segments/chromosomes/Material';
 
 class ChromRecordDetail extends React.Component {
   constructor(props) {
@@ -58,14 +60,14 @@ class ChromRecordDetail extends React.Component {
         <h4>Locality</h4>
         <Panel>
           <Panel.Body>
-            ...
+            <Locality data={record.material || {}} />
           </Panel.Body>
         </Panel>
 
         <h4>Material</h4>
         <Panel>
           <Panel.Body>
-            ...
+            <Material data={record.material || {}} />
           </Panel.Body>
         </Panel>
 
