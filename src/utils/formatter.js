@@ -52,9 +52,18 @@ const chromosomes = (dn, n, dnaC, sign = '=') => {
   return undefined;
 };
 
+const genomeSize = (c, from, to, units) => {
+  if (!from && !to) {
+    return undefined;
+  }
+  const fromTo = [from, to].filter((e) => !!e).join('-');
+  return `${c} = ${fromTo} ${units}`;
+};
+
 export default {
   format,
   eda,
   speciesType,
   chromosomes,
+  genomeSize,
 };

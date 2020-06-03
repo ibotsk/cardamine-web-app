@@ -8,6 +8,7 @@ import ChromosomeNumberDetail
   from '../../segments/chromosomes/ChromosomeNumberDetail';
 
 import { chromosomes as chromosomesFacade } from '../../../facades';
+import DNAContent from '../../segments/chromosomes/DNAContent';
 
 class ChromRecordDetail extends React.Component {
   constructor(props) {
@@ -31,8 +32,6 @@ class ChromRecordDetail extends React.Component {
   render() {
     const { record } = this.state;
 
-    console.log(record);
-
     return (
       <Grid>
         <Well className="text-center">
@@ -52,7 +51,7 @@ class ChromRecordDetail extends React.Component {
         <h4>Estimated ploidy level and/or DNA content</h4>
         <Panel>
           <Panel.Body>
-            ...
+            <DNAContent data={record.dna || {}} />
           </Panel.Body>
         </Panel>
 

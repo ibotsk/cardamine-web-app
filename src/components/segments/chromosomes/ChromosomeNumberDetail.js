@@ -101,11 +101,7 @@ ChromosomeNumberDetail.propTypes = {
     'counted-by': PropTypes.shape({
       persName: PropTypes.string,
     }),
-  }),
-};
-
-ChromosomeNumberDetail.defaultProps = {
-  data: undefined,
+  }).isRequired,
 };
 
 TrueFalse.propTypes = {
