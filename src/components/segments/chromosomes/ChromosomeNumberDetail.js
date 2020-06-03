@@ -6,6 +6,8 @@ import { Glyphicon, Table } from 'react-bootstrap';
 
 import CTableRow from './CTableRow';
 
+import { formatter } from '../../../utils';
+
 const TrueFalse = ({ value }) => (
   <Glyphicon glyph={value ? 'ok' : 'remove'} />
 );
@@ -19,7 +21,7 @@ const ChromosomeNumberDetail = ({ data }) => (
     <tbody>
       <CTableRow
         label="Chromosome count:"
-        value={data.dn}
+        value={formatter.chromosomes(data.dn, data.n)}
       />
       <CTableRow
         label="Ploidy as published in original source:"

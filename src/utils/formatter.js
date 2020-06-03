@@ -38,8 +38,23 @@ const speciesType = (type) => {
   return undefined;
 };
 
+const chromosomes = (dn, n, dnaC, sign = '=') => {
+  const fixed = `2n ${sign} `;
+  if (dn) {
+    return `${fixed}${dn}`;
+  }
+  if (n) {
+    return `${fixed}${2 * n}`;
+  }
+  if (dnaC) {
+    return `${fixed}${dnaC}`;
+  }
+  return undefined;
+};
+
 export default {
   format,
   eda,
   speciesType,
+  chromosomes,
 };

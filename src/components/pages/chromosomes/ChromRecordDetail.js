@@ -49,6 +49,13 @@ class ChromRecordDetail extends React.Component {
           </Panel.Body>
         </Panel>
 
+        <h4>Estimated ploidy level and/or DNA content</h4>
+        <Panel>
+          <Panel.Body>
+            ...
+          </Panel.Body>
+        </Panel>
+
         <h4>Locality</h4>
         <Panel>
           <Panel.Body>
