@@ -17,6 +17,16 @@ import LosName from '../../segments/checklist/LosName';
 
 import { utils as otherUtils } from '../../../utils';
 
+const markers = (latDec, lonDec) => {
+  if (!latDec || !lonDec) {
+    return undefined;
+  }
+  return [{
+    lat: latDec,
+    lon: lonDec,
+  }];
+};
+
 class ChromRecordDetail extends React.Component {
   constructor(props) {
     super(props);
@@ -57,6 +67,11 @@ class ChromRecordDetail extends React.Component {
     const originalIdentificationLos = reference['original-identification']
       || {};
 
+    const marker = markers(
+      material.coordinatesLatDec,
+      material.coordinatesLonDec,
+    );
+
     return (
       <div>
         <Grid>
@@ -90,7 +105,7 @@ class ChromRecordDetail extends React.Component {
           </Well>
         </Grid>
 
-        <OpenLayersMap />
+        <OpenLayersMap markers={marker} />
 
         <Grid>
           <h4>Chromosome number</h4>

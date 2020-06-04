@@ -10,48 +10,73 @@ import { Attribution, Zoom, ZoomSlider } from 'ol/control';
 import { Vector as VectorLayer } from 'ol/layer';
 import VectorSource from 'ol/source/Vector';
 import Point from 'ol/geom/Point';
+import { Circle, Stroke, Style } from 'ol/style';
+
+import PropTypes from 'prop-types';
 
 require('ol/ol.css');
 
-const featureOne = new Feature(new Point(fromLonLat([19, 49])));
-
-class OpenLayersMap extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.view = new View({
-      center: fromLonLat([19, 49]),
-      zoom: 2,
-      minZoom: 2,
-      maxZoom: 28,
+const makeMarkers = (markersCoords) => (
+  markersCoords.map(({ lat, lon }) => {
+    const feature = new Feature({
+      geometry: new Point(fromLonLat([lon, lat])),
     });
-  }
-
-  componentDidMount() {
-    this.map = new OlMap({
-      view: this.view,
-      controls: [
-        new Attribution(),
-        new Zoom(),
-        new ZoomSlider(),
-      ],
-      layers: [
-        new Tile({ source: new OSM() }),
-        new VectorLayer({
-          source: new VectorSource({
-            features: [featureOne],
-          }),
+    feature.setStyle(new Style({
+      image: new Circle({
+        stroke: new Stroke({
+          color: '#ff0000',
+          width: 1.25,
         }),
-      ],
-      target: 'mapContainer',
-    });
-  }
+        radius: 5,
+      }),
+    }));
+    return feature;
+  })
+);
 
-  render() {
-    return (
-      <div id="mapContainer"> </div>
-    );
-  }
-}
+const view = new View({
+  center: fromLonLat([19, 49]),
+  zoom: 2,
+  minZoom: 2,
+  maxZoom: 28,
+});
+
+const OpenLayersMap = ({ markers = [] }) => {
+  const features = makeMarkers(markers);
+
+  // eslint-disable-next-line no-unused-vars
+  const map = new OlMap({
+    view,
+    controls: [
+      new Attribution(),
+      new Zoom(),
+      new ZoomSlider(),
+    ],
+    layers: [
+      new Tile({ source: new OSM() }),
+      new VectorLayer({
+        source: new VectorSource({
+          features,
+        }),
+      }),
+    ],
+    target: 'mapContainer',
+  });
+
+  return (
+    <div id="mapContainer"> </div>
+  );
+};
 
 export default OpenLayersMap;
+
+OpenLayersMap.propTypes = {
+  markers: PropTypes.arrayOf(PropTypes.shape({
+    lat: PropTypes.number.isRequired,
+    lon: PropTypes.number.isRequired,
+  })),
+};
+
+OpenLayersMap.defaultProps = {
+  markers: [],
+};
