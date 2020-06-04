@@ -8,16 +8,19 @@ async function getRecordById(id) {
   const reference = material.reference
     ? material.reference
     : {};
+  const latestRevision = record['latest-revision'] || {};
 
   delete material.reference;
   delete record.material;
   delete record.dna;
+  delete record['latest-revision'];
 
   return {
     record,
     dna,
     material,
     reference,
+    latestRevision,
   };
 }
 

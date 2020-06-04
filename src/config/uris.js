@@ -32,6 +32,7 @@ const uris = {
       "include":[
         "counted-by",
         "dna",
+        "latest-revision",
         %7B
           "material":[
             %7B
@@ -44,7 +45,10 @@ const uris = {
             "collected-by",
             "identified-by",
             %7B
-              "reference":"literature"
+              "reference":[
+                "literature",
+                "original-identification"
+              ]
             %7D
           ]
         %7D

@@ -12,6 +12,9 @@ import DNAContent from '../../segments/chromosomes/DNAContent';
 import Locality from '../../segments/chromosomes/Locality';
 import Material from '../../segments/chromosomes/Material';
 import Reference from '../../segments/chromosomes/Reference';
+import LosName from '../../segments/checklist/LosName';
+
+import { utils as otherUtils } from '../../../utils';
 
 class ChromRecordDetail extends React.Component {
   constructor(props) {
@@ -22,6 +25,7 @@ class ChromRecordDetail extends React.Component {
       dna: {},
       material: {},
       reference: {},
+      latestRevision: {},
     };
   }
 
@@ -29,7 +33,7 @@ class ChromRecordDetail extends React.Component {
     const { match: { params } } = this.props;
     const { id } = params;
     const {
-      record, dna, material, reference,
+      record, dna, material, reference, latestRevision,
     } = await chromosomesFacade.getRecordById(id);
 
     this.setState({
@@ -37,18 +41,47 @@ class ChromRecordDetail extends React.Component {
       dna,
       material,
       reference,
+      latestRevision,
     });
   }
 
   render() {
     const {
-      record, dna, material, reference,
+      record, dna, material, reference, latestRevision,
     } = this.state;
+    const latestRevisionLos = latestRevision['list-of-species'] || {};
+    const latestRevisionPubl = latestRevisionLos.publication
+      ? `, ${latestRevisionLos.publication}`
+      : '';
+    const originalIdentificationLos = reference['original-identification']
+      || {};
 
     return (
       <Grid>
         <Well className="text-center">
-          <h1><i>Last revised name</i></h1>
+          <h1>
+            <LosName
+              data={latestRevisionLos}
+              format="italic"
+              uri={otherUtils.getSpeciesDetailUri(latestRevisionLos.id)}
+            />
+            <small>{latestRevisionPubl}</small>
+          </h1>
+          <h4 className="black-anchor">
+            <small>Name as originally published (standardised version):</small>
+            {' '}
+            <LosName
+              data={originalIdentificationLos}
+              format="italic"
+              isPublication
+              uri={otherUtils.getSpeciesDetailUri(originalIdentificationLos.id)}
+            />
+          </h4>
+          <h4>
+            <small>Name exactly as originally published:</small>
+            {' '}
+            {reference.nameAsPublished}
+          </h4>
         </Well>
         <Panel id="map" style={{ height: '50px' }}>
           Map
