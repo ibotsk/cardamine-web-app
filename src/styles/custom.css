@@ -21,6 +21,12 @@ ul li > span { padding-left: 3px; }
 #species-detail a:hover { color: #333; text-decoration: none; border-bottom: none; }
 #species-detail ul { margin-left: 10px; }
 
+#mapContainer { 
+    height: 300px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
 .single::before { content: "\2013"; }
 .double::before { content: "="; }
 .tripple::before { content: "\2261"; }
