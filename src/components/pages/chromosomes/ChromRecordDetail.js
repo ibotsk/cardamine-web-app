@@ -1,6 +1,9 @@
 import React from 'react';
 
-import { Grid, Panel, Well } from 'react-bootstrap';
+import {
+  Grid, Panel, Well,
+  Image,
+} from 'react-bootstrap';
 
 import PropTypes from 'prop-types';
 
@@ -108,40 +111,84 @@ class ChromRecordDetail extends React.Component {
         <OpenLayersMap markers={marker} />
 
         <Grid>
-          <h4>Chromosome number</h4>
+          <h4>
+            <Image
+              className="icon"
+              src="/icons/chromosome.png"
+            />
+            Chromosome number
+          </h4>
           <Panel>
             <Panel.Body>
               <ChromosomeNumberDetail data={record} />
             </Panel.Body>
           </Panel>
 
-          <h4>Estimated ploidy level and/or DNA content</h4>
+          <h4>
+            <Image
+              className="icon"
+              src="/icons/dna.png"
+            />
+            Estimated ploidy level and/or DNA content
+          </h4>
           <Panel>
             <Panel.Body>
               <DNAContent data={dna} />
             </Panel.Body>
           </Panel>
 
-          <h4>Locality</h4>
+          <h4>
+            <Image
+              className="icon"
+              src="/icons/globe.png"
+            />
+            Locality
+          </h4>
           <Panel>
             <Panel.Body>
               <Locality data={material} />
             </Panel.Body>
           </Panel>
 
-          <h4>Material</h4>
+          <h4>
+            <Image
+              className="icon"
+              src="/icons/plant.png"
+            />
+            Material
+          </h4>
           <Panel>
             <Panel.Body>
               <Material data={material} />
             </Panel.Body>
           </Panel>
 
-          <h4>Reference</h4>
+          <h4>
+            <Image
+              className="icon"
+              src="/icons/research.png"
+            />
+            Reference
+          </h4>
           <Panel>
             <Panel.Body>
               <Reference data={reference} />
             </Panel.Body>
           </Panel>
+
+          <div>
+            Icons made by
+            {' '}
+            <a href="https://www.flaticon.com/authors/freepik" title="Freepik">
+              Freepik
+            </a>
+            {' '}
+            from
+            {' '}
+            <a href="https://www.flaticon.com/" title="Flaticon">
+              www.flaticon.com
+            </a>
+          </div>
         </Grid>
       </div>
     );
