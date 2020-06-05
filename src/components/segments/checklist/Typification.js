@@ -29,24 +29,18 @@ const Typification = ({ id, species }) => {
       <Panel.Body>
         <h4>Typification</h4>
         <Block label="Type:" value={typeString} />
-        {
-          typification && (
-            <>
-              <Block
-                label="Type specimen / Illustration:"
-                value={typeLocality}
-              />
-              <Block
-                label="Reference to the type designation"
-                value={referenceToTypeDesignation}
-              />
-              <Block
-                label="Ind. loc. (from the protologue)"
-                value={indLoc}
-              />
-            </>
-          )
-        }
+        <Block
+          label="Type specimen / Illustration:"
+          value={typeLocality}
+        />
+        <Block
+          label="Reference to the type designation"
+          value={referenceToTypeDesignation}
+        />
+        <Block
+          label="Ind. loc. (from the protologue)"
+          value={indLoc}
+        />
       </Panel.Body>
     </Panel>
   );
