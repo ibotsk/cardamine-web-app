@@ -4,7 +4,7 @@ import { Table } from 'react-bootstrap';
 
 import PropTypes from 'prop-types';
 
-import CTableRow from './CTableRow';
+import TableRow from '../TableRow';
 import CTableRowCoordinates from './CTableRowCoordinates';
 
 const Locality = ({ data }) => (
@@ -23,44 +23,44 @@ const Locality = ({ data }) => (
           </strong>
         </td>
       </tr>
-      <CTableRow
+      <TableRow
         className="left-padding"
         label="- Level 1:"
         value={data['world-l4']
           ? data['world-l4']['world-l3']['world-l2']['world-l1'].description
           : ''}
       />
-      <CTableRow
+      <TableRow
         label="- Level 2:"
         value={data['world-l4']
           ? data['world-l4']['world-l3']['world-l2'].description
           : ''}
       />
-      <CTableRow
+      <TableRow
         label="- Level 3:"
         value={data['world-l4']
           ? data['world-l4']['world-l3'].description
           : ''}
       />
-      <CTableRow
+      <TableRow
         label="- Level 4:"
         value={data['world-l4']
           ? data['world-l4'].description
           : ''}
       />
-      <CTableRow
+      <TableRow
         label="Closest city/town/village/settlement:"
         value={data.closestVillageTown}
       />
-      <CTableRow
+      <TableRow
         label="Description of the locality:"
         value={data.description}
       />
-      <CTableRow
+      <TableRow
         label="Exposition:"
         value={data.exposition}
       />
-      <CTableRow
+      <TableRow
         label="Altitude:"
         value={data.altitude}
       />
@@ -74,19 +74,19 @@ const Locality = ({ data }) => (
         lat={data.coordinatesGeorefLat}
         lon={data.coordinatesGeorefLon}
       />
-      <CTableRow
+      <TableRow
         label="Central european mapping unit:"
         value={data.centralEuropeanMappingUnit}
       />
-      <CTableRow
+      <TableRow
         label="Geographical district:"
         value={data.geographicalDistrict}
       />
-      <CTableRow
+      <TableRow
         label="Phytogeographical district:"
         value={data.phytogeographicalDistrict}
       />
-      <CTableRow
+      <TableRow
         label="Administrative unit:"
         value={data.administrativeUnit}
       />

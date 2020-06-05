@@ -4,7 +4,7 @@ import { Table } from 'react-bootstrap';
 
 import PropTypes from 'prop-types';
 
-import CTableRow from './CTableRow';
+import TableRow from '../TableRow';
 
 const Material = ({ data }) => (
   <Table striped condensed responsive>
@@ -13,25 +13,25 @@ const Material = ({ data }) => (
       <col span="1" style={{ width: '30%' }} />
     </colgroup>
     <tbody>
-      <CTableRow
+      <TableRow
         label="Collected by:"
         value={data['collected-by'] ? data['collected-by'].persName : undefined}
       />
-      <CTableRow
+      <TableRow
         label="Date:"
         value={data.collectedDate}
       />
-      <CTableRow
+      <TableRow
         label="Identified by:"
         value={data['identified-by']
           ? data['identified-by'].persName
           : undefined}
       />
-      <CTableRow
+      <TableRow
         label="Voucher:"
         value={data.voucherSpecimenNo}
       />
-      <CTableRow
+      <TableRow
         label="Voucher deposited in:"
         value={data.depositedIn}
       />

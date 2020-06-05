@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import { Glyphicon, Table } from 'react-bootstrap';
 
-import CTableRow from './CTableRow';
+import TableRow from '../TableRow';
 
 import { formatter } from '../../../utils';
 
@@ -19,59 +19,59 @@ const ChromosomeNumberDetail = ({ data }) => (
       <col span="1" style={{ width: '30%' }} />
     </colgroup>
     <tbody>
-      <CTableRow
+      <TableRow
         label="Chromosome count:"
         value={formatter.chromosomes(data.dn, data.n)}
       />
-      <CTableRow
+      <TableRow
         label="Ploidy as published in original source:"
         value={data.ploidyLevel}
       />
-      <CTableRow
+      <TableRow
         label="Ploidy after last revision:"
         value={data.ploidyLevelRevised}
       />
-      <CTableRow
+      <TableRow
         label="Base chromosome number (x) after last revision:"
         value={data.xRevised}
       />
-      <CTableRow
+      <TableRow
         label="Counted by:"
         value={data['counted-by'] ? data['counted-by'].persName : undefined}
       />
-      <CTableRow
+      <TableRow
         label="Date:"
         value={data.countedDate}
       />
-      <CTableRow
+      <TableRow
         label="Number of analyzed plants:"
         value={data.numberOfAnalysedPlants}
       />
-      <CTableRow
+      <TableRow
         label="Slide number:"
         value={data.slideNo}
       />
-      <CTableRow
+      <TableRow
         label="Deposited in:"
         value={data.depositedIn}
       />
-      <CTableRow
+      <TableRow
         label="Karyotype:"
         value={data.karyotype}
       />
-      <CTableRow
+      <TableRow
         label="Photo:"
         value={<TrueFalse value={data.photo} />}
       />
-      <CTableRow
+      <TableRow
         label="Idiogram:"
         value={<TrueFalse value={data.idiogram} />}
       />
-      <CTableRow
+      <TableRow
         label="Drawing:"
         value={<TrueFalse value={data.drawing} />}
       />
-      <CTableRow
+      <TableRow
         label="Note:"
         value={data.publicNote}
       />

@@ -2,10 +2,10 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
-import CTableRow from './CTableRow';
+import TableRow from '../TableRow';
 
 const CTableRowCoordinates = ({ label, lat, lon }) => (
-  <CTableRow
+  <TableRow
     label={label}
   >
     <td>
@@ -18,7 +18,7 @@ const CTableRowCoordinates = ({ label, lat, lon }) => (
       {' '}
       {lon || '-'}
     </td>
-  </CTableRow>
+  </TableRow>
 );
 
 export default CTableRowCoordinates;

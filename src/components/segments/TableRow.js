@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const DEFAULT = '-';
 
-const CTableRow = ({
+const TableRow = ({
   label, value = DEFAULT, children,
 }) => (
   <tr>
@@ -17,9 +17,9 @@ const CTableRow = ({
   </tr>
 );
 
-export default CTableRow;
+export default TableRow;
 
-CTableRow.propTypes = {
+TableRow.propTypes = {
   label: PropTypes.string.isRequired,
   value: PropTypes.oneOfType([
     PropTypes.string,
@@ -32,7 +32,7 @@ CTableRow.propTypes = {
   ]),
 };
 
-CTableRow.defaultProps = {
+TableRow.defaultProps = {
   value: DEFAULT,
   children: undefined,
 };

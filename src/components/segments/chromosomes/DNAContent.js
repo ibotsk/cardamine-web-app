@@ -4,7 +4,7 @@ import { Table } from 'react-bootstrap';
 
 import PropTypes from 'prop-types';
 
-import CTableRow from './CTableRow';
+import TableRow from '../TableRow';
 
 import { formatter } from '../../../utils';
 
@@ -15,23 +15,23 @@ const DNAContent = ({ data }) => (
       <col span="1" style={{ width: '30%' }} />
     </colgroup>
     <tbody>
-      <CTableRow
+      <TableRow
         label="Method:"
         value={data.method}
       />
-      <CTableRow
+      <TableRow
         label="DNA ploidy level as published in the original source:"
         value={data.ploidy}
       />
-      <CTableRow
+      <TableRow
         label="DNA ploidy level after last revision:"
         value={data.ploidyRevised}
       />
-      <CTableRow
+      <TableRow
         label="Chromosome count:"
         value={formatter.chromosomes(data.chCount, undefined, undefined, '≈')}
       />
-      <CTableRow
+      <TableRow
         label="Genome size:"
         value={formatter.genomeSize(
           data.sizeC,
@@ -40,15 +40,15 @@ const DNAContent = ({ data }) => (
           data.sizeUnits,
         )}
       />
-      <CTableRow
+      <TableRow
         label="Number of analysed plants:"
         value={data.plantsAnalysed}
       />
-      <CTableRow
+      <TableRow
         label="Number of analyses:"
         value={data.numberAnalyses}
       />
-      <CTableRow
+      <TableRow
         label="Note:"
         value={data.note}
       />

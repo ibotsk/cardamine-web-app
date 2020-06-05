@@ -4,7 +4,7 @@ import { Table } from 'react-bootstrap';
 
 import PropTypes from 'prop-types';
 
-import CTableRow from './CTableRow';
+import TableRow from '../TableRow';
 
 import { helper } from '../../../utils';
 
@@ -15,17 +15,17 @@ const Reference = ({ data }) => (
       <col span="1" style={{ width: '50%' }} />
     </colgroup>
     <tbody>
-      <CTableRow
+      <TableRow
         label="Publication:"
         value={data.literature
           ? helper.parsePublication(data.literature)
           : undefined}
       />
-      <CTableRow
+      <TableRow
         label="Exact page(s) on which the record is published:"
         value={data.page}
       />
-      <CTableRow
+      <TableRow
         label="Note:"
         value={data.note}
       />
