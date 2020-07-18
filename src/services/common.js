@@ -7,6 +7,12 @@ const getById = async (id, uri) => {
   return result.data;
 };
 
+const getAll = async (uri) => {
+  const result = await axios.get(uri);
+  return result.data;
+};
+
 export default {
+  getAll,
   getById,
 };

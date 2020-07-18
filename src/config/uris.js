@@ -55,6 +55,18 @@ const uris = {
     ]
     %7D`,
   },
+  worldL1: {
+    getAllUri: `${backendBase}/api/world-l1s?filter=%7B"order":"description"%7D`,
+  },
+  worldL2: {
+    getAllUri: `${backendBase}/api/world-l2s?filter=%7B"order":"description"%7D`,
+  },
+  worldL3: {
+    getAllUri: `${backendBase}/api/world-l3s?filter=%7B"order":"description"%7D`,
+  },
+  worldL4: {
+    getAllUri: `${backendBase}/api/world-l4s?filter=%7B"order":"description"%7D`,
+  },
 };
 
 export default uris;

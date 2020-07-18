@@ -8,11 +8,18 @@ import {
 
 import PropTypes from 'prop-types';
 
+import { worlds as worldsFacade } from '../../../facades';
+
+import {
+  xRevisedOptions,
+  ploidyRevisedOptions,
+} from '../../../config/constants';
+
 const makeOptions = (list) => {
-  const options = list.map((e) => (
-    <option key={e} value={e}>{e}</option>
+  const options = list.map(({ value, label }) => (
+    <option key={value} value={value}>{label}</option>
   ));
-  const defaultOption = <option key="null">-</option>;
+  const defaultOption = <option key="null" value="">-</option>;
   return [defaultOption, ...options];
 };
 
@@ -39,42 +46,43 @@ class ChromosomesFilter extends React.Component {
       longitudeDegrees: '',
       range: '',
 
-      xRevisedOptions: [],
-      ploidyLevelRevisedOptions: [],
-      brummit1Options: [],
-      brummit2Options: [],
-      brummit3Options: [],
-      brummit4Options: [],
+      worldL1Options: [],
+      worldL2Options: [],
+      worldL3Options: [],
+      worldL4Options: [],
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     // fetch from db
+    const {
+      worldsL1, worldsL2, worldsL3, worldsL4,
+    } = await worldsFacade.getAllWorlds(({ id, description }) => (
+      { value: id, label: description }
+    ));
+
     this.setState({
-      xRevisedOptions: ['7', '8', '11'],
-      ploidyLevelRevisedOptions: ['2x', '3x', '4x'],
-      brummit1Options: ['A', 'B'],
-      brummit2Options: ['a', 'b'],
-      brummit3Options: ['X', 'Y'],
-      brummit4Options: ['x', 'y'],
+      worldL1Options: worldsL1,
+      worldL2Options: worldsL2,
+      worldL3Options: worldsL3,
+      worldL4Options: worldsL4,
     });
   }
 
-  handleChangeTextInput = (e) => {
-    this.setState({ [e.target.id]: e.target.value });
-  }
+  handleChangeTextInput = (e) => (
+    this.setState({ [e.target.id]: e.target.value })
+  );
 
-  handleRadioChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
+  handleRadioChange = (e) => (
+    this.setState({ [e.target.name]: e.target.value })
+  );
 
   submitForm = (e) => {
     e.preventDefault();
 
     const { onFilter } = this.props;
     const {
-      xRevisedOptions, ploidyLevelRevisedOptions,
-      brummit1Options, brummit2Options, brummit3Options, brummit4Options,
+      worldL1Options, worldL2Options, worldL3Options, world4Options,
       ...relevant
     } = this.state;
 
@@ -89,8 +97,7 @@ class ChromosomesFilter extends React.Component {
       worldL1, worldL2, worldL3, worldL4,
       latitudeDegrees, longitudeDegrees, range,
 
-      xRevisedOptions, ploidyLevelRevisedOptions,
-      brummit1Options, brummit2Options, brummit3Options, brummit4Options,
+      worldL1Options, worldL2Options, worldL3Options, worldL4Options,
     } = this.state;
 
     return (
@@ -127,7 +134,7 @@ class ChromosomesFilter extends React.Component {
               </FormGroup>
             </Col>
             <Col md={4}>
-              <FormGroup controlId="baseChromNumber" bsSize="sm">
+              <FormGroup controlId="xRevised" bsSize="sm">
                 <ControlLabel>
                   Base chromosome number (revised):
                 </ControlLabel>
@@ -141,7 +148,7 @@ class ChromosomesFilter extends React.Component {
                   }
                 </FormControl>
               </FormGroup>
-              <FormGroup controlId="ploidyLevel" bsSize="sm">
+              <FormGroup controlId="ploidyLevelRevised" bsSize="sm">
                 <ControlLabel>
                   Ploidy level (revised):
                 </ControlLabel>
@@ -151,7 +158,7 @@ class ChromosomesFilter extends React.Component {
                   onChange={this.handleChangeTextInput}
                 >
                   {
-                    makeOptions(ploidyLevelRevisedOptions)
+                    makeOptions(ploidyRevisedOptions)
                   }
                 </FormControl>
               </FormGroup>
@@ -259,7 +266,7 @@ class ChromosomesFilter extends React.Component {
                   onChange={this.handleChangeTextInput}
                 >
                   {
-                    makeOptions(brummit1Options)
+                    makeOptions(worldL1Options)
                   }
                 </FormControl>
               </FormGroup>
@@ -273,7 +280,7 @@ class ChromosomesFilter extends React.Component {
                   onChange={this.handleChangeTextInput}
                 >
                   {
-                    makeOptions(brummit2Options)
+                    makeOptions(worldL2Options)
                   }
                 </FormControl>
               </FormGroup>
@@ -287,7 +294,7 @@ class ChromosomesFilter extends React.Component {
                   onChange={this.handleChangeTextInput}
                 >
                   {
-                    makeOptions(brummit3Options)
+                    makeOptions(worldL3Options)
                   }
                 </FormControl>
               </FormGroup>
@@ -301,7 +308,7 @@ class ChromosomesFilter extends React.Component {
                   onChange={this.handleChangeTextInput}
                 >
                   {
-                    makeOptions(brummit4Options)
+                    makeOptions(worldL4Options)
                   }
                 </FormControl>
               </FormGroup>
