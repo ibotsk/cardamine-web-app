@@ -55,6 +55,12 @@ const uris = {
     ]
     %7D`,
   },
+  literature: {
+    getAllPaperAuthorsUri: `${backendBase}/api/literature?filter=%7B"fields":["paperAuthor"],"order":"paperAuthor"%7D`,
+  },
+  persons: {
+    getAllUri: `${backendBase}/api/persons?filter=%7B"order":"persName"%7D`,
+  },
   worldL1: {
     getAllUri: `${backendBase}/api/world-l1s?filter=%7B"order":"description"%7D`,
   },

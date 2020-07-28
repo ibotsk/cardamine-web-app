@@ -8,11 +8,16 @@ import {
 
 import PropTypes from 'prop-types';
 
-import { worlds as worldsFacade } from '../../../facades';
+import {
+  literature as literatureFacade,
+  persons as personsFacade,
+  worlds as worldsFacade,
+} from '../../../facades';
 
 import {
   xRevisedOptions,
   ploidyRevisedOptions,
+  chromosomesSearchType as cst,
 } from '../../../config/constants';
 
 const makeOptions = (list) => {
@@ -35,7 +40,7 @@ class ChromosomesFilter extends React.Component {
       genus: '',
       species: '',
       infraspecific: '',
-      nameSearchType: '1',
+      nameSearchType: cst.lastRevision,
       publicationAuthor: '',
       analysisAuthor: '',
       worldL1: '',
@@ -46,6 +51,8 @@ class ChromosomesFilter extends React.Component {
       longitudeDegrees: '',
       range: '',
 
+      publicationAuthorOptions: [],
+      analysisAuthorOptions: [],
       worldL1Options: [],
       worldL2Options: [],
       worldL3Options: [],
@@ -55,6 +62,17 @@ class ChromosomesFilter extends React.Component {
 
   async componentDidMount() {
     // fetch from db
+    const analysisAuthorOptions = await personsFacade.getAllPersons(
+      ({ id, persName }) => (
+        { value: id, label: persName }
+      ),
+    );
+    const publicationAuthorOptions = await literatureFacade.getAllPaperAuthors(
+      (a) => (
+        { value: a, label: a }
+      ),
+    );
+
     const {
       worldsL1, worldsL2, worldsL3, worldsL4,
     } = await worldsFacade.getAllWorlds(({ id, description }) => (
@@ -62,6 +80,8 @@ class ChromosomesFilter extends React.Component {
     ));
 
     this.setState({
+      analysisAuthorOptions,
+      publicationAuthorOptions,
       worldL1Options: worldsL1,
       worldL2Options: worldsL2,
       worldL3Options: worldsL3,
@@ -81,8 +101,10 @@ class ChromosomesFilter extends React.Component {
     e.preventDefault();
 
     const { onFilter } = this.props;
+    // exclude options from filter props
     const {
-      worldL1Options, worldL2Options, worldL3Options, world4Options,
+      analysisAuthorOptions, publicationAuthorOptions,
+      worldL1Options, worldL2Options, worldL3Options, worldL4Options,
       ...relevant
     } = this.state;
 
@@ -97,6 +119,7 @@ class ChromosomesFilter extends React.Component {
       worldL1, worldL2, worldL3, worldL4,
       latitudeDegrees, longitudeDegrees, range,
 
+      analysisAuthorOptions, publicationAuthorOptions,
       worldL1Options, worldL2Options, worldL3Options, worldL4Options,
     } = this.state;
 
@@ -203,24 +226,24 @@ class ChromosomesFilter extends React.Component {
               <FormGroup controlId="nameSearchType">
                 <Radio
                   name="nameSearchType"
-                  value="1"
-                  checked={nameSearchType === '1'}
+                  value={cst.lastRevision}
+                  checked={nameSearchType === cst.lastRevision}
                   onChange={this.handleRadioChange}
                 >
                   Identification based on last revision
                 </Radio>
                 <Radio
                   name="nameSearchType"
-                  value="2"
-                  checked={nameSearchType === '2'}
+                  value={cst.originalIdentification}
+                  checked={nameSearchType === cst.originalIdentification}
                   onChange={this.handleRadioChange}
                 >
                   Identification in the original publication
                 </Radio>
                 <Radio
                   name="nameSearchType"
-                  value="3"
-                  checked={nameSearchType === '3'}
+                  value={cst.all}
+                  checked={nameSearchType === cst.all}
                   onChange={this.handleRadioChange}
                 >
                   All identifications and corresponding
@@ -236,26 +259,35 @@ class ChromosomesFilter extends React.Component {
                   Publication (co-)author:
                 </ControlLabel>
                 <FormControl
-                  type="text"
+                  componentClass="select"
                   value={publicationAuthor}
                   onChange={this.handleChangeTextInput}
-                  placeholder="Publication (co-)author"
-                />
+                >
+                  {
+                    makeOptions(publicationAuthorOptions)
+                  }
+                </FormControl>
               </FormGroup>
               <FormGroup controlId="analysisAuthor" bsSize="sm">
                 <ControlLabel>
                   Analysis (co-)author:
                 </ControlLabel>
                 <FormControl
-                  type="text"
+                  componentClass="select"
                   value={analysisAuthor}
                   onChange={this.handleChangeTextInput}
-                  placeholder="Analysis (co-)author"
-                />
+                >
+                  {
+                    makeOptions(analysisAuthorOptions)
+                  }
+                </FormControl>
               </FormGroup>
             </Col>
             <Col md={3}>
               <h4>Location search:</h4>
+              {
+                // More specific level overrides the more general one
+              }
               <FormGroup controlId="worldL1" bsSize="sm">
                 <ControlLabel>
                   Level 1:
