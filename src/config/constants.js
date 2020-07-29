@@ -4,3 +4,9 @@ export const xRevisedOptions = ['7', '8', '11', '15', '23']
 
 export const ploidyRevisedOptions = ['2x', '3x', '4x', '6x', '8x', '12x']
   .map((e) => ({ value: e, label: e }));
+
+export const chromosomesSearchType = {
+  lastRevision: '1',
+  originalIdentification: '2',
+  all: '3',
+};
