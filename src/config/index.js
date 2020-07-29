@@ -91,6 +91,41 @@ export default {
       5:
         '{{authors}} ({{year}}) {{title}}. In: (eds.) {{editor}}, {{series}}. {{journal}}, {{volume}}{{issue}}:{{pages}}',
     },
+    searchColumns: {
+      original: {
+        genus: ['originalGenus', 'originalGenusH'],
+        species: ['originalSpecies', 'originalSpeciesH'],
+        infraspecific: [
+          'originalSubsp', 'originalSubspH',
+          'originalVar', 'originalVarH',
+          'originalSubvar', 'originalSubvarH',
+          'originalForma', 'originalFormaH',
+          'originalProles', 'originalUnranked',
+        ],
+      },
+      accepted: {
+        genus: ['acceptedGenus', 'acceptedGenusH'],
+        species: ['acceptedSpecies', 'acceptedSpeciesH'],
+        infraspecific: [
+          'acceptedSubsp', 'acceptedSubspH',
+          'acceptedVar', 'acceptedVarH',
+          'acceptedSubvar', 'acceptedSubvarH',
+          'acceptedForma', 'acceptedFormaH',
+          'acceptedProles', 'acceptedUnranked',
+        ],
+      },
+      latestRevision: {
+        genus: ['latestRevisionGenus', 'latestRevisionGenusH'],
+        species: ['latestRevisionSpecies', 'latestRevisionSpeciesH'],
+        infraspecific: [
+          'latestRevisionSubsp', 'latestRevisionSubspH',
+          'latestRevisionVar', 'latestRevisionVarH',
+          'latestRevisionSubvar', 'latestRevisionSubvarH',
+          'latestRevisionForma', 'latestRevisionFormaH',
+          'latestRevisionProles', 'latestRevisionUnranked',
+        ],
+      },
+    },
   },
   routes: {
     home: '/',
