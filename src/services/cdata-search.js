@@ -5,9 +5,19 @@ import config from '../config';
 
 const { uris } = config;
 
-async function getAll(where = {}) {
+async function getAllGrouped(where = {}) {
   const parsedUri = template
-    .parse(uris.cdataSearch.getAllUri)
+    .parse(uris.cdataSearch.getAllGroupedUri)
+    .expand({
+      where: JSON.stringify(where),
+    });
+  const result = await axios.get(parsedUri);
+  return result.data;
+}
+
+async function getCount(where = {}) {
+  const parsedUri = template
+    .parse(uris.cdataSearch.getCountUri)
     .expand({
       where: JSON.stringify(where),
     });
@@ -16,5 +26,6 @@ async function getAll(where = {}) {
 }
 
 export default {
-  getAll,
+  getAllGrouped,
+  getCount,
 };

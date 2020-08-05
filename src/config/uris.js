@@ -56,7 +56,8 @@ const uris = {
     %7D`,
   },
   cdataSearch: {
-    getAllUri: `${backendBase}/api/cdata-searches?filter=%7B"where":{where}%7D`,
+    getAllGroupedUri: `${backendBase}/api/cdata-searches/grouped?filter=%7B"where":{where}%7D`,
+    getCountUri: `${backendBase}/api/cdata-searches/count?where={where}`,
   },
   literature: {
     getAllPaperAuthorsUri: `${backendBase}/api/literature?filter=%7B"fields":["paperAuthor"],"order":"paperAuthor"%7D`,
