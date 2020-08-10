@@ -60,10 +60,55 @@ const genomeSize = (c, from, to, units) => {
   return `${c} = ${fromTo} ${units}`;
 };
 
+/**
+ * not used
+ * @param {*} n 
+ * @param {*} dn 
+ * @param {*} chCount 
+ * @param {*} sizeC 
+ * @param {*} sizeFrom 
+ * @param {*} sizeTo 
+ * @param {*} sizeUnits 
+ * @param {*} ploidy 
+ * @param {*} ploidyRevised 
+ */
+const chromosomeInfo = (
+  n, dn,
+  chCount,
+  sizeC,
+  sizeFrom,
+  sizeTo,
+  sizeUnits,
+  ploidy,
+  ploidyRevised,
+) => {
+  const result = {
+    chromosomeNumber: undefined,
+    ploidy: undefined,
+    genome: undefined,
+  };
+
+  if (n || dn) {
+    result.chromosomeNumber = chromosomes(dn, n, chCount);
+    return result;
+  }
+  if (ploidyRevised) {
+    result.ploidy = ploidyRevised;
+  } else if (ploidy) {
+    result.ploidy = ploidy;
+  }
+
+  if (sizeFrom || sizeTo) {
+    result.genome = genomeSize(sizeC, sizeFrom, sizeTo, sizeUnits);
+  }
+  return result;
+};
+
 export default {
   format,
   eda,
   speciesType,
   chromosomes,
   genomeSize,
+  chromosomeInfo,
 };

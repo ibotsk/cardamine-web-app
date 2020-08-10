@@ -1,30 +1,68 @@
 import React from 'react';
 
-import { Modal } from 'react-bootstrap';
+import {
+  Modal,
+  Tabs, Tab,
+} from 'react-bootstrap';
+
+import PropTypes from 'prop-types';
+
+import { chromosomes as chromosomesFacade } from '../../../../facades';
+import ChromosomeRecodsList from './ChromosomeRecordsList';
 
 class ChromosomeDataModal extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-
+      sizePerPage: 20,
+      page: 1,
+      records: [],
     };
   }
 
   onEnter = async () => {
     const { ids, onHide } = this.props;
-    if (ids) {
-      console.log(ids);
+    const { sizePerPage } = this.state;
+
+    if (ids && ids.length > 0) {
+      const records = await chromosomesFacade.getAllByIds(ids, 0, sizePerPage);
+      this.setState({
+        records,
+      });
     } else {
       onHide();
     }
   }
 
+  handleTableChange = async (type, { page, sizePerPage }) => {
+    const offset = (page - 1) * sizePerPage;
+    const { ids } = this.props;
+    const records = await chromosomesFacade.getAllByIds(
+      ids,
+      offset,
+      sizePerPage,
+    );
+
+    this.setState({
+      records,
+      page,
+      sizePerPage,
+    });
+  }
+
   render() {
     const { show, onHide, ids } = this.props;
+    const { records, sizePerPage, page } = this.state;
+    const totalSize = ids.length;
 
     return (
-      <Modal show={show} onHide={onHide}>
+      <Modal
+        bsSize="large"
+        show={show}
+        onEnter={this.onEnter}
+        onHide={onHide}
+      >
         <Modal.Header closeButton>
           <Modal.Title>
             Title
@@ -32,7 +70,20 @@ class ChromosomeDataModal extends React.Component {
         </Modal.Header>
 
         <Modal.Body>
-          {JSON.stringify(ids)}
+          <Tabs defaultActiveKey={1} id="records-tabs">
+            <Tab eventKey={1} title="Records">
+              <ChromosomeRecodsList
+                data={records}
+                page={page}
+                sizePerPage={sizePerPage}
+                totalSize={totalSize}
+                onTableChange={this.handleTableChange}
+              />
+            </Tab>
+            <Tab eventKey={2} title="Map">
+              Tab 2 content
+            </Tab>
+          </Tabs>
         </Modal.Body>
       </Modal>
     );
@@ -40,3 +91,9 @@ class ChromosomeDataModal extends React.Component {
 }
 
 export default ChromosomeDataModal;
+
+ChromosomeDataModal.propTypes = {
+  ids: PropTypes.arrayOf(PropTypes.number).isRequired,
+  show: PropTypes.bool.isRequired,
+  onHide: PropTypes.func.isRequired,
+};

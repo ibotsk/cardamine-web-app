@@ -75,6 +75,8 @@ const RemotePagination = ({
             </div>
             <BootstrapTable
               remote
+              striped
+              condensed
               id={id}
               keyField={keyField}
               data={data}

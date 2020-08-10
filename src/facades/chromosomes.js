@@ -1,5 +1,19 @@
 import { chromosomes as chromosomesService } from '../services';
 
+async function getAllByIds(ids, offset, limit) {
+  const records = await chromosomesService.getAllByIds(ids, offset, limit);
+
+  const flattened = records.map((r) => {
+    const rr = r;
+    if (r.material && r.material.reference && r.material.reference.literature) {
+      rr.literature = r.material.reference.literature;
+      delete rr.material;
+    }
+    return rr;
+  });
+  return flattened;
+}
+
 async function getRecordById(id) {
   const record = await chromosomesService.getRecordById(id);
 
@@ -25,5 +39,6 @@ async function getRecordById(id) {
 }
 
 export default {
+  getAllByIds,
   getRecordById,
 };
