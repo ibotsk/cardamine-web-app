@@ -1,11 +1,16 @@
 import React from 'react';
 
+import { useHistory } from 'react-router-dom';
+
 import PropTypes from 'prop-types';
 import PublicationType from '../../../propTypes/publication';
 
 import RemotePagination from '../../../segments/RemotePagination';
 
 import { helper, formatter } from '../../../../utils';
+import config from '../../../../config';
+
+const { routes } = config;
 
 const columns = [
   {
@@ -44,6 +49,10 @@ const columns = [
   },
 ];
 
+const tableRowEvents = ({ handleClick }) => ({
+  onClick: (e, row) => handleClick(row.id),
+});
+
 const formatData = ({
   id, literature, n, dn,
   dna: {
@@ -72,17 +81,27 @@ const ChromosomeRecodsList = ({
   onTableChange,
 }) => {
   const formattedData = data.map(formatData);
+  const history = useHistory();
+
+  const rowEvents = tableRowEvents({
+    handleClick: (id) => {
+      history.push(routes.chromosomesDetail.replace(':id', id));
+    },
+  });
 
   return (
     <RemotePagination
       id="results-chromosome-records"
+      tableClasses="clickable-row"
       keyField="id"
+      hover
       columns={columns}
       data={formattedData}
       page={page}
       sizePerPage={sizePerPage}
       totalSize={totalSize}
       onTableChange={onTableChange}
+      rowEvents={rowEvents}
     />
   );
 };

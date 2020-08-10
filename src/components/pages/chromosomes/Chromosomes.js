@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Button } from 'react-bootstrap';
+import { Grid } from 'react-bootstrap';
 
 import BootstrapTable from 'react-bootstrap-table-next';
 
@@ -12,7 +12,7 @@ import ChromosomeDataModal from './modals/ChromosomeDataModal';
 import { cdataSearch as searchFacade } from '../../../facades';
 import { where as whereUtils, helper } from '../../../utils';
 
-const columns = (action) => [
+const columns = [
   {
     dataField: 'key',
     text: 'key',
@@ -26,6 +26,7 @@ const columns = (action) => [
     formatter: (cell) => (
       <LosName
         data={cell}
+        format="italic"
       />
     ),
   },
@@ -37,6 +38,7 @@ const columns = (action) => [
     formatter: (cell) => (
       <LosName
         data={cell}
+        format="italic"
       />
     ),
   },
@@ -48,6 +50,7 @@ const columns = (action) => [
     formatter: (cell) => (
       <LosName
         data={cell}
+        format="italic"
       />
     ),
   },
@@ -57,21 +60,11 @@ const columns = (action) => [
     headerClasses: 'warning',
     headerStyle: { width: '10%' },
   },
-  {
-    dataField: 'viewRecords',
-    text: '',
-    headerClasses: 'warning',
-    formatter: (cell) => (
-      <Button
-        bsStyle="link"
-        bsSize="xsmall"
-        onClick={() => action(cell)}
-      >
-        View records
-      </Button>
-    ),
-  },
 ];
+
+const tableRowEvents = ({ handleClick }) => ({
+  onClick: (e, row) => handleClick(row.cdataIds),
+});
 
 class Chromosomes extends React.Component {
   constructor(props) {
@@ -118,10 +111,10 @@ class Chromosomes extends React.Component {
       originalName: helper.getLosFromCdataSearchResult(r, 'original'),
       acceptedName: helper.getLosFromCdataSearchResult(r, 'accepted'),
       count: r.recordsCount,
-      viewRecords: r.cdataIds,
+      cdataIds: r.cdataIds,
     }));
 
-    const cols = columns(this.showModal);
+    const rowEvents = tableRowEvents({ handleClick: this.showModal });
 
     return (
       <div>
@@ -130,13 +123,13 @@ class Chromosomes extends React.Component {
             <ChromosomesFilter onFilter={this.handleFilter} />
           </FilterToggleWrapper>
           <BootstrapTable
-            responsive
-            condensed
-            striped
+            classes="clickable-row"
             hover
+            condensed
             keyField="key"
             data={data}
-            columns={cols}
+            columns={columns}
+            rowEvents={rowEvents}
           />
         </Grid>
         <ChromosomeDataModal
