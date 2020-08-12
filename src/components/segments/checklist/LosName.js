@@ -1,7 +1,12 @@
 import React from 'react';
+
+import PropTypes from 'prop-types';
+
+import SpeciesPropType from '../../propTypes/species';
+
 import { helper } from '../../../utils';
 
-const anchorWrap = (value, uri) => {
+const AnchorWrap = ({ value, uri }) => {
   if (!uri) {
     return value;
   }
@@ -15,17 +20,41 @@ const anchorWrap = (value, uri) => {
 const LosName = ({
   data, format = 'plain', isPublication, uri,
 }) => {
-  const name = data;
-  if (!name) {
+  if (!data) {
     return '';
   }
 
-  const losForComponent = helper.listOfSpeciesForComponent(name, format, {
+  const losForComponent = helper.listOfSpeciesForComponent(data, format, {
     isPublication,
   // eslint-disable-next-line react/no-array-index-key
   }).map((e, i) => <span key={i}>{e}</span>);
 
-  return anchorWrap(losForComponent, uri);
+  return (
+    <AnchorWrap value={losForComponent} uri={uri} />
+  );
 };
 
 export default LosName;
+
+LosName.propTypes = {
+  data: SpeciesPropType.type,
+  format: PropTypes.string,
+  isPublication: PropTypes.bool,
+  uri: PropTypes.string,
+};
+
+LosName.defaultProps = {
+  data: undefined,
+  format: 'plain',
+  isPublication: false,
+  uri: undefined,
+};
+
+AnchorWrap.propTypes = {
+  value: PropTypes.arrayOf(PropTypes.element).isRequired,
+  uri: PropTypes.string,
+};
+
+AnchorWrap.defaultProps = {
+  uri: undefined,
+};

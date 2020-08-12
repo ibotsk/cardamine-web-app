@@ -1,15 +1,11 @@
 import axios from 'axios';
 import template from 'url-template';
 
+import common from './common';
 import config from '../config';
 
+const { getById } = common;
 const { uris } = config;
-
-const getById = async (id, uri) => {
-  const parsedUri = template.parse(uri).expand({ id });
-  const result = await axios.get(parsedUri);
-  return result.data;
-};
 
 async function getAll(where = {}, offset = 0, limit = 25) {
   const parsedUri = template

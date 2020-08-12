@@ -1,7 +1,5 @@
-import services from '../services';
-import { helper } from '../utils';
-
-const { checklist: checklistService } = services;
+import { checklist as checklistService } from '../services';
+import { comparators } from '../utils';
 
 async function getAllSpecies(where, offset, limit) {
   return checklistService.getAll(where, offset, limit);
@@ -39,13 +37,13 @@ async function getSynonyms(id) {
 
 async function getFors(id) {
   const basionymFor = await checklistService.getBasionymFor(id);
-  basionymFor.sort(helper.listOfSpeciesSorterLex);
+  basionymFor.sort(comparators.listOfSpeciesLex);
 
   const replacedFor = await checklistService.getReplacedFor(id);
-  replacedFor.sort(helper.listOfSpeciesSorterLex);
+  replacedFor.sort(comparators.listOfSpeciesLex);
 
   const nomenNovumFor = await checklistService.getNomenNovumFor(id);
-  nomenNovumFor.sort(helper.listOfSpeciesSorterLex);
+  nomenNovumFor.sort(comparators.listOfSpeciesLex);
 
   return {
     basionymFor,

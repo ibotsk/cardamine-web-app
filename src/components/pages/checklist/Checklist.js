@@ -7,7 +7,7 @@ import LosName from '../../segments/checklist/LosName';
 
 import SpeciesPropType from '../../propTypes/species';
 
-import facades from '../../../facades';
+import { checklist as checklistFacade } from '../../../facades';
 
 import {
   where as whereUtils,
@@ -18,7 +18,6 @@ import config from '../../../config';
 
 import RemotePagination from '../../segments/RemotePagination';
 
-const { checklist: checklistFacade } = facades;
 const {
   mappings: { losType: losTypeConfig },
 } = config;

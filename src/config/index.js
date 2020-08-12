@@ -1,7 +1,6 @@
 /* eslint-disable max-len */
 import pagination from './pagination';
-
-const backendBase = `${process.env.REACT_APP_BACKEND_BASE}:${process.env.REACT_APP_BACKEND_PORT}`;
+import uris from './uris';
 
 export default {
   nomenclature: {
@@ -81,38 +80,60 @@ export default {
         className: 'single',
       },
     },
+    publication: {
+      1:
+        '{{authors}} ({{year}}) {{title}}. {{journal}}, {{volume}}{{issue}}:{{pages}}',
+      2: '{{authors}} ({{year}}) {{title}}. {{publisher}}. {{pages}}',
+      3:
+        '{{authors}} ({{year}}) {{title}}. In: (eds.) {{editor}}, {{series}}. {{publisher}}. {{pages}}',
+      4:
+        '{{authors}} ({{year}}) {{title}}. In: (eds.) {{editor}}, {{series}}. {{publisher}}. {{pages}}',
+      5:
+        '{{authors}} ({{year}}) {{title}}. In: (eds.) {{editor}}, {{series}}. {{journal}}, {{volume}}{{issue}}:{{pages}}',
+    },
+    searchColumns: {
+      original: {
+        genus: ['originalGenus', 'originalGenusH'],
+        species: ['originalSpecies', 'originalSpeciesH'],
+        infraspecific: [
+          'originalSubsp', 'originalSubspH',
+          'originalVar', 'originalVarH',
+          'originalSubvar', 'originalSubvarH',
+          'originalForma', 'originalFormaH',
+          'originalProles', 'originalUnranked',
+        ],
+      },
+      accepted: {
+        genus: ['acceptedGenus', 'acceptedGenusH'],
+        species: ['acceptedSpecies', 'acceptedSpeciesH'],
+        infraspecific: [
+          'acceptedSubsp', 'acceptedSubspH',
+          'acceptedVar', 'acceptedVarH',
+          'acceptedSubvar', 'acceptedSubvarH',
+          'acceptedForma', 'acceptedFormaH',
+          'acceptedProles', 'acceptedUnranked',
+        ],
+      },
+      latestRevision: {
+        genus: ['latestRevisionGenus', 'latestRevisionGenusH'],
+        species: ['latestRevisionSpecies', 'latestRevisionSpeciesH'],
+        infraspecific: [
+          'latestRevisionSubsp', 'latestRevisionSubspH',
+          'latestRevisionVar', 'latestRevisionVarH',
+          'latestRevisionSubvar', 'latestRevisionSubvarH',
+          'latestRevisionForma', 'latestRevisionFormaH',
+          'latestRevisionProles', 'latestRevisionUnranked',
+        ],
+      },
+    },
   },
   routes: {
     home: '/',
     checklist: '/checklist',
-    chromosomes: '/data',
     nameDetail: '/checklist/:id',
+    chromosomes: '/data',
+    chromosomesDetail: '/data/:id',
   },
-  uris: {
-    checklist: {
-      getAllWFilter: `${backendBase}/api/list-of-species?filter=%7B
-      "where":{where},
-      "offset":{offset},
-      "limit":{limit},
-      "include":"accepted",
-      "order":[
-        "ntype_order","genus","species","subsp","var","subvar","forma","unranked","authors",
-        "genus_h","species_h","subsp_h","var_h","subvar_h","forma_h","authors_h","id"
-      ]%7D`,
-      getSpeciesByIdUri: `${backendBase}/api/list-of-species/{id}`,
-      getAcceptedNameUri: `${backendBase}/api/list-of-species/{id}/accepted`,
-      getNomenclatoricSynonymsUri: `${backendBase}/api/list-of-species/{id}/synonyms-nomenclatoric`,
-      getTaxonomicSynonymsUri: `${backendBase}/api/list-of-species/{id}/synonyms-taxonomic?filter=%7B"include":"synonyms-nomenclatoric"%7D`,
-      getInvalidSynonymsUri: `${backendBase}/api/list-of-species/{id}/synonyms-invalid`,
-      getMisidentificationsUri: `${backendBase}/api/list-of-species/{id}/synonyms-misidentification`,
-      getBasionymUri: `${backendBase}/api/list-of-species/{id}/basionym`,
-      getReplacedUri: `${backendBase}/api/list-of-species/{id}/replaced`,
-      getNomenNovumUri: `${backendBase}/api/list-of-species/{id}/nomen-novum`,
-      getBasionymForUri: `${backendBase}/api/list-of-species/{id}/basionym-for`,
-      getReplacedForUri: `${backendBase}/api/list-of-species/{id}/replaced-for`,
-      getNomenNovumForUri: `${backendBase}/api/list-of-species/{id}/nomen-novum-for`,
-      getCount: `${backendBase}/api/list-of-species/count?where={where}`,
-    },
-  },
+  uris,
   pagination,
 };

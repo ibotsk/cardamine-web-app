@@ -153,134 +153,25 @@ function listOfSpeciesString(name) {
   return listOfSpeciesForComponent(name, 'plain').join('');
 }
 
-function listOfSpeciesSorterLex(losA, losB) {
-  // a > b = 1
-  if (losA.genus > losB.genus) {
-    return 1;
-  }
-  if (losA.genus < losB.genus) {
-    return -1;
-  }
-  if (losA.species > losB.species) {
-    return 1;
-  }
-  if (losA.species < losB.species) {
-    return -1;
-  }
-  if (losA.subsp > losB.subsp) {
-    return 1;
-  }
-  if (losA.subsp < losB.subsp) {
-    return -1;
-  }
-  if (losA.var > losB.var) {
-    return 1;
-  }
-  if (losA.var < losB.var) {
-    return -1;
-  }
-  if (losA.forma > losB.forma) {
-    return 1;
-  }
-  if (losA.forma < losB.forma) {
-    return -1;
-  }
-  if (losA.subvar > losB.subvar) {
-    return 1;
-  }
-  if (losA.subvar < losB.subvar) {
-    return -1;
-  }
-  if (losA.authors > losB.authors) {
-    return 1;
-  }
-  if (losA.authors < losB.authors) {
-    return -1;
-  }
-  // hybrid fields next
-  if (losA.genusH > losB.genusH) {
-    return 1;
-  }
-  if (losA.genusH < losB.genusH) {
-    return -1;
-  }
-  if (losA.speciesH > losB.speciesH) {
-    return 1;
-  }
-  if (losA.speciesH < losB.speciesH) {
-    return -1;
-  }
-  if (losA.subspH > losB.subspH) {
-    return 1;
-  }
-  if (losA.subspH < losB.subspH) {
-    return -1;
-  }
-  if (losA.varH > losB.varH) {
-    return 1;
-  }
-  if (losA.varH < losB.varH) {
-    return -1;
-  }
-  if (losA.formaH > losB.formaH) {
-    return 1;
-  }
-  if (losA.formaH < losB.formaH) {
-    return -1;
-  }
-  if (losA.subvarH > losB.subvarH) {
-    return 1;
-  }
-  if (losA.subvarH < losB.subvarH) {
-    return -1;
-  }
-  if (losA.authorsH > losB.authorsH) {
-    return 1;
-  }
-  if (losA.authorsH < losB.authorsH) {
-    return -1;
-  }
-  return 0;
-}
-
-function makeWhere(filters) {
-  const whereList = [];
-  const keys = Object.keys(filters);
-  for (const key of keys) {
-    whereList.push({
-      [key]: {
-        like: `%${filters[key].filterVal}%`,
-      },
-    });
-  }
-  if (whereList.length > 1) {
-    return { OR: whereList };
-  }
-  if (whereList.length === 1) {
-    return whereList[0];
-  }
-  return {};
-}
-
 function parsePublication(publication) {
   const {
-    type, authors, title, series, volume, issue,
-    publisher, editor, year, pages, journal,
+    displayType, paperAuthor, paperTitle,
+    seriesSource, volume, issue,
+    publisher, editor, year, pages, journalName,
   } = publication;
-  const typeMapping = config.mappings.displayType[type].name;
-  const template = config.nomenclature.publication[typeMapping];
+  const template = config.mappings.publication[displayType];
 
   return Mustache.render(template, {
-    authors,
-    title,
-    series,
+    authors: paperAuthor,
+    title: paperTitle,
+    series: seriesSource,
     volume,
     issue: issue ? `(${issue})` : '',
     publisher,
     editor,
     year,
     pages,
-    journal,
+    journal: journalName,
   });
 }
 
@@ -299,11 +190,21 @@ function publicationCurateFields(publication) {
   return curatedPubl;
 }
 
+function getLosFromCdataSearchResult(obj, prefix) {
+  const newObj = {};
+  Object.keys(obj).filter((k) => k.startsWith(prefix))
+    .forEach((k) => {
+      const newKey = k.replace(prefix, '');
+      const newKeyFirstLC = newKey.charAt(0).toLowerCase() + newKey.slice(1);
+      newObj[newKeyFirstLC] = obj[k];
+    });
+  return newObj;
+}
+
 export default {
   listOfSpeciesForComponent,
   listOfSpeciesString,
-  listOfSpeciesSorterLex,
-  makeWhere,
   parsePublication,
   publicationCurateFields,
+  getLosFromCdataSearchResult,
 };

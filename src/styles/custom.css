@@ -10,6 +10,13 @@ ul li > span { padding-left: 3px; }
     margin-bottom: 10px;
 }
 
+.black-anchor a { color: #000; text-decoration: none; }
+.black-anchor a:hover { text-decoration: underline; }
+
+.table > tbody > tr > td {
+    vertical-align: middle;
+}
+
 #results-checklist a { color: #000 !important; }
 
 #synonyms ul ul li { margin-left: 10px; }
@@ -17,6 +24,12 @@ ul li > span { padding-left: 3px; }
 #species-detail a { color: #000; border-bottom: 1px solid #cecece; }
 #species-detail a:hover { color: #333; text-decoration: none; border-bottom: none; }
 #species-detail ul { margin-left: 10px; }
+
+#mapContainer { 
+    height: 300px;
+    width: 100%;
+    margin-bottom: 20px;
+}
 
 .single::before { content: "\2013"; }
 .double::before { content: "="; }
@@ -29,4 +42,14 @@ ul li > span { padding-left: 3px; }
 .checklist-subinfo {
     font-size: smaller;
     margin-left: 1em;
+}
+
+.clickable-row tr:hover {
+    cursor: pointer;
+}
+
+.icon {
+    height: 25px;
+    width: 25px;
+    margin-right: 10px;
 }

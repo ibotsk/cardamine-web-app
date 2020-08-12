@@ -33,10 +33,15 @@ const customTotal = (from, to, size) => (
 );
 
 const RemotePagination = ({
+  striped,
+  hover,
+  condensed,
   id,
+  tableClasses,
   keyField,
   data,
   columns,
+  rowEvents,
   page,
   sizePerPage,
   totalSize,
@@ -75,10 +80,15 @@ const RemotePagination = ({
             </div>
             <BootstrapTable
               remote
+              striped={striped}
+              hover={hover}
+              condensed={condensed}
               id={id}
+              classes={tableClasses}
               keyField={keyField}
               data={data}
               columns={columns}
+              rowEvents={rowEvents}
               onTableChange={onTableChange}
               // eslint-disable-next-line react/jsx-props-no-spreading
               {...paginationTableProps}
@@ -93,13 +103,18 @@ const RemotePagination = ({
 export default RemotePagination;
 
 RemotePagination.propTypes = {
+  striped: PropTypes.bool,
+  hover: PropTypes.bool,
+  condensed: PropTypes.bool,
   id: PropTypes.string,
+  tableClasses: PropTypes.string,
   keyField: PropTypes.string,
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   columns: PropTypes.arrayOf(PropTypes.shape({
     dataField: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
   })).isRequired,
+  rowEvents: PropTypes.object,
   page: PropTypes.number.isRequired,
   sizePerPage: PropTypes.number.isRequired,
   totalSize: PropTypes.number.isRequired,
@@ -107,6 +122,11 @@ RemotePagination.propTypes = {
 };
 
 RemotePagination.defaultProps = {
+  striped: false,
+  hover: false,
+  condensed: false,
   id: undefined,
+  tableClasses: undefined,
+  rowEvents: undefined,
   keyField: undefined,
 };

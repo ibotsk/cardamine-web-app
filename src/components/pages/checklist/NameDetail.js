@@ -10,13 +10,11 @@ import Publication from '../../segments/checklist/Publication';
 import Synonyms from '../../segments/checklist/Synonyms';
 import Typification from '../../segments/checklist/Typification';
 
-import facades from '../../../facades';
+import { checklist as checklistFacade } from '../../../facades';
 import {
   formatter,
   utils as otherUtils,
 } from '../../../utils';
-
-const { checklist: checklistFacade } = facades;
 
 const ACCEPTED_TYPE = 'A';
 
