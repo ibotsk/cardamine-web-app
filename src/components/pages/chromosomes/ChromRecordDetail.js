@@ -70,10 +70,16 @@ class ChromRecordDetail extends React.Component {
     const originalIdentificationLos = reference['original-identification']
       || {};
 
-    const marker = markers(
-      material.coordinatesLatDec,
-      material.coordinatesLonDec,
-    );
+    const { coordinatesForMap } = material;
+    let marker;
+
+    if (coordinatesForMap) {
+      const { coordinates: { lat, lon } } = coordinatesForMap;
+      marker = markers(
+        lat,
+        lon,
+      );
+    }
 
     return (
       <div>
