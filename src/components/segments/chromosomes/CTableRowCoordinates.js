@@ -25,8 +25,8 @@ export default CTableRowCoordinates;
 
 CTableRowCoordinates.propTypes = {
   label: PropTypes.string.isRequired,
-  lat: PropTypes.string,
-  lon: PropTypes.string,
+  lat: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  lon: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 CTableRowCoordinates.defaultProps = {

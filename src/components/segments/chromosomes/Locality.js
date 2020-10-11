@@ -7,6 +7,22 @@ import PropTypes from 'prop-types';
 import TableRow from '../TableRow';
 import CTableRowCoordinates from './CTableRowCoordinates';
 
+const getGeoreferencedCoordinates = (data) => {
+  let lat;
+  let lon;
+
+  if (data && data.coordinatesGeoref) {
+    const { coordinatesGeoref: { coordinates } } = data;
+    lat = coordinates.lat;
+    lon = coordinates.lon;
+  }
+
+  return {
+    lat,
+    lon,
+  };
+};
+
 const Locality = ({ data }) => (
   <Table striped condensed responsive>
     <colgroup>
@@ -71,8 +87,8 @@ const Locality = ({ data }) => (
       />
       <CTableRowCoordinates
         label="Estimated geographical coordinates:"
-        lat={data.coordinatesGeorefLat}
-        lon={data.coordinatesGeorefLon}
+        lat={getGeoreferencedCoordinates(data).lat}
+        lon={getGeoreferencedCoordinates(data).lon}
       />
       <TableRow
         label="Central european mapping unit:"
@@ -104,8 +120,12 @@ Locality.propTypes = {
     altitude: PropTypes.string,
     coordinatesLat: PropTypes.string,
     coordinatesLon: PropTypes.string,
-    coordinatesGeorefLat: PropTypes.string,
-    coordinatesGeorefLon: PropTypes.string,
+    coordinatesGeoref: PropTypes.shape({
+      coordinates: PropTypes.shape({
+        lat: PropTypes.number.isRequired,
+        lon: PropTypes.number.isRequired,
+      }).isRequired,
+    }),
     centralEuropeanMappingUnit: PropTypes.string,
     geographicalDistrict: PropTypes.string,
     phytogeographicalDistrict: PropTypes.string,
