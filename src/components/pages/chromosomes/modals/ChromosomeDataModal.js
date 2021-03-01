@@ -8,7 +8,6 @@ import {
 import PropTypes from 'prop-types';
 
 import ChromosomeRecodsList from './ChromosomeRecordsList';
-import ChromosomeRecordsMap from './ChromosomeRecordsMap';
 
 import { chromosomes as chromosomesFacade } from '../../../../facades';
 
@@ -82,9 +81,9 @@ class ChromosomeDataModal extends React.Component {
                 onTableChange={this.handleTableChange}
               />
             </Tab>
-            <Tab eventKey={2} title="Map">
+            {/* <Tab eventKey={2} title="Map">
               <ChromosomeRecordsMap />
-            </Tab>
+            </Tab> */}
           </Tabs>
         </Modal.Body>
       </Modal>
