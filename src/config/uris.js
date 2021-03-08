@@ -1,10 +1,11 @@
 /* eslint-disable max-len */
 
+const backendBaseOld = `${process.env.REACT_APP_OLD_BACKEND_BASE}:${process.env.REACT_APP_OLD_BACKEND_PORT}`;
 const backendBase = `${process.env.REACT_APP_BACKEND_BASE}:${process.env.REACT_APP_BACKEND_PORT}`;
 
 const uris = {
   checklist: {
-    getAllWFilter: `${backendBase}/api/list-of-species?filter=%7B
+    getAllWFilter: `${backendBaseOld}/api/list-of-species?filter=%7B
       "where":{where},
       "offset":{offset},
       "limit":{limit},
@@ -13,22 +14,22 @@ const uris = {
         "ntype_order","genus","species","subsp","var","subvar","forma","unranked","authors",
         "genus_h","species_h","subsp_h","var_h","subvar_h","forma_h","authors_h","id"
       ]%7D`,
-    getSpeciesByIdUri: `${backendBase}/api/list-of-species/{id}`,
-    getAcceptedNameUri: `${backendBase}/api/list-of-species/{id}/accepted`,
-    getNomenclatoricSynonymsUri: `${backendBase}/api/list-of-species/{id}/synonyms-nomenclatoric`,
-    getTaxonomicSynonymsUri: `${backendBase}/api/list-of-species/{id}/synonyms-taxonomic?filter=%7B"include":"synonyms-nomenclatoric"%7D`,
-    getInvalidSynonymsUri: `${backendBase}/api/list-of-species/{id}/synonyms-invalid`,
-    getMisidentificationsUri: `${backendBase}/api/list-of-species/{id}/synonyms-misidentification`,
-    getBasionymUri: `${backendBase}/api/list-of-species/{id}/basionym`,
-    getReplacedUri: `${backendBase}/api/list-of-species/{id}/replaced`,
-    getNomenNovumUri: `${backendBase}/api/list-of-species/{id}/nomen-novum`,
-    getBasionymForUri: `${backendBase}/api/list-of-species/{id}/basionym-for`,
-    getReplacedForUri: `${backendBase}/api/list-of-species/{id}/replaced-for`,
-    getNomenNovumForUri: `${backendBase}/api/list-of-species/{id}/nomen-novum-for`,
-    getCount: `${backendBase}/api/list-of-species/count?where={where}`,
+    getSpeciesByIdUri: `${backendBaseOld}/api/list-of-species/{id}`,
+    getAcceptedNameUri: `${backendBaseOld}/api/list-of-species/{id}/accepted`,
+    getNomenclatoricSynonymsUri: `${backendBaseOld}/api/list-of-species/{id}/synonyms-nomenclatoric`,
+    getTaxonomicSynonymsUri: `${backendBaseOld}/api/list-of-species/{id}/synonyms-taxonomic?filter=%7B"include":"synonyms-nomenclatoric"%7D`,
+    getInvalidSynonymsUri: `${backendBaseOld}/api/list-of-species/{id}/synonyms-invalid`,
+    getMisidentificationsUri: `${backendBaseOld}/api/list-of-species/{id}/synonyms-misidentification`,
+    getBasionymUri: `${backendBaseOld}/api/list-of-species/{id}/basionym`,
+    getReplacedUri: `${backendBaseOld}/api/list-of-species/{id}/replaced`,
+    getNomenNovumUri: `${backendBaseOld}/api/list-of-species/{id}/nomen-novum`,
+    getBasionymForUri: `${backendBaseOld}/api/list-of-species/{id}/basionym-for`,
+    getReplacedForUri: `${backendBaseOld}/api/list-of-species/{id}/replaced-for`,
+    getNomenNovumForUri: `${backendBaseOld}/api/list-of-species/{id}/nomen-novum-for`,
+    getCount: `${backendBaseOld}/api/list-of-species/count?where={where}`,
   },
   chromosomes: {
-    getAllByIdsUri: `${backendBase}/api/cdata?filter=%7B
+    getAllByIdsUri: `${backendBaseOld}/api/cdata?filter=%7B
       "fields":["id","n","dn","ploidyLevel","ploidyLevelRevised"],
       "include":[
         "dna",
@@ -45,7 +46,7 @@ const uris = {
       "offset":{offset},
       "order":"id"
     %7D`,
-    getByIdUri: `${backendBase}/api/cdata/{id}?filter=%7B
+    getByIdUri: `${backendBaseOld}/api/cdata/{id}?filter=%7B
       "include":[
         "counted-by",
         "dna",
@@ -73,26 +74,26 @@ const uris = {
     %7D`,
   },
   cdataSearch: {
-    getAllGroupedUri: `${backendBase}/api/cdata-searches/grouped?filter=%7B"where":{where}%7D`,
-    getCountUri: `${backendBase}/api/cdata-searches/count?where={where}`,
+    getAllGroupedUri: `${backendBaseOld}/api/cdata-searches/grouped?filter=%7B"where":{where}%7D`,
+    getCountUri: `${backendBaseOld}/api/cdata-searches/count?where={where}`,
   },
   literature: {
-    getAllPaperAuthorsUri: `${backendBase}/api/literature?filter=%7B"fields":["paperAuthor"],"order":"paperAuthor"%7D`,
+    getAllPaperAuthorsUri: `${backendBase}/literature?filter=%7B"fields":["paperAuthor"],"order":"paperAuthor"%7D`,
   },
   persons: {
-    getAllUri: `${backendBase}/api/persons?filter=%7B"order":"persName"%7D`,
+    getAllUri: `${backendBase}/persons?filter=%7B"order":"persName"%7D`,
   },
   worldL1: {
-    getAllUri: `${backendBase}/api/world-l1s?filter=%7B"order":"description"%7D`,
+    getAllUri: `${backendBase}/worlds/level1?filter=%7B"order":"description"%7D`,
   },
   worldL2: {
-    getAllUri: `${backendBase}/api/world-l2s?filter=%7B"order":"description"%7D`,
+    getAllUri: `${backendBase}/worlds/level2?filter=%7B"order":"description"%7D`,
   },
   worldL3: {
-    getAllUri: `${backendBase}/api/world-l3s?filter=%7B"order":"description"%7D`,
+    getAllUri: `${backendBase}/worlds/level3?filter=%7B"order":"description"%7D`,
   },
   worldL4: {
-    getAllUri: `${backendBase}/api/world-l4s?filter=%7B"order":"description"%7D`,
+    getAllUri: `${backendBase}/worlds/level4?filter=%7B"order":"description"%7D`,
   },
 };
 
