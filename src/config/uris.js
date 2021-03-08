@@ -29,23 +29,7 @@ const uris = {
     getCount: `${backendBaseOld}/api/list-of-species/count?where={where}`,
   },
   chromosomes: {
-    getAllByIdsUri: `${backendBaseOld}/api/cdata?filter=%7B
-      "fields":["id","n","dn","ploidyLevel","ploidyLevelRevised"],
-      "include":[
-        "dna",
-        %7B
-          "material": %7B
-            "reference": "literature"
-          %7D
-        %7D
-      ],
-      "where":%7B
-        "id":%7B"inq":[{ids}]%7D
-      %7D,
-      "limit":{limit},
-      "offset":{offset},
-      "order":"id"
-    %7D`,
+    getAllByIdsUri: `${backendBase}/cdata/for-table`,
     getByIdUri: `${backendBaseOld}/api/cdata/{id}?filter=%7B
       "include":[
         "counted-by",
