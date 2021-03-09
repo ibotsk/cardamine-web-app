@@ -5,27 +5,33 @@ import config from '../config';
 
 const { uris } = config;
 
-async function getAllGrouped(where = {}) {
-  const parsedUri = template
-    .parse(uris.cdataSearch.getAllGroupedUri)
-    .expand({
-      where: JSON.stringify(where),
-    });
-  const result = await axios.get(parsedUri);
-  return result.data;
-}
+async function getAllGrouped({
+  n, dn, xRevised, ploidyLevelRevised, publicationAuthor, analysisAuthor,
+  worldL1, worldL2, worldL3, worldL4, genus, species, infraspecific, searchType,
+}) {
+  const parsedUri = template.parse(uris.cdataSearch.searchCdataUri).expand();
 
-async function getCount(where = {}) {
-  const parsedUri = template
-    .parse(uris.cdataSearch.getCountUri)
-    .expand({
-      where: JSON.stringify(where),
-    });
-  const result = await axios.get(parsedUri);
+  const request = {
+    n,
+    dn,
+    xRevised,
+    ploidyLevelRevised,
+    publicationAuthor,
+    analysisAuthor,
+    worldL1,
+    worldL2,
+    worldL3,
+    worldL4,
+    genus,
+    species,
+    infraspecific,
+    searchType,
+  };
+
+  const result = await axios.post(parsedUri, request);
   return result.data;
 }
 
 export default {
   getAllGrouped,
-  getCount,
 };

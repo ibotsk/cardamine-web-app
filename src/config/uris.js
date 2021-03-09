@@ -33,8 +33,7 @@ const uris = {
     getByIdUri: `${backendBase}/cdata/{id}`,
   },
   cdataSearch: {
-    getAllGroupedUri: `${backendBaseOld}/api/cdata-searches/grouped?filter=%7B"where":{where}%7D`,
-    getCountUri: `${backendBaseOld}/api/cdata-searches/count?where={where}`,
+    searchCdataUri: `${backendBase}/cdata-search`,
   },
   literature: {
     getAllPaperAuthorsUri: `${backendBase}/literature?filter=%7B"fields":["paperAuthor"],"order":"paperAuthor"%7D`,

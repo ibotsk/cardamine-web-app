@@ -233,7 +233,7 @@ function makeCdataSearchWhere(searchType, params) {
       break;
     case cst.originalIdentification:
       specific = makeCdataOriginalIdentificationWhere(
-        genus, specific, infraspecific,
+        genus, species, infraspecific,
       );
       break;
     case cst.all:

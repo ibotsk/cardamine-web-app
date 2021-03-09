@@ -37,7 +37,7 @@ const ChromosomeNumberDetail = ({ data }) => (
       />
       <TableRow
         label="Counted by:"
-        value={data['counted-by'] ? data['counted-by'].persName : undefined}
+        value={data.countedBy ? data.countedBy.persName : undefined}
       />
       <TableRow
         label="Date:"
@@ -98,7 +98,7 @@ ChromosomeNumberDetail.propTypes = {
     ploidyLevelRevised: PropTypes.string,
     publicNote: PropTypes.string,
     xRevised: PropTypes.string,
-    'counted-by': PropTypes.shape({
+    countedBy: PropTypes.shape({
       persName: PropTypes.string,
     }),
   }).isRequired,
