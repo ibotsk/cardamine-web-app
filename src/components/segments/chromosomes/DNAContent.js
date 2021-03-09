@@ -46,7 +46,7 @@ const DNAContent = ({ data }) => (
       />
       <TableRow
         label="Number of analyses:"
-        value={data.numberAnalyses}
+        value={data.numberOfAnalyses}
       />
       <TableRow
         label="Note:"
@@ -69,7 +69,7 @@ DNAContent.propTypes = {
     sizeTo: PropTypes.string,
     sizeUnits: PropTypes.string,
     plantsAnalysed: PropTypes.string,
-    numberAnalyses: PropTypes.string,
+    numberOfAnalyses: PropTypes.string,
     note: PropTypes.string,
   }).isRequired,
 };

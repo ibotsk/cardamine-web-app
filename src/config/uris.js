@@ -30,32 +30,7 @@ const uris = {
   },
   chromosomes: {
     getAllByIdsUri: `${backendBase}/cdata/for-table`,
-    getByIdUri: `${backendBaseOld}/api/cdata/{id}?filter=%7B
-      "include":[
-        "counted-by",
-        "dna",
-        "latest-revision",
-        %7B
-          "material":[
-            %7B
-              "world-l4":%7B
-                "world-l3":%7B
-                  "world-l2":"world-l1"
-                %7D
-              %7D
-            %7D,
-            "collected-by",
-            "identified-by",
-            %7B
-              "reference":[
-                "literature",
-                "original-identification"
-              ]
-            %7D
-          ]
-        %7D
-    ]
-    %7D`,
+    getByIdUri: `${backendBase}/cdata/{id}`,
   },
   cdataSearch: {
     getAllGroupedUri: `${backendBaseOld}/api/cdata-searches/grouped?filter=%7B"where":{where}%7D`,
