@@ -11,7 +11,24 @@ async function getAllCount(where) {
 }
 
 async function getSpeciesById(id) {
-  return checklistService.getSpeciesById(id);
+  const record = await checklistService.getSpeciesById(id);
+
+  const {
+    accepted, basionym, replaced, nomenNovum, ...species
+  } = record;
+
+  delete record.accepted;
+  delete record.basionym;
+  delete record.replaced;
+  delete record.nomenNovum;
+
+  return {
+    species,
+    accepted,
+    basionym,
+    replaced,
+    nomenNovum,
+  };
 }
 
 async function getSynonyms(id) {
@@ -36,13 +53,14 @@ async function getSynonyms(id) {
 }
 
 async function getFors(id) {
-  const basionymFor = await checklistService.getBasionymFor(id);
+  const {
+    basionymFor,
+    replacedFor,
+    nomenNovumFor,
+  } = await checklistService.getForRelations(id);
+
   basionymFor.sort(comparators.listOfSpeciesLex);
-
-  const replacedFor = await checklistService.getReplacedFor(id);
   replacedFor.sort(comparators.listOfSpeciesLex);
-
-  const nomenNovumFor = await checklistService.getNomenNovumFor(id);
   nomenNovumFor.sort(comparators.listOfSpeciesLex);
 
   return {
@@ -52,33 +70,10 @@ async function getFors(id) {
   };
 }
 
-async function getBasionymOf(id) {
-  return checklistService.getBasionymOf(id);
-}
-
-async function getBasionymReplacedNovumOf(id) {
-  const basionym = await checklistService.getBasionymOf(id);
-  const replaced = await checklistService.getReplacedOf(id);
-  const nomenNovum = await checklistService.getNomenNovumOf(id);
-
-  return {
-    basionym,
-    replaced,
-    nomenNovum,
-  };
-}
-
-async function getAcceptedOf(id) {
-  return checklistService.getAcceptedOf(id);
-}
-
 export default {
   getAllSpecies,
   getAllCount,
   getSpeciesById,
   getSynonyms,
   getFors,
-  getBasionymOf,
-  getBasionymReplacedNovumOf,
-  getAcceptedOf,
 };

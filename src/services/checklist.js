@@ -49,32 +49,8 @@ async function getMisidentificationsOf(id) {
   return getById(id, uris.checklist.getMisidentificationsUri);
 }
 
-async function getBasionymOf(id) {
-  return getById(id, uris.checklist.getBasionymUri);
-}
-
-async function getReplacedOf(id) {
-  return getById(id, uris.checklist.getReplacedUri);
-}
-
-async function getNomenNovumOf(id) {
-  return getById(id, uris.checklist.getNomenNovumUri);
-}
-
-async function getAcceptedOf(id) {
-  return getById(id, uris.checklist.getAcceptedNameUri);
-}
-
-async function getBasionymFor(id) {
-  return getById(id, uris.checklist.getBasionymForUri);
-}
-
-async function getReplacedFor(id) {
-  return getById(id, uris.checklist.getReplacedForUri);
-}
-
-async function getNomenNovumFor(id) {
-  return getById(id, uris.checklist.getNomenNovumForUri);
+async function getForRelations(id) {
+  return getById(id, uris.checklist.getForRelationsUri);
 }
 
 export default {
@@ -85,11 +61,5 @@ export default {
   getSynonymsTaxonomicOf,
   getInvalidDesignationsOf,
   getMisidentificationsOf,
-  getAcceptedOf,
-  getBasionymOf,
-  getReplacedOf,
-  getNomenNovumOf,
-  getBasionymFor,
-  getReplacedFor,
-  getNomenNovumFor,
+  getForRelations,
 };
