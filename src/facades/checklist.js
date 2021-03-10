@@ -32,11 +32,10 @@ async function getSpeciesById(id) {
 }
 
 async function getSynonyms(id) {
-  const nomenclatoricSynonyms = await checklistService
-    .getSynonymsNomenclatoricOf(id);
-
-  const taxonomicSynonyms = await checklistService
-    .getSynonymsTaxonomicOf(id);
+  const {
+    nomenclatoricSynonyms,
+    taxonomicSynonyms,
+  } = await checklistService.getSynonymsOfId(id);
 
   const invalidDesignations = await checklistService
     .getInvalidDesignationsOf(id);

@@ -14,13 +14,13 @@ const uris = {
         "ntype_order","genus","species","subsp","var","subvar","forma","unranked","authors",
         "genus_h","species_h","subsp_h","var_h","subvar_h","forma_h","authors_h","id"
       ]%7D`,
-    getSpeciesByIdUri: `${backendBase}/list-of-species/{id}`,
-    getNomenclatoricSynonymsUri: `${backendBaseOld}/api/list-of-species/{id}/synonyms-nomenclatoric`,
-    getTaxonomicSynonymsUri: `${backendBaseOld}/api/list-of-species/{id}/synonyms-taxonomic?filter=%7B"include":"synonyms-nomenclatoric"%7D`,
-    getInvalidSynonymsUri: `${backendBaseOld}/api/list-of-species/{id}/synonyms-invalid`,
-    getMisidentificationsUri: `${backendBaseOld}/api/list-of-species/{id}/synonyms-misidentification`,
-    getForRelationsUri: `${backendBase}/list-of-species/{id}/for-relations`,
     getCount: `${backendBaseOld}/api/list-of-species/count?where={where}`,
+
+    getSpeciesByIdUri: `${backendBase}/list-of-species/{id}`,
+    getSynonymsOfIdUri: `${backendBase}/list-of-species/{id}/synonyms?withSubsynonyms=true`,
+    getInvalidSynonymsUri: `${backendBase}/list-of-species/{id}/invalid-designations`,
+    getMisidentificationsUri: `${backendBase}/list-of-species/{id}/misidentifications`,
+    getForRelationsUri: `${backendBase}/list-of-species/{id}/for-relations`,
   },
   chromosomes: {
     getAllByIdsUri: `${backendBase}/cdata/for-table`,

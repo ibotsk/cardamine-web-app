@@ -66,20 +66,21 @@ const renderMisidentifications = (misidentifications) => {
 
 const SynList = ({
   list, className, sublistProp, sublistClass, additions: Additions,
+  isSublist = false,
 }) => (
   <ul>
     {
       list.map((s) => {
-        const { synonym } = s;
-        const sublist = sublistProp ? synonym[sublistProp] : null;
+        const name = (isSublist ? s : s.name) || {};
+        const sublist = sublistProp ? name[sublistProp] : null;
         return (
           <li key={s.id} className={className}>
             <span>
               <LosName
-                data={synonym}
+                data={name}
                 format="italic"
                 isPublication
-                uri={`${config.routes.checklist}/${synonym.id}`}
+                uri={`${config.routes.checklist}/${name.id}`}
               />
               {
                 sublist && sublist.length > 0
@@ -87,6 +88,7 @@ const SynList = ({
                   <SynList
                     list={sublist}
                     className={`${sublistClass} checklist-subinfo`}
+                    isSublist
                   />
                 )
               }
@@ -122,7 +124,7 @@ const Synonyms = ({
           <SynList
             list={taxonomic}
             className={taxonomicConfig.className}
-            sublistProp="synonyms-nomenclatoric"
+            sublistProp="subsynonymsNomenclatoric"
             sublistClass={nomenclatoricConfig.className}
           />
         )
@@ -151,12 +153,14 @@ SynList.propTypes = {
   sublistProp: PropTypes.string,
   sublistClass: PropTypes.string,
   additions: PropTypes.func,
+  isSublist: PropTypes.bool,
 };
 
 SynList.defaultProps = {
   sublistProp: undefined,
   sublistClass: undefined,
   additions: undefined,
+  isSublist: false,
 };
 
 Synonyms.propTypes = {

@@ -33,12 +33,8 @@ async function getSpeciesById(id) {
   return getById(id, uris.checklist.getSpeciesByIdUri);
 }
 
-async function getSynonymsNomenclatoricOf(id) {
-  return getById(id, uris.checklist.getNomenclatoricSynonymsUri);
-}
-
-async function getSynonymsTaxonomicOf(id) {
-  return getById(id, uris.checklist.getTaxonomicSynonymsUri);
+async function getSynonymsOfId(id) {
+  return getById(id, uris.checklist.getSynonymsOfIdUri);
 }
 
 async function getInvalidDesignationsOf(id) {
@@ -57,8 +53,7 @@ export default {
   getAll,
   getCount,
   getSpeciesById,
-  getSynonymsNomenclatoricOf,
-  getSynonymsTaxonomicOf,
+  getSynonymsOfId,
   getInvalidDesignationsOf,
   getMisidentificationsOf,
   getForRelations,
