@@ -15,7 +15,7 @@ const Material = ({ data }) => (
     <tbody>
       <TableRow
         label="Collected by:"
-        value={data['collected-by'] ? data['collected-by'].persName : undefined}
+        value={data.collectedBy ? data.collectedBy.persName : undefined}
       />
       <TableRow
         label="Date:"
@@ -23,8 +23,8 @@ const Material = ({ data }) => (
       />
       <TableRow
         label="Identified by:"
-        value={data['identified-by']
-          ? data['identified-by'].persName
+        value={data.identifiedBy
+          ? data.identifiedBy.persName
           : undefined}
       />
       <TableRow
@@ -46,10 +46,10 @@ Material.propTypes = {
     collectedDate: PropTypes.string,
     voucherSpecimenNo: PropTypes.string,
     depositedIn: PropTypes.string,
-    'collected-by': PropTypes.shape({
+    collectedBy: PropTypes.shape({
       persName: PropTypes.string,
     }),
-    'identified-by': PropTypes.shape({
+    identifiedBy: PropTypes.shape({
       persName: PropTypes.string,
     }),
   }).isRequired,

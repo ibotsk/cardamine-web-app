@@ -63,11 +63,11 @@ class ChromRecordDetail extends React.Component {
     const {
       record, dna, material, reference, latestRevision,
     } = this.state;
-    const latestRevisionLos = latestRevision['list-of-species'] || {};
+    const latestRevisionLos = latestRevision.listOfSpecies || {};
     const latestRevisionPubl = latestRevisionLos.publication
       ? `, ${latestRevisionLos.publication}`
       : '';
-    const originalIdentificationLos = reference['original-identification']
+    const originalIdentificationLos = reference.OriginalIdentification
       || {};
 
     const { coordinatesForMap } = material;

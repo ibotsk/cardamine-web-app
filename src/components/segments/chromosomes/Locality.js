@@ -42,26 +42,26 @@ const Locality = ({ data }) => (
       <TableRow
         className="left-padding"
         label="- Level 1:"
-        value={data['world-l4']
-          ? data['world-l4']['world-l3']['world-l2']['world-l1'].description
+        value={data.worldL4
+          ? data.worldL4.worldL3.worldL2.worldL1.description
           : ''}
       />
       <TableRow
         label="- Level 2:"
-        value={data['world-l4']
-          ? data['world-l4']['world-l3']['world-l2'].description
+        value={data.worldL4
+          ? data.worldL4.worldL3.worldL2.description
           : ''}
       />
       <TableRow
         label="- Level 3:"
-        value={data['world-l4']
-          ? data['world-l4']['world-l3'].description
+        value={data.worldL4
+          ? data.worldL4.worldL3.description
           : ''}
       />
       <TableRow
         label="- Level 4:"
-        value={data['world-l4']
-          ? data['world-l4'].description
+        value={data.worldL4
+          ? data.worldL4.description
           : ''}
       />
       <TableRow
@@ -130,13 +130,13 @@ Locality.propTypes = {
     geographicalDistrict: PropTypes.string,
     phytogeographicalDistrict: PropTypes.string,
     administrativeUnit: PropTypes.string,
-    'world-l4': PropTypes.shape({
+    worldL4: PropTypes.shape({
       description: PropTypes.string.isRequired,
-      'world-l3': PropTypes.shape({
+      worldL3: PropTypes.shape({
         description: PropTypes.string.isRequired,
-        'world-l2': PropTypes.shape({
+        worldL2: PropTypes.shape({
           description: PropTypes.string.isRequired,
-          'world-l1': PropTypes.shape({
+          worldL1: PropTypes.shape({
             description: PropTypes.string.isRequired,
           }).isRequired,
         }).isRequired,

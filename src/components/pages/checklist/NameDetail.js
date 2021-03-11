@@ -43,7 +43,14 @@ class NameDetail extends React.Component {
   async componentDidMount() {
     const { match: { params } } = this.props;
     const { id } = params;
-    const species = await checklistFacade.getSpeciesById(id);
+    const {
+      species,
+      accepted = {},
+      basionym = {},
+      replaced = {},
+      nomenNovum = {},
+    } = await checklistFacade.getSpeciesById(id);
+
     const {
       nomenclatoricSynonyms,
       taxonomicSynonyms,
@@ -54,12 +61,6 @@ class NameDetail extends React.Component {
     const {
       basionymFor, replacedFor, nomenNovumFor,
     } = await checklistFacade.getFors(id);
-
-    const {
-      basionym, replaced, nomenNovum,
-    } = await checklistFacade.getBasionymReplacedNovumOf(id);
-
-    const accepted = await checklistFacade.getAcceptedOf(id);
 
     this.setState({
       species,

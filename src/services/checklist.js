@@ -1,5 +1,4 @@
 import axios from 'axios';
-import template from 'url-template';
 
 import common from './common';
 import config from '../config';
@@ -7,25 +6,14 @@ import config from '../config';
 const { getById } = common;
 const { uris } = config;
 
-async function getAll(where = {}, offset = 0, limit = 25) {
-  const parsedUri = template
-    .parse(uris.checklist.getAllWFilter)
-    .expand({
-      where: JSON.stringify(where),
-      offset,
-      limit,
-    });
-  const result = await axios.get(parsedUri);
-  return result.data;
-}
-
-async function getCount(where = {}) {
-  const parsedUri = template
-    .parse(uris.checklist.getCount)
-    .expand({
-      where: JSON.stringify(where),
-    });
-  const result = await axios.get(parsedUri);
+async function searchChecklist(searchFields, rowsPerPage, page) {
+  const uri = uris.checklist.searchChecklistUri;
+  const request = {
+    ...searchFields,
+    page,
+    rowsPerPage,
+  };
+  const result = await axios.post(uri, request);
   return result.data;
 }
 
@@ -33,12 +21,8 @@ async function getSpeciesById(id) {
   return getById(id, uris.checklist.getSpeciesByIdUri);
 }
 
-async function getSynonymsNomenclatoricOf(id) {
-  return getById(id, uris.checklist.getNomenclatoricSynonymsUri);
-}
-
-async function getSynonymsTaxonomicOf(id) {
-  return getById(id, uris.checklist.getTaxonomicSynonymsUri);
+async function getSynonymsOfId(id) {
+  return getById(id, uris.checklist.getSynonymsOfIdUri);
 }
 
 async function getInvalidDesignationsOf(id) {
@@ -49,47 +33,15 @@ async function getMisidentificationsOf(id) {
   return getById(id, uris.checklist.getMisidentificationsUri);
 }
 
-async function getBasionymOf(id) {
-  return getById(id, uris.checklist.getBasionymUri);
-}
-
-async function getReplacedOf(id) {
-  return getById(id, uris.checklist.getReplacedUri);
-}
-
-async function getNomenNovumOf(id) {
-  return getById(id, uris.checklist.getNomenNovumUri);
-}
-
-async function getAcceptedOf(id) {
-  return getById(id, uris.checklist.getAcceptedNameUri);
-}
-
-async function getBasionymFor(id) {
-  return getById(id, uris.checklist.getBasionymForUri);
-}
-
-async function getReplacedFor(id) {
-  return getById(id, uris.checklist.getReplacedForUri);
-}
-
-async function getNomenNovumFor(id) {
-  return getById(id, uris.checklist.getNomenNovumForUri);
+async function getForRelations(id) {
+  return getById(id, uris.checklist.getForRelationsUri);
 }
 
 export default {
-  getAll,
-  getCount,
+  searchChecklist,
   getSpeciesById,
-  getSynonymsNomenclatoricOf,
-  getSynonymsTaxonomicOf,
+  getSynonymsOfId,
   getInvalidDesignationsOf,
   getMisidentificationsOf,
-  getAcceptedOf,
-  getBasionymOf,
-  getReplacedOf,
-  getNomenNovumOf,
-  getBasionymFor,
-  getReplacedFor,
-  getNomenNovumFor,
+  getForRelations,
 };

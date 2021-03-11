@@ -22,12 +22,13 @@ async function getRecordById(id) {
   const reference = material.reference
     ? material.reference
     : {};
-  const latestRevision = record['latest-revision'] || {};
+  const histories = record.histories || [];
+  const latestRevision = histories[0] || {};
 
   delete material.reference;
   delete record.material;
   delete record.dna;
-  delete record['latest-revision'];
+  delete record.histories;
 
   return {
     record,

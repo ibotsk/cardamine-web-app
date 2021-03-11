@@ -10,7 +10,6 @@ import SpeciesPropType from '../../propTypes/species';
 import { checklist as checklistFacade } from '../../../facades';
 
 import {
-  where as whereUtils,
   utils as otherUtils,
 } from '../../../utils';
 
@@ -83,11 +82,11 @@ class Checklist extends React.Component {
     super(props);
 
     this.state = {
-      sizePerPage: 20,
+      sizePerPage: 10,
       page: 1,
       totalSize: 0,
-      where: {},
       results: [],
+      searchValues: {},
     };
   }
 
@@ -99,33 +98,32 @@ class Checklist extends React.Component {
     const {
       genus, species, infraspecific, authors, typesSelected,
     } = params;
-    const where = whereUtils.makeChecklistWhere(
-      genus,
-      species,
-      infraspecific,
-      authors,
-      typesSelected,
-    );
-    const { sizePerPage } = this.state;
 
-    const results = await checklistFacade.getAllSpecies(where, 0, sizePerPage);
-    const totalSize = await checklistFacade.getAllCount(where);
+    const { sizePerPage, page } = this.state;
+
+    const {
+      data: results,
+      totalRecords: totalSize,
+    } = await checklistFacade.searchChecklist(
+      genus, species, infraspecific, authors, typesSelected, sizePerPage, page,
+    );
 
     this.setState({
       results,
-      page: 1,
       totalSize,
-      where,
+      searchValues: params,
     });
   };
 
   handleTableChange = async (type, { page, sizePerPage }) => {
-    const offset = (page - 1) * sizePerPage;
-    const { where } = this.state;
-    const results = await checklistFacade.getAllSpecies(
-      where,
-      offset,
-      sizePerPage,
+    const { searchValues } = this.state;
+
+    const {
+      genus, species, infraspecific, authors, typesSelected,
+    } = searchValues;
+    const { data: results } = await checklistFacade.searchChecklist(
+      genus, species, infraspecific, authors, typesSelected,
+      sizePerPage, page,
     );
 
     this.setState({

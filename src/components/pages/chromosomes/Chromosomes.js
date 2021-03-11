@@ -10,7 +10,7 @@ import LosName from '../../segments/checklist/LosName';
 import ChromosomeDataModal from './modals/ChromosomeDataModal';
 
 import { cdataSearch as searchFacade } from '../../../facades';
-import { where as whereUtils, helper } from '../../../utils';
+import { helper } from '../../../utils';
 
 const columns = [
   {
@@ -82,9 +82,11 @@ class Chromosomes extends React.Component {
       nameSearchType,
       ...searchParams
     } = params;
-    const where = whereUtils.makeCdataSearchWhere(nameSearchType, searchParams);
 
-    const results = await searchFacade.getAllGrouped(where);
+    const results = await searchFacade.getAllGrouped({
+      ...searchParams,
+      searchType: nameSearchType,
+    });
 
     this.setState({
       results,

@@ -1,25 +1,45 @@
 import { checklist as checklistService } from '../services';
 import { comparators } from '../utils';
 
-async function getAllSpecies(where, offset, limit) {
-  return checklistService.getAll(where, offset, limit);
-}
-
-async function getAllCount(where) {
-  const countObj = await checklistService.getCount(where);
-  return countObj.count;
+async function searchChecklist(
+  genus, species, infraspecific, authors, types, rowsPerPage, page,
+) {
+  const searchFields = {
+    genus,
+    species,
+    infraspecific,
+    authors,
+    status: types,
+  };
+  return checklistService.searchChecklist(searchFields, rowsPerPage, page);
 }
 
 async function getSpeciesById(id) {
-  return checklistService.getSpeciesById(id);
+  const record = await checklistService.getSpeciesById(id);
+
+  const {
+    accepted, basionym, replaced, nomenNovum, ...species
+  } = record;
+
+  delete record.accepted;
+  delete record.basionym;
+  delete record.replaced;
+  delete record.nomenNovum;
+
+  return {
+    species,
+    accepted,
+    basionym,
+    replaced,
+    nomenNovum,
+  };
 }
 
 async function getSynonyms(id) {
-  const nomenclatoricSynonyms = await checklistService
-    .getSynonymsNomenclatoricOf(id);
-
-  const taxonomicSynonyms = await checklistService
-    .getSynonymsTaxonomicOf(id);
+  const {
+    nomenclatoricSynonyms,
+    taxonomicSynonyms,
+  } = await checklistService.getSynonymsOfId(id);
 
   const invalidDesignations = await checklistService
     .getInvalidDesignationsOf(id);
@@ -36,13 +56,14 @@ async function getSynonyms(id) {
 }
 
 async function getFors(id) {
-  const basionymFor = await checklistService.getBasionymFor(id);
+  const {
+    basionymFor,
+    replacedFor,
+    nomenNovumFor,
+  } = await checklistService.getForRelations(id);
+
   basionymFor.sort(comparators.listOfSpeciesLex);
-
-  const replacedFor = await checklistService.getReplacedFor(id);
   replacedFor.sort(comparators.listOfSpeciesLex);
-
-  const nomenNovumFor = await checklistService.getNomenNovumFor(id);
   nomenNovumFor.sort(comparators.listOfSpeciesLex);
 
   return {
@@ -52,33 +73,9 @@ async function getFors(id) {
   };
 }
 
-async function getBasionymOf(id) {
-  return checklistService.getBasionymOf(id);
-}
-
-async function getBasionymReplacedNovumOf(id) {
-  const basionym = await checklistService.getBasionymOf(id);
-  const replaced = await checklistService.getReplacedOf(id);
-  const nomenNovum = await checklistService.getNomenNovumOf(id);
-
-  return {
-    basionym,
-    replaced,
-    nomenNovum,
-  };
-}
-
-async function getAcceptedOf(id) {
-  return checklistService.getAcceptedOf(id);
-}
-
 export default {
-  getAllSpecies,
-  getAllCount,
+  searchChecklist,
   getSpeciesById,
   getSynonyms,
   getFors,
-  getBasionymOf,
-  getBasionymReplacedNovumOf,
-  getAcceptedOf,
 };

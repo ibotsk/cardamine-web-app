@@ -40,7 +40,7 @@ class ChromosomesFilter extends React.Component {
       genus: '',
       species: '',
       infraspecific: '',
-      nameSearchType: cst.lastRevision,
+      nameSearchType: cst.latestRevision.key,
       publicationAuthor: '',
       analysisAuthor: '',
       worldL1: '',
@@ -62,11 +62,11 @@ class ChromosomesFilter extends React.Component {
 
   async componentDidMount() {
     // fetch from db
-    const analysisAuthorOptions = await personsFacade.getAllPersons(
-      ({ id, persName }) => (
-        { value: id, label: persName }
+    const analysisAuthorOptions = (await personsFacade.getAllPersons(
+      (p) => (
+        { value: p, label: p }
       ),
-    );
+    ));
     const publicationAuthorOptions = await literatureFacade.getAllPaperAuthors(
       (a) => (
         { value: a, label: a }
@@ -75,8 +75,8 @@ class ChromosomesFilter extends React.Component {
 
     const {
       worldsL1, worldsL2, worldsL3, worldsL4,
-    } = await worldsFacade.getAllWorlds(({ id, description }) => (
-      { value: id, label: description }
+    } = await worldsFacade.getAllWorlds(({ description }) => (
+      { value: description, label: description }
     ));
 
     this.setState({
@@ -226,24 +226,24 @@ class ChromosomesFilter extends React.Component {
               <FormGroup controlId="nameSearchType">
                 <Radio
                   name="nameSearchType"
-                  value={cst.lastRevision}
-                  checked={nameSearchType === cst.lastRevision}
+                  value={cst.latestRevision.key}
+                  checked={nameSearchType === cst.latestRevision.key}
                   onChange={this.handleRadioChange}
                 >
                   Identification based on last revision
                 </Radio>
                 <Radio
                   name="nameSearchType"
-                  value={cst.originalIdentification}
-                  checked={nameSearchType === cst.originalIdentification}
+                  value={cst.originalIdentification.key}
+                  checked={nameSearchType === cst.originalIdentification.key}
                   onChange={this.handleRadioChange}
                 >
                   Identification in the original publication
                 </Radio>
                 <Radio
                   name="nameSearchType"
-                  value={cst.all}
-                  checked={nameSearchType === cst.all}
+                  value={cst.all.key}
+                  checked={nameSearchType === cst.all.key}
                   onChange={this.handleRadioChange}
                 >
                   All identifications and corresponding
