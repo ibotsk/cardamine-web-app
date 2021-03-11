@@ -1,13 +1,17 @@
 import { checklist as checklistService } from '../services';
 import { comparators } from '../utils';
 
-async function getAllSpecies(where, offset, limit) {
-  return checklistService.getAll(where, offset, limit);
-}
-
-async function getAllCount(where) {
-  const countObj = await checklistService.getCount(where);
-  return countObj.count;
+async function searchChecklist(
+  genus, species, infraspecific, authors, types, rowsPerPage, page,
+) {
+  const searchFields = {
+    genus,
+    species,
+    infraspecific,
+    authors,
+    status: types,
+  };
+  return checklistService.searchChecklist(searchFields, rowsPerPage, page);
 }
 
 async function getSpeciesById(id) {
@@ -70,8 +74,7 @@ async function getFors(id) {
 }
 
 export default {
-  getAllSpecies,
-  getAllCount,
+  searchChecklist,
   getSpeciesById,
   getSynonyms,
   getFors,

@@ -1,5 +1,4 @@
 import axios from 'axios';
-import template from 'url-template';
 
 import common from './common';
 import config from '../config';
@@ -7,25 +6,14 @@ import config from '../config';
 const { getById } = common;
 const { uris } = config;
 
-async function getAll(where = {}, offset = 0, limit = 25) {
-  const parsedUri = template
-    .parse(uris.checklist.getAllWFilter)
-    .expand({
-      where: JSON.stringify(where),
-      offset,
-      limit,
-    });
-  const result = await axios.get(parsedUri);
-  return result.data;
-}
-
-async function getCount(where = {}) {
-  const parsedUri = template
-    .parse(uris.checklist.getCount)
-    .expand({
-      where: JSON.stringify(where),
-    });
-  const result = await axios.get(parsedUri);
+async function searchChecklist(searchFields, rowsPerPage, page) {
+  const uri = uris.checklist.searchChecklistUri;
+  const request = {
+    ...searchFields,
+    page,
+    rowsPerPage,
+  };
+  const result = await axios.post(uri, request);
   return result.data;
 }
 
@@ -50,8 +38,7 @@ async function getForRelations(id) {
 }
 
 export default {
-  getAll,
-  getCount,
+  searchChecklist,
   getSpeciesById,
   getSynonymsOfId,
   getInvalidDesignationsOf,
