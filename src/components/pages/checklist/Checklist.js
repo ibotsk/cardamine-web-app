@@ -82,7 +82,7 @@ class Checklist extends React.Component {
     super(props);
 
     this.state = {
-      sizePerPage: 10,
+      sizePerPage: 20,
       page: 1,
       totalSize: 0,
       results: [],
