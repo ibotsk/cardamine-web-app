@@ -53,6 +53,9 @@ ul li > span { padding-left: 3px; }
 .filter-heading {
     background-color: #fafafa !important;
 }
+.filter-heading a:hover {
+    cursor: pointer;
+}
 
 .checklist-subinfo {
     font-size: smaller;

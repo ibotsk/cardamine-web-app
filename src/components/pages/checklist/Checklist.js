@@ -87,6 +87,8 @@ class Checklist extends React.Component {
       totalSize: 0,
       results: [],
       searchValues: {},
+      filterOpen: true,
+      searchClicked: false,
     };
   }
 
@@ -112,6 +114,8 @@ class Checklist extends React.Component {
       results,
       totalSize,
       searchValues: params,
+      filterOpen: false,
+      searchClicked: true,
     });
   };
 
@@ -133,27 +137,41 @@ class Checklist extends React.Component {
     });
   }
 
+  handleToggleFilter = () => this.setState(({ filterOpen }) => ({
+    filterOpen: !filterOpen,
+  }));
+
   render() {
     const {
-      results, sizePerPage, page, totalSize,
+      results, sizePerPage, page, totalSize, filterOpen,
+      searchClicked,
     } = this.state;
 
     return (
       <div>
         <Grid>
-          <FilterToggleWrapper id="filter-checklist">
+          <FilterToggleWrapper
+            id="filter-checklist"
+            open={filterOpen}
+            onToggle={this.handleToggleFilter}
+          >
             <ChecklistFilter onFilter={this.handleFilter} />
           </FilterToggleWrapper>
-          <RemotePagination
-            id="results-checklist"
-            keyField="id"
-            columns={columns}
-            data={results}
-            page={page}
-            sizePerPage={sizePerPage}
-            totalSize={totalSize}
-            onTableChange={this.handleTableChange}
-          />
+          {searchClicked && results.length === 0 && (
+            <h4>No results found</h4>
+          )}
+          {results.length > 0 && (
+            <RemotePagination
+              id="results-checklist"
+              keyField="id"
+              columns={columns}
+              data={results}
+              page={page}
+              sizePerPage={sizePerPage}
+              totalSize={totalSize}
+              onTableChange={this.handleTableChange}
+            />
+          )}
         </Grid>
       </div>
     );

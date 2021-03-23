@@ -74,6 +74,8 @@ class Chromosomes extends React.Component {
       results: [],
       showModalRecords: false,
       cdataIds: [],
+      filterOpen: true,
+      searchClicked: false,
     };
   }
 
@@ -90,6 +92,8 @@ class Chromosomes extends React.Component {
 
     this.setState({
       results,
+      filterOpen: false,
+      searchClicked: true,
     });
   }
 
@@ -104,8 +108,14 @@ class Chromosomes extends React.Component {
     this.setState({ showModalRecords: false });
   };
 
+  handleToggleFilter = () => this.setState(({ filterOpen }) => ({
+    filterOpen: !filterOpen,
+  }));
+
   render() {
-    const { results, cdataIds, showModalRecords } = this.state;
+    const {
+      results, cdataIds, showModalRecords, filterOpen, searchClicked,
+    } = this.state;
 
     const data = results.map((r, i) => ({
       key: i,
@@ -121,18 +131,27 @@ class Chromosomes extends React.Component {
     return (
       <div>
         <Grid>
-          <FilterToggleWrapper id="filter-checklist">
+          <FilterToggleWrapper
+            id="filter-checklist"
+            open={filterOpen}
+            onToggle={this.handleToggleFilter}
+          >
             <ChromosomesFilter onFilter={this.handleFilter} />
           </FilterToggleWrapper>
-          <BootstrapTable
-            classes="clickable-row"
-            hover
-            condensed
-            keyField="key"
-            data={data}
-            columns={columns}
-            rowEvents={rowEvents}
-          />
+          {searchClicked && results.length === 0 && (
+            <h4>No results found</h4>
+          )}
+          {results.length > 0 && (
+            <BootstrapTable
+              classes="clickable-row"
+              hover
+              condensed
+              keyField="key"
+              data={data}
+              columns={columns}
+              rowEvents={rowEvents}
+            />
+          )}
         </Grid>
         <ChromosomeDataModal
           ids={cdataIds}
