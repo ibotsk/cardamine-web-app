@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import CNavbar from '../segments/Navbar';
+import Copyright from '../segments/Copyright';
+
 import Home from './Home';
 import Checklist from './checklist/Checklist';
 import NameDetail from './checklist/NameDetail';
@@ -32,6 +34,7 @@ function App() {
       <BrowserRouter>
         <CNavbar />
         <Routing />
+        <Copyright />
       </BrowserRouter>
     </div>
   );

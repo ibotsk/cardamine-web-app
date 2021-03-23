@@ -23,6 +23,15 @@ ul li > span { padding-left: 3px; }
     margin-bottom: 10px;
 }
 
+#footer {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-top: 1px solid #ccc;
+    color: #666;
+}
+
 #results-checklist a { color: #000 !important; }
 
 #synonyms ul ul li { margin-left: 10px; }
