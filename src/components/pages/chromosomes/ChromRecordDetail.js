@@ -67,7 +67,7 @@ class ChromRecordDetail extends React.Component {
     const latestRevisionPubl = latestRevisionLos.publication
       ? `, ${latestRevisionLos.publication}`
       : '';
-    const originalIdentificationLos = reference.OriginalIdentification
+    const originalIdentificationLos = reference.originalIdentification
       || {};
 
     const { coordinatesForMap } = material;

@@ -19,6 +19,13 @@ const columns = [
     hidden: true,
   },
   {
+    dataField: 'index',
+    text: '',
+    formatter: (cell) => (
+      `${cell}.`
+    ),
+  },
+  {
     dataField: 'chromInfo',
     text: 'Chromosomes info',
     headerStyle: { width: '15%' },
@@ -64,8 +71,9 @@ const formatData = ({
     ploidy,
     ploidyRevised,
   } = {},
-}) => ({
+}, index) => ({
   id,
+  index,
   chromInfo: { n, dn, chCount },
   ploidyOrDNAInfo: {
     sizeC, sizeFrom, sizeTo, sizeUnits, ploidy, ploidyRevised,
@@ -80,7 +88,8 @@ const ChromosomeRecodsList = ({
   totalSize,
   onTableChange,
 }) => {
-  const formattedData = data.map(formatData);
+  const index = (i) => (page - 1) * sizePerPage + i + 1;
+  const formattedData = data.map((d, i) => formatData(d, index(i)));
   const history = useHistory();
 
   const rowEvents = tableRowEvents({
