@@ -5,13 +5,18 @@ import { Grid } from 'react-bootstrap';
 
 const Copyright = () => (
   <Grid id="footer" className="text-center">
-    {'Copyright © '}
-    <Link to="/">
-      https://cardamine.sav.sk
-    </Link>
-    {' '}
-    {new Date().getFullYear()}
-    .
+    <div>
+      {'Copyright © '}
+      <Link to="/">
+        https://cardamine.sav.sk
+      </Link>
+      {' '}
+      {new Date().getFullYear()}
+      .
+    </div>
+    <div>
+      v0.9
+    </div>
   </Grid>
 );
 
