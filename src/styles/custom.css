@@ -17,6 +17,12 @@ ul li > span { padding-left: 3px; }
     vertical-align: middle;
 }
 
+#header-banner {
+    height: 111px;
+    background-image: url('/img/cardabase-banner.png');
+    margin-bottom: 10px;
+}
+
 #results-checklist a { color: #000 !important; }
 
 #synonyms ul ul li { margin-left: 10px; }
