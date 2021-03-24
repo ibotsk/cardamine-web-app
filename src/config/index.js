@@ -3,6 +3,7 @@ import pagination from './pagination';
 import uris from './uris';
 
 export default {
+  websiteTitle: 'CardaBase',
   nomenclature: {
     name: {
       sl: 's.l.',

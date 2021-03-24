@@ -11,6 +11,7 @@ import ChromosomeDataModal from './modals/ChromosomeDataModal';
 
 import { cdataSearch as searchFacade } from '../../../facades';
 import { helper } from '../../../utils';
+import PageTitle from '../../segments/PageTitle';
 
 const columns = [
   {
@@ -129,7 +130,8 @@ class Chromosomes extends React.Component {
     const rowEvents = tableRowEvents({ handleClick: this.showModal });
 
     return (
-      <div>
+      <>
+        <PageTitle title="Chromosomes" />
         <Grid>
           <FilterToggleWrapper
             id="filter-checklist"
@@ -158,7 +160,7 @@ class Chromosomes extends React.Component {
           show={showModalRecords}
           onHide={this.hideModal}
         />
-      </div>
+      </>
     );
   }
 }

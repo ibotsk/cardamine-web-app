@@ -18,7 +18,11 @@ import Reference from '../../segments/chromosomes/Reference';
 import OpenLayersMap from '../../segments/chromosomes/OpenLayersMap';
 import LosName from '../../segments/checklist/LosName';
 
-import { utils as otherUtils } from '../../../utils';
+import {
+  helper,
+  utils as otherUtils,
+} from '../../../utils';
+import PageTitle from '../../segments/PageTitle';
 
 const markers = (latDec, lonDec) => {
   if (!latDec || !lonDec) {
@@ -82,7 +86,12 @@ class ChromRecordDetail extends React.Component {
     }
 
     return (
-      <div>
+      <>
+        <PageTitle
+          title={`Chromosomes - ${helper.listOfSpeciesString(
+            latestRevisionLos,
+          )}`}
+        />
         <Grid>
           <Well className="text-center">
             <h1>
@@ -196,7 +205,7 @@ class ChromRecordDetail extends React.Component {
             </a>
           </div>
         </Grid>
-      </div>
+      </>
     );
   }
 }

@@ -9,9 +9,11 @@ import NameBlock from '../../segments/checklist/NameBlock';
 import Publication from '../../segments/checklist/Publication';
 import Synonyms from '../../segments/checklist/Synonyms';
 import Typification from '../../segments/checklist/Typification';
+import PageTitle from '../../segments/PageTitle';
 
 import { checklist as checklistFacade } from '../../../facades';
 import {
+  helper,
   formatter,
   utils as otherUtils,
 } from '../../../utils';
@@ -88,109 +90,114 @@ class NameDetail extends React.Component {
     } = this.state;
 
     return (
-      <Grid id="species-detail">
-        <Well id="name">
-          <h3>
-            <LosName data={species} format="italic" />
-          </h3>
-          <h4>
-            {formatter.speciesType(species.ntype)}
-          </h4>
-        </Well>
-        <Panel id="species-detail-publication">
-          <Panel.Body>
-            <Publication publication={species.publication} />
-          </Panel.Body>
-        </Panel>
-
-        <Panel id="species-detail-brn">
-          <Panel.Body>
-            <NameBlock
-              id="basionym"
-              label="Basionym:"
-              data={basionym}
-              isPublication
-              format="italic"
-              uri={otherUtils.getSpeciesDetailUri(basionym.id)}
-              defaultValue="-"
-            />
-            <NameBlock
-              id="replaced"
-              label="Replaced:"
-              data={replaced}
-              isPublication
-              format="italic"
-              uri={otherUtils.getSpeciesDetailUri(replaced.id)}
-              defaultValue="-"
-            />
-            <NameBlock
-              id="nomen-novum"
-              label="Nomen novum:"
-              data={nomenNovum}
-              isPublication
-              format="italic"
-              uri={otherUtils.getSpeciesDetailUri(nomenNovum.id)}
-              defaultValue="-"
-            />
-          </Panel.Body>
-        </Panel>
-
-        {
-          isAccepted(species) && (
-            <Synonyms
-              label="Synonyms:"
-              nomenclatoric={nomenclatoricSynonyms}
-              taxonomic={taxonomicSynonyms}
-              invalidDesignations={invalidDesignations}
-              misidentifications={misidentifications}
-            />
-          )
-        }
-
-        {
-          accepted.id && (
-            <Panel id="specied-detail-accepted">
-              <Panel.Body>
-                <NameBlock
-                  label="Accepted name:"
-                  data={accepted}
-                  isPublication
-                  format="italic"
-                  uri={otherUtils.getSpeciesDetailUri(accepted.id)}
-                />
-              </Panel.Body>
-            </Panel>
-          )
-        }
-
-        <Panel id="species-detail-fors">
-          <Panel.Body>
-            <ListBlock
-              id="basionym-for"
-              label="Basionym for:"
-              data={basionymFor}
-              defaultValue="-"
-            />
-            <ListBlock
-              id="replaced-for"
-              label="Replaced for:"
-              data={replacedFor}
-              defaultValue="-"
-            />
-            <ListBlock
-              id="nomen-novum-for"
-              label="Nomen novum for:"
-              data={nomenNovumFor}
-              defaultValue="-"
-            />
-          </Panel.Body>
-        </Panel>
-
-        <Typification
-          id="species-detail-typification"
-          species={species}
+      <>
+        <PageTitle
+          title={`Checklist - ${helper.listOfSpeciesString(species)}`}
         />
-      </Grid>
+        <Grid id="species-detail">
+          <Well id="name">
+            <h3>
+              <LosName data={species} format="italic" />
+            </h3>
+            <h4>
+              {formatter.speciesType(species.ntype)}
+            </h4>
+          </Well>
+          <Panel id="species-detail-publication">
+            <Panel.Body>
+              <Publication publication={species.publication} />
+            </Panel.Body>
+          </Panel>
+
+          <Panel id="species-detail-brn">
+            <Panel.Body>
+              <NameBlock
+                id="basionym"
+                label="Basionym:"
+                data={basionym}
+                isPublication
+                format="italic"
+                uri={otherUtils.getSpeciesDetailUri(basionym.id)}
+                defaultValue="-"
+              />
+              <NameBlock
+                id="replaced"
+                label="Replaced:"
+                data={replaced}
+                isPublication
+                format="italic"
+                uri={otherUtils.getSpeciesDetailUri(replaced.id)}
+                defaultValue="-"
+              />
+              <NameBlock
+                id="nomen-novum"
+                label="Nomen novum:"
+                data={nomenNovum}
+                isPublication
+                format="italic"
+                uri={otherUtils.getSpeciesDetailUri(nomenNovum.id)}
+                defaultValue="-"
+              />
+            </Panel.Body>
+          </Panel>
+
+          {
+            isAccepted(species) && (
+              <Synonyms
+                label="Synonyms:"
+                nomenclatoric={nomenclatoricSynonyms}
+                taxonomic={taxonomicSynonyms}
+                invalidDesignations={invalidDesignations}
+                misidentifications={misidentifications}
+              />
+            )
+          }
+
+          {
+            accepted.id && (
+              <Panel id="specied-detail-accepted">
+                <Panel.Body>
+                  <NameBlock
+                    label="Accepted name:"
+                    data={accepted}
+                    isPublication
+                    format="italic"
+                    uri={otherUtils.getSpeciesDetailUri(accepted.id)}
+                  />
+                </Panel.Body>
+              </Panel>
+            )
+          }
+
+          <Panel id="species-detail-fors">
+            <Panel.Body>
+              <ListBlock
+                id="basionym-for"
+                label="Basionym for:"
+                data={basionymFor}
+                defaultValue="-"
+              />
+              <ListBlock
+                id="replaced-for"
+                label="Replaced for:"
+                data={replacedFor}
+                defaultValue="-"
+              />
+              <ListBlock
+                id="nomen-novum-for"
+                label="Nomen novum for:"
+                data={nomenNovumFor}
+                defaultValue="-"
+              />
+            </Panel.Body>
+          </Panel>
+
+          <Typification
+            id="species-detail-typification"
+            species={species}
+          />
+        </Grid>
+      </>
     );
   }
 }

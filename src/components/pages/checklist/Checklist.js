@@ -16,6 +16,7 @@ import {
 import config from '../../../config';
 
 import RemotePagination from '../../segments/RemotePagination';
+import PageTitle from '../../segments/PageTitle';
 
 const {
   mappings: { losType: losTypeConfig },
@@ -148,7 +149,8 @@ class Checklist extends React.Component {
     } = this.state;
 
     return (
-      <div>
+      <>
+        <PageTitle title="Checklist" />
         <Grid>
           <FilterToggleWrapper
             id="filter-checklist"
@@ -173,7 +175,7 @@ class Checklist extends React.Component {
             />
           )}
         </Grid>
-      </div>
+      </>
     );
   }
 }
